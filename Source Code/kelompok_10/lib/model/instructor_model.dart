@@ -1,47 +1,45 @@
 import 'dart:convert';
 
 import 'user_model.dart';
-import 'authority_model.dart';
-import 'role_model.dart';
 
-MembershipModel membershipModelFromJson(String str) =>
-    MembershipModel.fromJson(json.decode(str));
+InstructorModel instructorModelFromJson(String str) =>
+    InstructorModel.fromJson(json.decode(str));
 
-String membershipModelToJson(MembershipModel data) =>
+String instructorModelToJson(InstructorModel data) =>
     json.encode(data.toJson());
 
-class MembershipModel {
-  MembershipModel({
+class InstructorModel {
+  InstructorModel({
     required this.createdAt,
-    required this.membershipId,
+    required this.instructorId,
     required this.name,
-    required this.price,
+    required this.phone,
     required this.updatedAt,
     required this.user,
   });
 
   DateTime createdAt;
-  int membershipId;
+  int instructorId;
   String name;
-  int price;
+  String phone;
   DateTime updatedAt;
   UserModel user;
 
-  factory MembershipModel.fromJson(Map<String, dynamic> json) =>
-      MembershipModel(
+  factory InstructorModel.fromJson(Map<String, dynamic> json) =>
+      InstructorModel(
         createdAt: DateTime.parse(json["created_at"]),
-        membershipId: json["membership_id"],
+        instructorId: json["instructor_id"],
         name: json["name"],
-        price: json["price"],
+        phone: json["phone"],
         updatedAt: DateTime.parse(json["updated_at"]),
         user: UserModel.fromJson(json["user"]),
       );
 
   Map<String, dynamic> toJson() => {
         "created_at": createdAt.toIso8601String(),
-        "membership_id": membershipId,
+        "instructor_id": instructorId,
         "name": name,
-        "price": price,
+        "phone": phone,
         "updated_at": updatedAt.toIso8601String(),
         "user": user.toJson(),
       };

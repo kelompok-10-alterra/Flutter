@@ -1,46 +1,37 @@
 import 'dart:convert';
 
-class RoleModel {
-  final int? role_id;
-  final String? name;
-  final String? description;
-  final DateTime? created_at;
-  final DateTime? updated_at;
+RoleModel roleModelFromJson(String str) => RoleModel.fromJson(json.decode(str));
 
+String roleModelToJson(RoleModel data) => json.encode(data.toJson());
+
+class RoleModel {
   RoleModel({
-    this.role_id,
-    this.name,
-    this.description,
-    this.created_at,
-    this.updated_at,
+    required this.createdAt,
+    required this.description,
+    required this.name,
+    required this.roleId,
+    required this.updatedAt,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'role_id': role_id,
-      'name': name,
-      'description': description,
-      'created_at': created_at?.millisecondsSinceEpoch,
-      'updated_at': updated_at?.millisecondsSinceEpoch,
-    };
-  }
+  DateTime createdAt;
+  String description;
+  String name;
+  int roleId;
+  DateTime updatedAt;
 
-  factory RoleModel.fromMap(Map<String, dynamic> map) {
-    return RoleModel(
-      role_id: map['role_id']?.toInt(),
-      name: map['name'],
-      description: map['description'],
-      created_at: map['created_at'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['created_at'])
-          : null,
-      updated_at: map['updated_at'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['updated_at'])
-          : null,
-    );
-  }
+  factory RoleModel.fromJson(Map<String, dynamic> json) => RoleModel(
+        createdAt: DateTime.parse(json["created_at"]),
+        description: json["description"],
+        name: json["name"],
+        roleId: json["role_id"],
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
 
-  String toJson() => json.encode(toMap());
-
-  factory RoleModel.fromJson(String source) =>
-      RoleModel.fromMap(json.decode(source));
+  Map<String, dynamic> toJson() => {
+        "created_at": createdAt.toIso8601String(),
+        "description": description,
+        "name": name,
+        "role_id": roleId,
+        "updated_at": updatedAt.toIso8601String(),
+      };
 }
