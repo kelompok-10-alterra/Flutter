@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'user_model.dart';
-import 'authority_model.dart';
-import 'role_model.dart';
 
 MembershipModel membershipModelFromJson(String str) =>
     MembershipModel.fromJson(json.decode(str));

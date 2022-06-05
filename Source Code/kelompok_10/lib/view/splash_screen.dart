@@ -8,7 +8,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -16,9 +15,10 @@ class _SplashScreenState extends State<SplashScreen> {
     //   Navigator.pushReplacementNamed(context, '/home');
     // });
   }
+
   @override
   Widget build(BuildContext context) {
-    return  const Scaffold(
+    return const Scaffold(
       body: Center(
         child: Text('Splash Screen Development'),
       ),

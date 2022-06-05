@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'view/splash_screen.dart';
+import 'view/onboarding/onboarding_page.dart';
+
+
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       initialRoute: '/',
       routes: {
-        '/': (BuildContext context) => const SplashScreen(),
+        '/': (BuildContext context) => const OnboardingScreen(),
       },
     );
   }
