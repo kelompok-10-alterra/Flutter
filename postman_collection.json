@@ -1,0 +1,1366 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "OpenAPI definition",
+		"version": "v0"
+	},
+	"servers": [
+		{
+			"url": "http://a327d060d68dc43b1bfa026001e1e330-1327007092.ap-southeast-1.elb.amazonaws.com:8081",
+			"description": "Generated server url"
+		}
+	],
+	"paths": {
+		"/capstone/user/user/{user_id}": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"operationId": "getUserById",
+				"parameters": [
+					{
+						"name": "user_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/UserEntity"
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"user-controller"
+				],
+				"operationId": "updateUser",
+				"parameters": [
+					{
+						"name": "user_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserEntity"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/UserEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/role/{role_id}": {
+			"get": {
+				"tags": [
+					"role-controller"
+				],
+				"operationId": "getRoleById",
+				"parameters": [
+					{
+						"name": "role_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RoleEntity"
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"role-controller"
+				],
+				"operationId": "updateRole",
+				"parameters": [
+					{
+						"name": "role_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RoleEntity"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RoleEntity"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"role-controller"
+				],
+				"operationId": "deleteRole",
+				"parameters": [
+					{
+						"name": "role_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RoleEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/membership/{membership_id}": {
+			"put": {
+				"tags": [
+					"membership-controller"
+				],
+				"operationId": "updateMembership",
+				"parameters": [
+					{
+						"name": "membership_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MembershipEntity"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/MembershipEntity"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"membership-controller"
+				],
+				"operationId": "deleteMembership",
+				"parameters": [
+					{
+						"name": "membership_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/MembershipEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/instructor/{instructor_id}": {
+			"put": {
+				"tags": [
+					"instructor-controller"
+				],
+				"operationId": "updateInstructor",
+				"parameters": [
+					{
+						"name": "instructor_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InstructorEntity"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/InstructorEntity"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"instructor-controller"
+				],
+				"operationId": "deleteInstructor",
+				"parameters": [
+					{
+						"name": "instructor_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/InstructorEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/class/{class_id}": {
+			"put": {
+				"tags": [
+					"class-controller"
+				],
+				"operationId": "updateClass",
+				"parameters": [
+					{
+						"name": "class_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ClassEntity"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/ClassEntity"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"class-controller"
+				],
+				"operationId": "deleteClass",
+				"parameters": [
+					{
+						"name": "class_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/ClassEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/booking/{booking_id}": {
+			"put": {
+				"tags": [
+					"booking-controller"
+				],
+				"operationId": "updateBooking",
+				"parameters": [
+					{
+						"name": "booking_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/BookingEntity"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/BookingEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/user/addRole": {
+			"post": {
+				"tags": [
+					"user-controller"
+				],
+				"operationId": "addRoleToUser",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RoleToUser"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/role": {
+			"get": {
+				"tags": [
+					"role-controller"
+				],
+				"operationId": "getAllRole",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/RoleEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"role-controller"
+				],
+				"operationId": "createRole",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RoleEntity"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RoleEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/membership": {
+			"post": {
+				"tags": [
+					"membership-controller"
+				],
+				"operationId": "createMembership",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MembershipEntity"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/MembershipEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/instructor": {
+			"post": {
+				"tags": [
+					"instructor-controller"
+				],
+				"operationId": "createInstructor",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InstructorEntity"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/InstructorEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/class": {
+			"get": {
+				"tags": [
+					"class-controller"
+				],
+				"operationId": "getAllClass",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/ClassEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"class-controller"
+				],
+				"operationId": "createClass",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ClassEntity"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/ClassEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/booking/user": {
+			"post": {
+				"tags": [
+					"booking-controller"
+				],
+				"operationId": "createBooking",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/BookingEntity"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/BookingEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/user": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"operationId": "getAllUser",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/UserEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/user/dto": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"operationId": "getAllUserDto",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/UserDto"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/role/dto": {
+			"get": {
+				"tags": [
+					"role-controller"
+				],
+				"operationId": "getAllRoleDto",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/RoleDto"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/membership/user": {
+			"get": {
+				"tags": [
+					"membership-controller"
+				],
+				"operationId": "getAllMembership",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/MembershipEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/membership/user/{membership_id}": {
+			"get": {
+				"tags": [
+					"membership-controller"
+				],
+				"operationId": "getMembershipById",
+				"parameters": [
+					{
+						"name": "membership_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/MembershipEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/membership/user/dto": {
+			"get": {
+				"tags": [
+					"membership-controller"
+				],
+				"operationId": "getAllMembershipDto",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/MembershipDto"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/instructor/user": {
+			"get": {
+				"tags": [
+					"instructor-controller"
+				],
+				"operationId": "getAllInstructor",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/InstructorEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/instructor/user/{instructor_id}": {
+			"get": {
+				"tags": [
+					"instructor-controller"
+				],
+				"operationId": "getInstructorById",
+				"parameters": [
+					{
+						"name": "instructor_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/InstructorEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/instructor/user/dto": {
+			"get": {
+				"tags": [
+					"instructor-controller"
+				],
+				"operationId": "getAllInstructorDto",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/InstructorDto"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/class/user/{class_id}": {
+			"get": {
+				"tags": [
+					"class-controller"
+				],
+				"operationId": "getClassById",
+				"parameters": [
+					{
+						"name": "class_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/ClassEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/class/dto": {
+			"get": {
+				"tags": [
+					"class-controller"
+				],
+				"operationId": "getAllClassDto",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/ClassDto"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/booking": {
+			"get": {
+				"tags": [
+					"booking-controller"
+				],
+				"operationId": "getAllBooking",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/BookingEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/booking/user/{booking_id}": {
+			"get": {
+				"tags": [
+					"booking-controller"
+				],
+				"operationId": "getBookingById",
+				"parameters": [
+					{
+						"name": "booking_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/BookingEntity"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"booking-controller"
+				],
+				"operationId": "deleteBooking",
+				"parameters": [
+					{
+						"name": "booking_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/BookingEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/booking/dto": {
+			"get": {
+				"tags": [
+					"booking-controller"
+				],
+				"operationId": "getAllBookingDto",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/BookingDto"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/token/refresh": {
+			"get": {
+				"tags": [
+					"auth-controller"
+				],
+				"operationId": "refreshToken",
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/capstone/user/{user_id}": {
+			"delete": {
+				"tags": [
+					"user-controller"
+				],
+				"operationId": "deleteUser",
+				"parameters": [
+					{
+						"name": "user_id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/UserEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"RoleEntity": {
+				"type": "object",
+				"properties": {
+					"role_id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"UserEntity": {
+				"type": "object",
+				"properties": {
+					"user_id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"roles": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/RoleEntity"
+						}
+					}
+				}
+			},
+			"MembershipEntity": {
+				"type": "object",
+				"properties": {
+					"membership_id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"price": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"user": {
+						"$ref": "#/components/schemas/UserEntity"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"InstructorEntity": {
+				"type": "object",
+				"properties": {
+					"instructor_id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"user": {
+						"$ref": "#/components/schemas/UserEntity"
+					}
+				}
+			},
+			"ClassEntity": {
+				"type": "object",
+				"properties": {
+					"class_id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"category": {
+						"type": "string"
+					},
+					"instructor": {
+						"$ref": "#/components/schemas/InstructorEntity"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"BookingEntity": {
+				"type": "object",
+				"properties": {
+					"booking_id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"date": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"user": {
+						"$ref": "#/components/schemas/UserEntity"
+					},
+					"classes": {
+						"$ref": "#/components/schemas/ClassEntity"
+					}
+				}
+			},
+			"RoleToUser": {
+				"type": "object",
+				"properties": {
+					"username": {
+						"type": "string"
+					},
+					"roleName": {
+						"type": "string"
+					}
+				}
+			},
+			"UserDto": {
+				"type": "object",
+				"properties": {
+					"user_id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					}
+				}
+			},
+			"RoleDto": {
+				"type": "object",
+				"properties": {
+					"role_id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					}
+				}
+			},
+			"MembershipDto": {
+				"type": "object",
+				"properties": {
+					"membership_id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"price": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"InstructorDto": {
+				"type": "object",
+				"properties": {
+					"instructor_id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					}
+				}
+			},
+			"ClassDto": {
+				"type": "object",
+				"properties": {
+					"class_id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"category": {
+						"type": "string"
+					}
+				}
+			},
+			"BookingDto": {
+				"type": "object",
+				"properties": {
+					"booking_id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"date": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			}
+		}
+	}
+}

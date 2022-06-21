@@ -14,23 +14,17 @@ class OnBoardingStyle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: defaultMargin,
-      ),
-      height: displayHeight(context),
-      width: displayWidth(context),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(
-            images,
-          ),
-          fit: BoxFit.cover,
-        ),
-      ),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: defaultMargin),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Image.asset(
+            images,
+            height: displayHeight(context) * 0.5,
+          ),
+          SizedBox(height: defaultMargin),
           Text(
             title,
             style: whiteTextStyle.copyWith(
@@ -38,9 +32,6 @@ class OnBoardingStyle extends StatelessWidget {
               fontWeight: semiBold,
             ),
             textAlign: TextAlign.center,
-          ),
-          const SizedBox(
-            height: 80.0,
           ),
         ],
       ),

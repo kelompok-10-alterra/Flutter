@@ -18,16 +18,24 @@ double displayWidth(BuildContext context) {
   return displaySize(context).width;
 }
 
-Color primaryColor = const Color(0xffFC8955);
+Color primaryColor = const Color(0xff0583D2);
+Color orangeColor = const Color(0xffFC8955);
 Color secondaryColor = const Color(0xffFDD485);
-Color greyColor = const Color(0xffA8AAA9);
+Color greyColor = const Color(0xff7A7C7C);
+Color greyTwoColor = const Color(0xffBBBBBB);
+Color greyThreeColor = const Color(0xffEAEAEA);
 Color titleColor = const Color(0xffD0D1D1);
 Color whiteColor = const Color(0xffFFFFFF);
-Color whiteTwoColor = const Color(0xffEAE5E4);
-Color blackColor = const Color(0xff000000);
+Color whiteTwoColor = const Color(0xffF6F6F6);
+Color blackColor = const Color(0xff292B41);
 Color redColor = const Color(0xffE31D20);
 Color greenColor = const Color(0xff4CB050);
+Color blueColor = const Color(0xffE8F4FC);
 Color transparentColor = Colors.transparent;
+Color gradientOneColor = const Color(0xff39A1E2);
+Color gradientTwoColor = const Color(0xff0583D2);
+Color gradientThreeColor = const Color(0xff56B5F1);
+Color gradientFourColor = const Color(0xff43A4E1);
 
 TextStyle primaryTextStyle = GoogleFonts.inter(color: primaryColor);
 
@@ -35,9 +43,13 @@ TextStyle secondaryTextStyle = GoogleFonts.inter(color: secondaryColor);
 
 TextStyle greyTextStyle = GoogleFonts.inter(color: greyColor);
 
+TextStyle greyTwoTextStyle = GoogleFonts.inter(color: greyTwoColor);
+
 TextStyle titleTextStyle = GoogleFonts.inter(color: titleColor);
 
 TextStyle whiteTextStyle = GoogleFonts.inter(color: whiteColor);
+
+TextStyle blackTextStyle = GoogleFonts.inter(color: blackColor);
 
 TextStyle redTextStyle = GoogleFonts.inter(color: redColor);
 

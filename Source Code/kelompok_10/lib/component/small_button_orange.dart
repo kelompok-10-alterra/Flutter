@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kelompok_10/theme/theme.dart';
 
-class PrimaryButton extends StatelessWidget {
-  const PrimaryButton({
+class SmallOrangeButton extends StatelessWidget {
+  const SmallOrangeButton({
     Key? key,
     this.text,
     required this.press,
@@ -16,10 +16,10 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 54.0,
+      height: 32.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.0),
-        color: primaryColor,
+        color: orangeColor,
       ),
       child: TextButton(
         style: TextButton.styleFrom(
@@ -31,8 +31,8 @@ class PrimaryButton extends StatelessWidget {
           text ?? 'Button',
           style: whiteTextStyle.copyWith(
             fontFamily: GoogleFonts.montserrat().fontFamily,
-            fontSize: 18,
-            fontWeight: semiBold,
+            fontSize: 12,
+            fontWeight: bold,
           ),
         ),
       ),

@@ -8,18 +8,17 @@ class OnBoardingModel {
   });
 }
 
-
-  List<OnBoardingModel> data = [
-    OnBoardingModel(
-      images: 'assets/images/onboard-one.png',
-      title: 'Cari Trainer Fitness\ndengan mudah disini',
-    ),
-    OnBoardingModel(
-      images: 'assets/images/onboard-two.png',
-      title: 'Pesan tempat Gym \nkapanpun dan dimana pu',
-    ),
-    OnBoardingModel(
-      images: 'assets/images/onboard-three.png',
-      title: 'Join membership untuk\nharga yang lebih terjangkau',
-    ),
-  ];
+List<OnBoardingModel> dataOnboard = [
+  OnBoardingModel(
+    images: 'assets/images/img-onboard-one.png',
+    title: 'Cari Trainer Fitness\nDengan Mudah Disini',
+  ),
+  OnBoardingModel(
+    images: 'assets/images/img-onboard-two.png',
+    title: 'Pesan Tempat Gym \nKapanpun Dan Dimanapun',
+  ),
+  OnBoardingModel(
+    images: 'assets/images/img-onboard-three.png',
+    title: 'Join Membership Untuk\nHarga Yang Lebih Terjangkau',
+  ),
+];

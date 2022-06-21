@@ -40,7 +40,10 @@ dependencies:
   shared_preferences: ^2.0.15
   flutter_svg: ^1.1.0
   carousel_slider: ^4.1.1
-  flutter_onboarding_slider: ^1.0.7
+  http: ^0.13.4
+  flutter_overboard: ^3.1.1
+  smooth_page_indicator: ^1.0.0+2
+
 
 dev_dependencies:
   flutter_test:

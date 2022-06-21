@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:kelompok_10/animation/transition_animation.dart';
 
-import 'view/onboarding/onboarding_page.dart';
-
-
+import 'view/date_screen.dart';
+import 'view/detail_category.dart';
+import 'view/login_screen.dart';
+import 'view/main_screen.dart';
+import 'view/profile_screen.dart';
+import 'view/search_screen.dart';
+import 'view/signup_screen.dart';
+import 'view/home_screen.dart';
+import 'view/onboarding_page.dart';
+import 'view/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,9 +24,59 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      initialRoute: '/',
-      routes: {
-        '/': (BuildContext context) => const OnboardingScreen(),
+      initialRoute: SplashScreen.routeName,
+      onGenerateRoute: (setting) {
+        if (setting.name == SplashScreen.routeName) {
+          return FadeInRoute(
+            page: const SplashScreen(),
+          );
+        }
+        if (setting.name == OnboardingScreen.routeName) {
+          return FadeInRoute(
+            page: const OnboardingScreen(),
+          );
+        }
+        if (setting.name == LogInScreen.routeName) {
+          return FadeInRoute(
+            page: const LogInScreen(),
+          );
+        }
+        if (setting.name == SignUpScreen.routeName) {
+          return FadeInRoute(
+            page: const SignUpScreen(),
+          );
+        }
+        if (setting.name == HomeScreen.routeName) {
+          return FadeInRoute(
+            page: const HomeScreen(),
+          );
+        }
+        if (setting.name == MainScreen.routeName) {
+          return FadeInRoute(
+            page: const MainScreen(),
+          );
+        }
+        if (setting.name == SearchScreen.routeName) {
+          return FadeInRoute(
+            page: const SearchScreen(),
+          );
+        }
+        if (setting.name == DateScreen.routeName) {
+          return FadeInRoute(
+            page: const DateScreen(),
+          );
+        }
+        if (setting.name == ProfileScreen.routeName) {
+          return FadeInRoute(
+            page: const ProfileScreen(),
+          );
+        }
+        if (setting.name == DetailCategory.routeName) {
+          return FadeInRoute(
+            page: const DetailCategory(),
+          );
+        }
+        return null;
       },
     );
   }
