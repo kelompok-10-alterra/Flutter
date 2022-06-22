@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kelompok_10/view/onboarding_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../theme/theme.dart';
+import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   static const routeName = '/splashscreen';
@@ -11,15 +14,33 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  int? isViews;
+
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        _checkOnBoard();
+      },
+    );
+
     Future.delayed(
       const Duration(seconds: 3),
       () {
-        Navigator.pushReplacementNamed(context, '/onboarding');
+        isViews != 0
+            ? Navigator.pushReplacementNamed(
+                context, OnboardingScreen.routeName)
+            : Navigator.pushReplacementNamed(context, LogInScreen.routeName);
       },
     );
+  }
+
+  _checkOnBoard() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    isViews = prefs.getInt('onBoard');
   }
 
   @override

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:kelompok_10/animation/transition_animation.dart';
+import 'package:kelompok_10/view_model/auth_view_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../component/primary_button.dart';
 import '../../component/text_button.dart';
 import '../../component/text_from_field.dart';
 import '../../component/text_from_field_pw.dart';
 import '../../theme/theme.dart';
-import 'home_screen.dart';
+import '../component/loading_button.dart';
 import 'main_screen.dart';
 import 'signup_screen.dart';
 
@@ -20,14 +23,14 @@ class LogInScreen extends StatefulWidget {
 class _LogInScreenState extends State<LogInScreen> {
   final formGlobalKey = GlobalKey<FormState>();
 
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   bool _isChecked = false;
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -45,6 +48,60 @@ class _LogInScreenState extends State<LogInScreen> {
       });
     }
     super.initState();
+  }
+
+  _loginHandle() async {
+    final loginProvider = Provider.of<AuthViewModel>(context, listen: false);
+
+    if (formGlobalKey.currentState!.validate()) {
+      if (await loginProvider.login(
+        _usernameController.text,
+        _passwordController.text,
+      )) {
+        Navigator.pushNamedAndRemoveUntil(
+            context, MainScreen.routeName, (route) => false);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: greenColor,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                8.0,
+              ),
+            ),
+            content: Text(
+              'Login Berhasil',
+              style: whiteTextStyle.copyWith(
+                fontSize: 14.0,
+                fontWeight: medium,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: redColor,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                8.0,
+              ),
+            ),
+            content: Text(
+              'Username atau Password Salah',
+              style: whiteTextStyle.copyWith(
+                fontSize: 14.0,
+                fontWeight: medium,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }
+    }
   }
 
   @override
@@ -94,24 +151,20 @@ class _LogInScreenState extends State<LogInScreen> {
                 CostumTextFromField(
                   textInputAction: TextInputAction.next,
                   focusNode: _focusNodes[0],
-                  controllers: _emailController,
+                  controllers: _usernameController,
                   keyboardTypes: TextInputType.emailAddress,
-                  hintTexts: 'Email',
-                  prefixIcons: 'assets/svg/ic-email.svg',
+                  hintTexts: 'Username',
+                  prefixIcons: 'assets/svg/ic-username.svg',
                   prefixColors:
                       _focusNodes[0].hasFocus ? primaryColor : greyColor,
                   validators: (value) {
                     if (value!.isEmpty) {
-                      return 'Email tidak boleh kosong';
-                    } else if (!RegExp(
-                            r'^[a-zA-Z0-9.a-zA-Z0-9.!#$%&\U+0060*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+')
-                        .hasMatch(value)) {
-                      return 'Email tidak valid';
+                      return 'Username tidak boleh kosong';
                     }
                     return null;
                   },
                   onChangeds: (value) {
-                    _emailController.text = value!;
+                    _usernameController.text = value!;
                   },
                 ),
                 SizedBox(height: defaultMargin),
@@ -133,7 +186,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     }
                   },
                   onChangeds: (value) {
-                    _emailController.text = value!;
+                    _usernameController.text = value!;
                   },
                 ),
                 const SizedBox(height: 8.0),
@@ -185,14 +238,17 @@ class _LogInScreenState extends State<LogInScreen> {
                       ),
                     ]),
                 const SizedBox(height: 32.0),
-                PrimaryButton(
-                  press: () {
-                    if (formGlobalKey.currentState!.validate()) {
-                      Navigator.pushNamed(context, MainScreen.routeName);
-                    }
-                  },
-                  text: 'Masuk',
-                ),
+                Consumer<AuthViewModel>(builder: (context, state, _) {
+                  if (state.state == AuthState.loading) {
+                    return const LoadingButton();
+                  }
+                  return PrimaryButton(
+                    press: () {
+                      _loginHandle();
+                    },
+                    text: 'Masuk',
+                  );
+                }),
                 const SizedBox(
                   height: 8.0,
                 ),

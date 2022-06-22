@@ -19,8 +19,8 @@ class BannerStyle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        top: 16.0,
+      padding: EdgeInsets.only(
+        top: defaultMargin,
       ),
       child: Container(
         height: 120.0,

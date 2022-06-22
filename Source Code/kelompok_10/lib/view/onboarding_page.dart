@@ -1,9 +1,10 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:kelompok_10/animation/fade_animation.dart';
 
 import 'package:kelompok_10/theme/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../component/onboarding_style.dart';
@@ -28,6 +29,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     super.dispose();
   }
 
+  _storeOnboarding() async {
+    int isViews = 0;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setInt('onBoard', isViews);
+  }
+
   Widget bottomSheets() {
     return Container(
       height: 54,
@@ -38,7 +46,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
+              await _storeOnboarding();
               _pageController.jumpToPage(2);
             },
             child: Text(
@@ -66,7 +75,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 }),
           ),
           TextButton(
-            onPressed: () {
+            onPressed: () async {
+              await _storeOnboarding();
               isLastPage
                   ? Navigator.pushReplacementNamed(
                       context, LogInScreen.routeName)

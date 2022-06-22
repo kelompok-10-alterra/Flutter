@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -141,6 +143,45 @@ class _DetailCategoryState extends State<DetailCategory>
     );
   }
 
+  Widget isEmpty() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 120.0,
+            width: 120.0,
+            child: SvgPicture.asset(
+              'assets/svg/ic-class-empty.svg',
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
+          Text(
+            'Sayang sekali, kelas belum tersedia!',
+            style: blackTextStyle.copyWith(
+              fontSize: 16.0,
+              fontWeight: medium,
+            ),
+          ),
+          const SizedBox(
+            height: 4.0,
+          ),
+          Text(
+            'Tetap pantau terus!',
+            style: greyTextStyle.copyWith(
+              fontSize: 14.0,
+              fontWeight: regular,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget content() {
     return Padding(
       padding: EdgeInsets.only(bottom: defaultMargin),
@@ -148,11 +189,7 @@ class _DetailCategoryState extends State<DetailCategory>
         controller: _tabController,
         children: List.generate(
           contents.length,
-          (index) => index != 0
-              ? Center(
-                  child: Text(contents[index]),
-                )
-              : semua(),
+          (index) => index != 0 ? isEmpty() : semua(),
         ),
       ),
     );

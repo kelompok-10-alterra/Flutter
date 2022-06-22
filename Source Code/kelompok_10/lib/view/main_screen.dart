@@ -5,7 +5,7 @@ import 'package:kelompok_10/theme/theme.dart';
 import 'date_screen.dart';
 import 'home_screen.dart';
 import 'profile_screen.dart';
-import 'search_screen.dart';
+import 'news_screen.dart';
 
 class MainScreen extends StatefulWidget {
   static const routeName = '/main-screen';
