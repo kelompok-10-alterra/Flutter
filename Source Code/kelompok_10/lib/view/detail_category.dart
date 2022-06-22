@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kelompok_10/component/costum_tab.dart';
 import 'package:kelompok_10/theme/theme.dart';
 
+import '../component/card_gridview.dart';
+import '../component/category_style.dart';
 import '../component/search_text_input.dart';
 
 class DetailCategory extends StatefulWidget {
@@ -50,6 +52,7 @@ class _DetailCategoryState extends State<DetailCategory>
           ),
           Expanded(
             child: SearchTextInput(
+              hintText: 'Mau Olahraga apa hari ini?',
               searchController: searchController,
             ),
           ),
@@ -60,7 +63,11 @@ class _DetailCategoryState extends State<DetailCategory>
 
   Widget tabBars() {
     return Padding(
-      padding: EdgeInsets.all(defaultMargin),
+      padding: EdgeInsets.only(
+        top: defaultMargin,
+        left: defaultMargin,
+        right: defaultMargin,
+      ),
       child: TabBar(
         physics: const BouncingScrollPhysics(),
         controller: _tabController,
@@ -99,7 +106,7 @@ class _DetailCategoryState extends State<DetailCategory>
       titleSpacing: 0,
       elevation: 0,
       bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(112.0),
+        preferredSize: const Size.fromHeight(82.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -111,15 +118,41 @@ class _DetailCategoryState extends State<DetailCategory>
     );
   }
 
+  Widget semua() {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: defaultMargin - 6.0,
+        right: defaultMargin - 6.0,
+      ),
+      child: GridView(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.68,
+          crossAxisSpacing: 16.0,
+          mainAxisSpacing: 16.0,
+        ),
+        shrinkWrap: true,
+        physics: const BouncingScrollPhysics(),
+        children: List.generate(
+          6,
+          (index) => const CardGridView(),
+        ),
+      ),
+    );
+  }
+
   Widget content() {
-    return TabBarView(
-      controller: _tabController,
-      children: List.generate(
-        contents.length,
-        (index) => Container(
-          child: Center(
-            child: Text(contents[index]),
-          ),
+    return Padding(
+      padding: EdgeInsets.only(bottom: defaultMargin),
+      child: TabBarView(
+        controller: _tabController,
+        children: List.generate(
+          contents.length,
+          (index) => index != 0
+              ? Center(
+                  child: Text(contents[index]),
+                )
+              : semua(),
         ),
       ),
     );

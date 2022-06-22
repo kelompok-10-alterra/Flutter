@@ -21,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> body = [
     const HomeScreen(),
-    const SearchScreen(),
+    const NewsScreen(),
     const DateScreen(),
     const ProfileScreen(),
   ];

@@ -7,9 +7,15 @@ class SearchTextInput extends StatelessWidget {
   const SearchTextInput({
     Key? key,
     required this.searchController,
+    this.focusNodes,
+    required this.hintText,
+    this.autoFocus,
   }) : super(key: key);
 
   final TextEditingController searchController;
+  final FocusNode? focusNodes;
+  final String hintText;
+  final bool? autoFocus;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +31,8 @@ class SearchTextInput extends StatelessWidget {
       ),
       child: Center(
         child: TextField(
+          autofocus: autoFocus ?? false,
+          focusNode: focusNodes,
           style: blackTextStyle.copyWith(
             fontSize: 14.0,
             fontWeight: regular,
@@ -38,7 +46,7 @@ class SearchTextInput extends StatelessWidget {
                 color: greyColor,
               ),
             ),
-            hintText: 'Mau Olahraga apa hari ini?',
+            hintText: hintText,
             hintStyle: greyTextStyle.copyWith(
               fontSize: 14.0,
               fontWeight: regular,

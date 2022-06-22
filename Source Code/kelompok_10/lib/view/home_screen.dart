@@ -11,6 +11,7 @@ import '../component/card_gridview.dart';
 import '../component/category_style.dart';
 import '../component/search_text_input.dart';
 import 'detail_category.dart';
+import 'on_search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/home-screen';
@@ -72,8 +73,37 @@ class _HomeScreenState extends State<HomeScreen> {
           //Search
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-            child: SearchTextInput(
-              searchController: searchController,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, OnSearchScreen.routeName);
+              },
+              child: Container(
+                height: 50,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                  horizontal: 16.0,
+                ),
+                decoration: BoxDecoration(
+                  color: greyThreeColor,
+                  borderRadius: BorderRadius.circular(24.0),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Mau Olahraga apa hari ini?',
+                      style: greyTextStyle.copyWith(
+                        fontSize: 14.0,
+                        fontWeight: regular,
+                      ),
+                    ),
+                    SvgPicture.asset(
+                      'assets/svg/ic-search.svg',
+                      color: greyColor,
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
           SizedBox(

@@ -10,7 +10,7 @@ class CardGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(6.0),
+      margin: const EdgeInsets.only(bottom: 6.0, left: 6.0, right: 6.0),
       height: 275.0,
       width: displayWidth(context) * 0.5,
       decoration: BoxDecoration(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kelompok_10/animation/transition_animation.dart';
+import 'package:kelompok_10/view/on_search_screen.dart';
 
 import 'view/date_screen.dart';
 import 'view/detail_category.dart';
@@ -56,9 +57,9 @@ class MyApp extends StatelessWidget {
             page: const MainScreen(),
           );
         }
-        if (setting.name == SearchScreen.routeName) {
+        if (setting.name == NewsScreen.routeName) {
           return FadeInRoute(
-            page: const SearchScreen(),
+            page: const NewsScreen(),
           );
         }
         if (setting.name == DateScreen.routeName) {
@@ -74,6 +75,11 @@ class MyApp extends StatelessWidget {
         if (setting.name == DetailCategory.routeName) {
           return FadeInRoute(
             page: const DetailCategory(),
+          );
+        }
+        if (setting.name == OnSearchScreen.routeName) {
+          return FadeInRoute(
+            page: const OnSearchScreen(),
           );
         }
         return null;
