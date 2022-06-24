@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../model/user_model.dart';
-
 class AuthService {
   String baseUrl = 'https://api.rafdev.my.id';
 

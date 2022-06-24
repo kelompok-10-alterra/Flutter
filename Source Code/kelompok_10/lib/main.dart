@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:kelompok_10/animation/transition_animation.dart';
-import 'package:kelompok_10/view/on_search_screen.dart';
-import 'package:kelompok_10/view_model/auth_view_model.dart';
+import 'package:kelompok_10/view_model/preferences_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+import 'animation/transition_animation.dart';
 import 'view/date_screen.dart';
 import 'view/detail_category.dart';
+import 'view/detail_class.dart';
 import 'view/login_screen.dart';
 import 'view/main_screen.dart';
+import 'view/on_search_screen.dart';
 import 'view/profile_screen.dart';
 import 'view/news_screen.dart';
 import 'view/signup_screen.dart';
 import 'view/home_screen.dart';
 import 'view/onboarding_page.dart';
 import 'view/splash_screen.dart';
+import 'view_model/auth_view_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,6 +30,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => AuthViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => PreferencesViewModel(),
         ),
       ],
       child: MaterialApp(
@@ -88,6 +93,11 @@ class MyApp extends StatelessWidget {
           if (setting.name == OnSearchScreen.routeName) {
             return FadeInRoute(
               page: const OnSearchScreen(),
+            );
+          }
+          if (setting.name == DetailClass.routeName) {
+            return FadeInRoute(
+              page: const DetailClass(),
             );
           }
           return null;

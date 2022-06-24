@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kelompok_10/view/main_screen.dart';
 import 'package:kelompok_10/view/onboarding_page.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../theme/theme.dart';
+import '../view_model/preferences_viewmodel.dart';
 import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -28,11 +31,25 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Future.delayed(
       const Duration(seconds: 3),
-      () {
-        isViews != 0
-            ? Navigator.pushReplacementNamed(
-                context, OnboardingScreen.routeName)
-            : Navigator.pushReplacementNamed(context, LogInScreen.routeName);
+      () async {
+        // isViews != 0
+        //     ? Navigator.pushReplacementNamed(
+        //         context, OnboardingScreen.routeName)
+        //     : Navigator.pushReplacementNamed(context, LogInScreen.routeName);
+        Provider.of<PreferencesViewModel>(context, listen: false)
+            .getToken()
+            .then(
+          (value) async {
+            if (value.isEmpty && isViews != 0) {
+              Navigator.pushReplacementNamed(
+                  context, OnboardingScreen.routeName);
+            } else if (isViews != 1 && value.isNotEmpty) {
+              Navigator.pushReplacementNamed(context, MainScreen.routeName);
+            } else if (isViews != 1 && value.isEmpty) {
+              Navigator.pushReplacementNamed(context, LogInScreen.routeName);
+            }
+          },
+        );
       },
     );
   }

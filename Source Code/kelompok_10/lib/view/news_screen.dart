@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kelompok_10/animation/scale_animation.dart';
+import 'package:kelompok_10/component/primary_button.dart';
+import 'package:kelompok_10/view/login_screen.dart';
+import 'package:kelompok_10/view_model/preferences_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 class NewsScreen extends StatefulWidget {
   static const routeName = '/news_screen';
@@ -16,13 +20,16 @@ class _NewsScreenState extends State<NewsScreen> {
       appBar: AppBar(
         title: const Text('News Screen'),
       ),
-      body: const Center(
+      body: Center(
         // Logo Flutter
         child: ScaleAnimations(
-          child: FlutterLogo(
-            size: 300,
-            textColor: Colors.blue,
-            style: FlutterLogoStyle.stacked,
+          child: PrimaryButton(
+            press: () {
+              Provider.of<PreferencesViewModel>(context, listen: false)
+                  .deleteUser();
+              Navigator.pushNamedAndRemoveUntil(
+                  context, LogInScreen.routeName, (route) => false);
+            },
           ),
         ), //F
       ),

@@ -2,14 +2,17 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kelompok_10/animation/scale_animation.dart';
+import 'package:kelompok_10/animation/shimmer_effect.dart';
 import 'package:kelompok_10/component/banner_style.dart';
 import 'package:kelompok_10/component/dots_indicator.dart';
 import 'package:kelompok_10/model/banner_model.dart';
 import 'package:kelompok_10/theme/theme.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../component/card_gridview.dart';
 import '../component/category_style.dart';
 import 'detail_category.dart';
+import 'detail_class.dart';
 import 'on_search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -196,10 +199,11 @@ class _HomeScreenState extends State<HomeScreen> {
             children: List.generate(
               6,
               (index) => GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, DetailCategory.routeName);
-                  },
-                  child: const CategoryStyle()),
+                onTap: () {
+                  Navigator.pushNamed(context, DetailCategory.routeName);
+                },
+                child: const CategoryStyle(),
+              ),
             ),
           ),
           SizedBox(
@@ -220,6 +224,15 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // SizedBox(
+          //   height: 18.0,
+          //   width: displayWidth(context) * 0.27,
+          //   child: ShimmerEffect(
+          //     child: Container(
+          //       color: whiteColor,
+          //     ),
+          //   ),
+          // ),
           Text(
             'Kelas favorit',
             style: blackTextStyle.copyWith(
@@ -241,7 +254,11 @@ class _HomeScreenState extends State<HomeScreen> {
             physics: const NeverScrollableScrollPhysics(),
             children: List.generate(
               6,
-              (index) => const CardGridView(),
+              (index) => GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, DetailClass.routeName);
+                  },
+                  child: const CardGridView()),
             ),
           ),
           SizedBox(

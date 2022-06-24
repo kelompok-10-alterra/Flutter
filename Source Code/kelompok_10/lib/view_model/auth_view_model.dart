@@ -1,13 +1,12 @@
 import 'package:flutter/widgets.dart';
-import 'package:kelompok_10/model/user_model.dart';
 import 'package:kelompok_10/service/auth_services.dart';
 
 enum AuthState { none, loading, hashdata, error }
 
 class AuthViewModel extends ChangeNotifier {
-  String? _user;
+  String? _token;
 
-  String get user => _user!;
+  String get token => _token!;
 
   String? _message;
   String get message => _message!;
@@ -18,7 +17,7 @@ class AuthViewModel extends ChangeNotifier {
   //set user token
 
   void setUser(String? user) {
-    _user = user;
+    _token = user;
     notifyListeners();
   }
 
@@ -28,9 +27,9 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
     try {
       final data = await AuthService().login(username, password);
-      _user = data['access_token'];
+      _token = data['access_token'];
 
-      print('token: $_user');
+      print('token: $_token');
 
       _state = AuthState.hashdata;
       notifyListeners();

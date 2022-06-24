@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../theme/theme.dart';
 
-class LoveButton extends StatefulWidget {
-  const LoveButton({Key? key}) : super(key: key);
+class ShareButton extends StatefulWidget {
+  const ShareButton({Key? key}) : super(key: key);
 
   @override
-  State<LoveButton> createState() => _LoveButtonState();
+  State<ShareButton> createState() => _ShareButtonState();
 }
 
-class _LoveButtonState extends State<LoveButton> {
+class _ShareButtonState extends State<ShareButton> {
   @override
   Widget build(BuildContext context) {
     bool isFavorited = false;
@@ -17,9 +17,7 @@ class _LoveButtonState extends State<LoveButton> {
       splashColor: transparentColor,
       highlightColor: transparentColor,
       icon: Icon(
-        isFavorited == false
-            ? Icons.favorite_outline_rounded
-            : Icons.favorite_rounded,
+        isFavorited == false ? Icons.share_outlined : Icons.share_rounded,
         color: primaryColor,
       ),
       onPressed: () {

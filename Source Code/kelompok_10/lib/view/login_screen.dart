@@ -9,6 +9,7 @@ import '../../component/text_from_field.dart';
 import '../../component/text_from_field_pw.dart';
 import '../../theme/theme.dart';
 import '../component/loading_button.dart';
+import '../view_model/preferences_viewmodel.dart';
 import 'main_screen.dart';
 import 'signup_screen.dart';
 
@@ -58,28 +59,55 @@ class _LogInScreenState extends State<LogInScreen> {
         _usernameController.text,
         _passwordController.text,
       )) {
-        Navigator.pushNamedAndRemoveUntil(
-            context, MainScreen.routeName, (route) => false);
+        if (_isChecked == true) {
+          Provider.of<PreferencesViewModel>(context, listen: false)
+              .setToken(loginProvider.token);
+          Navigator.pushNamedAndRemoveUntil(
+              context, MainScreen.routeName, (route) => false);
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: greenColor,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                8.0,
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: greenColor,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  8.0,
+                ),
+              ),
+              content: Text(
+                'Login Berhasil',
+                style: whiteTextStyle.copyWith(
+                  fontSize: 14.0,
+                  fontWeight: medium,
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
-            content: Text(
-              'Login Berhasil',
-              style: whiteTextStyle.copyWith(
-                fontSize: 14.0,
-                fontWeight: medium,
+          );
+        } else {
+          Navigator.pushNamedAndRemoveUntil(
+              context, MainScreen.routeName, (route) => false);
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: greenColor,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  8.0,
+                ),
               ),
-              textAlign: TextAlign.center,
+              content: Text(
+                'Login Berhasil',
+                style: whiteTextStyle.copyWith(
+                  fontSize: 14.0,
+                  fontWeight: medium,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-        );
+          );
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

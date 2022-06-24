@@ -53,8 +53,8 @@ class CardGridView extends StatelessWidget {
               alignment: Alignment.topCenter,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SmallButton(),
+                children: const [
+                  SmallButton(),
                   LoveButton(),
                 ],
               ),
