@@ -22,19 +22,38 @@ class DetailClass extends StatelessWidget {
         width: displayWidth(context),
         decoration: BoxDecoration(
           color: primaryColor,
-          image: const DecorationImage(
-            image: AssetImage('assets/images/human-two.png'),
-            fit: BoxFit.cover,
-          ),
         ),
-        child: Align(
-          alignment: Alignment.topLeft,
-          child: Padding(
-            padding: EdgeInsets.all(defaultMargin),
-            child: BackButtons(
-              color: blackColor.withOpacity(0.1),
+        child: Stack(
+          children: [
+            Positioned(
+              top: 0.0,
+              left: 0.0,
+              right: 0.0,
+              bottom: 0.0,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12.0),
+                  topRight: Radius.circular(12.0),
+                ),
+                child: Hero(
+                  tag: 'image',
+                  child: Image.asset(
+                    'assets/images/human-two.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ),
-          ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: EdgeInsets.all(defaultMargin),
+                child: BackButtons(
+                  color: blackColor.withOpacity(0.1),
+                ),
+              ),
+            ),
+          ],
         ),
       );
     }

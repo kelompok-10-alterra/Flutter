@@ -7,10 +7,12 @@ import 'package:kelompok_10/component/banner_style.dart';
 import 'package:kelompok_10/component/dots_indicator.dart';
 import 'package:kelompok_10/model/banner_model.dart';
 import 'package:kelompok_10/theme/theme.dart';
+import 'package:kelompok_10/view/membership_purchase.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../component/card_gridview.dart';
 import '../component/category_style.dart';
+import '../component/small_button_orange.dart';
 import 'detail_category.dart';
 import 'detail_class.dart';
 import 'on_search_screen.dart';
@@ -56,10 +58,22 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 width: 16.0,
               ),
-              SvgPicture.asset(
-                'assets/svg/ic-lonceng.svg',
-                height: 24.0,
-                color: primaryColor,
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/svg/ic-chart.svg',
+                    height: 24.0,
+                    color: primaryColor,
+                  ),
+                  const SizedBox(
+                    width: 8.0,
+                  ),
+                  SvgPicture.asset(
+                    'assets/svg/ic-lonceng.svg',
+                    height: 24.0,
+                    color: primaryColor,
+                  ),
+                ],
               ),
             ],
           ),
@@ -206,8 +220,87 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          SizedBox(
-            height: defaultMargin,
+        ],
+      ),
+    );
+  }
+
+  Widget registerMembership() {
+    return Container(
+      margin: EdgeInsets.all(
+        defaultMargin,
+      ),
+      height: 72.0,
+      width: displayWidth(context),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            gradientThreeColor,
+            gradientFourColor,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(12.0),
+              bottomLeft: Radius.circular(12.0),
+            ),
+            child: Image.asset('assets/images/banner-three.png'),
+          ),
+          const SizedBox(
+            width: 8.0,
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Gabung jadi Member',
+                  style: whiteTextStyle.copyWith(
+                    fontSize: 14.0,
+                    fontWeight: semiBold,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  maxLines: 1,
+                ),
+                Divider(
+                  color: orangeColor,
+                  thickness: 2.0,
+                ),
+                Text(
+                  'Diskon Up to 60%',
+                  style: whiteTextStyle.copyWith(
+                    fontSize: 14.0,
+                    fontWeight: medium,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  maxLines: 1,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: 64.0,
+            margin: const EdgeInsets.only(
+              right: 16.0,
+              left: 8.0,
+              bottom: 16.0,
+              top: 16.0,
+            ),
+            child: SmallOrangeButton(
+              press: () {
+                Navigator.pushNamed(context, MembershipPurchase.routeName);
+              },
+              text: 'Beli',
+            ),
           ),
         ],
       ),
@@ -254,11 +347,7 @@ class _HomeScreenState extends State<HomeScreen> {
             physics: const NeverScrollableScrollPhysics(),
             children: List.generate(
               6,
-              (index) => GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, DetailClass.routeName);
-                  },
-                  child: const CardGridView()),
+              (index) => CardGridView(tags: index),
             ),
           ),
           SizedBox(
@@ -287,6 +376,7 @@ class _HomeScreenState extends State<HomeScreen> {
             search(),
             banner(),
             category(),
+            registerMembership(),
             favoriteClass(),
           ],
         ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kelompok_10/view_model/preferences_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import 'animation/transition_animation.dart';
@@ -8,6 +7,7 @@ import 'view/detail_category.dart';
 import 'view/detail_class.dart';
 import 'view/login_screen.dart';
 import 'view/main_screen.dart';
+import 'view/membership_purchase.dart';
 import 'view/on_search_screen.dart';
 import 'view/profile_screen.dart';
 import 'view/news_screen.dart';
@@ -16,6 +16,7 @@ import 'view/home_screen.dart';
 import 'view/onboarding_page.dart';
 import 'view/splash_screen.dart';
 import 'view_model/auth_view_model.dart';
+import 'view_model/preferences_viewmodel.dart';
 
 void main() {
   runApp(const MyApp());
@@ -98,6 +99,11 @@ class MyApp extends StatelessWidget {
           if (setting.name == DetailClass.routeName) {
             return FadeInRoute(
               page: const DetailClass(),
+            );
+          }
+          if (setting.name == MembershipPurchase.routeName) {
+            return FadeInRoute(
+              page: const MembershipPurchase(),
             );
           }
           return null;

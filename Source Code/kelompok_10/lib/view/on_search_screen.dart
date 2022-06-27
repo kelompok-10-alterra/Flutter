@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kelompok_10/component/back_button.dart';
 
 import '../component/card_recent_search.dart';
 import '../component/search_text_input.dart';
@@ -26,26 +27,7 @@ class _OnSearchScreenState extends State<OnSearchScreen> {
           padding: EdgeInsets.symmetric(horizontal: defaultMargin),
           child: Row(
             children: [
-              Container(
-                height: 50.0,
-                width: 50.0,
-                decoration: BoxDecoration(
-                  color: greyThreeColor,
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: SvgPicture.asset(
-                      'assets/svg/ic-back.svg',
-                      color: primaryColor,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
+              BackButtons(),
               const SizedBox(
                 width: 16.0,
               ),

@@ -13,22 +13,20 @@ class _LoveButtonState extends State<LoveButton> {
   @override
   Widget build(BuildContext context) {
     bool isFavorited = false;
-    return IconButton(
-      splashColor: transparentColor,
-      highlightColor: transparentColor,
-      icon: Icon(
-        isFavorited == false
-            ? Icons.favorite_outline_rounded
-            : Icons.favorite_rounded,
-        color: primaryColor,
-      ),
-      onPressed: () {
+    return GestureDetector(
+      onTap: () {
         setState(
           () {
             isFavorited = !isFavorited;
           },
         );
       },
+      child: Icon(
+        isFavorited == false
+            ? Icons.favorite_outline_rounded
+            : Icons.favorite_rounded,
+        color: primaryColor,
+      ),
     );
   }
 }

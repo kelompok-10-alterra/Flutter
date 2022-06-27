@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,7 +5,6 @@ import 'package:kelompok_10/component/costum_tab.dart';
 import 'package:kelompok_10/theme/theme.dart';
 
 import '../component/card_gridview.dart';
-import '../component/category_style.dart';
 import '../component/search_text_input.dart';
 
 class DetailCategory extends StatefulWidget {
@@ -137,7 +134,9 @@ class _DetailCategoryState extends State<DetailCategory>
         physics: const BouncingScrollPhysics(),
         children: List.generate(
           6,
-          (index) => const CardGridView(),
+          (index) => CardGridView(
+            tags: index,
+          ),
         ),
       ),
     );

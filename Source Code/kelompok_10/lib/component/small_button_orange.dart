@@ -18,7 +18,7 @@ class SmallOrangeButton extends StatelessWidget {
       width: double.infinity,
       height: 32.0,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(8.0),
         color: orangeColor,
       ),
       child: TextButton(

@@ -36,6 +36,11 @@ Color gradientOneColor = const Color(0xff39A1E2);
 Color gradientTwoColor = const Color(0xff0583D2);
 Color gradientThreeColor = const Color(0xff56B5F1);
 Color gradientFourColor = const Color(0xff43A4E1);
+Color gradientFiveColor = const Color(0xff51B1EE);
+Color gradientPurpleOneColor = const Color(0xff986CD0);
+Color gradientPurpleTwoColor = const Color(0xffCEA6FF);
+Color gradientBrownOneColor = const Color(0xff767676);
+Color gradientBrownTwoColor = const Color(0xffB2ACAC);
 
 TextStyle primaryTextStyle = GoogleFonts.inter(color: primaryColor);
 
