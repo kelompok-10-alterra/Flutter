@@ -6,41 +6,12 @@
 	},
 	"servers": [
 		{
-			"url": "http://a327d060d68dc43b1bfa026001e1e330-1327007092.ap-southeast-1.elb.amazonaws.com:8081",
+			"url": "https://api.rafdev.my.id",
 			"description": "Generated server url"
 		}
 	],
 	"paths": {
-		"/capstone/user/user/{user_id}": {
-			"get": {
-				"tags": [
-					"user-controller"
-				],
-				"operationId": "getUserById",
-				"parameters": [
-					{
-						"name": "user_id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int64"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/UserEntity"
-								}
-							}
-						}
-					}
-				}
-			},
+		"/capstone/user/userAccess/updateUser/{userId}": {
 			"put": {
 				"tags": [
 					"user-controller"
@@ -48,7 +19,7 @@
 				"operationId": "updateUser",
 				"parameters": [
 					{
-						"name": "user_id",
+						"name": "userId",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -61,7 +32,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserEntity"
+								"$ref": "#/components/schemas/UserDtoPut"
 							}
 						}
 					},
@@ -81,15 +52,15 @@
 				}
 			}
 		},
-		"/capstone/role/{role_id}": {
-			"get": {
+		"/capstone/type/adminAccess/updateType/{typeId}": {
+			"put": {
 				"tags": [
-					"role-controller"
+					"type-controller"
 				],
-				"operationId": "getRoleById",
+				"operationId": "updateType",
 				"parameters": [
 					{
-						"name": "role_id",
+						"name": "typeId",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -98,19 +69,72 @@
 						}
 					}
 				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TypeDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
 				"responses": {
 					"200": {
 						"description": "OK",
 						"content": {
 							"*/*": {
 								"schema": {
-									"$ref": "#/components/schemas/RoleEntity"
+									"$ref": "#/components/schemas/TypeEntity"
 								}
 							}
 						}
 					}
 				}
-			},
+			}
+		},
+		"/capstone/room/adminAccess/updateRoom/{roomId}": {
+			"put": {
+				"tags": [
+					"room-controller"
+				],
+				"operationId": "updateRoom",
+				"parameters": [
+					{
+						"name": "roomId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RoomDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RoomEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/role/managerOnly/updateRole/{roleId}": {
 			"put": {
 				"tags": [
 					"role-controller"
@@ -118,7 +142,7 @@
 				"operationId": "updateRole",
 				"parameters": [
 					{
-						"name": "role_id",
+						"name": "roleId",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -131,7 +155,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/RoleEntity"
+								"$ref": "#/components/schemas/RoleDtoPost"
 							}
 						}
 					},
@@ -149,15 +173,17 @@
 						}
 					}
 				}
-			},
-			"delete": {
+			}
+		},
+		"/capstone/newsletter/adminAccess/updateNewsletter/{newsletterId}": {
+			"put": {
 				"tags": [
-					"role-controller"
+					"newsletter-controller"
 				],
-				"operationId": "deleteRole",
+				"operationId": "updateNewsletter",
 				"parameters": [
 					{
-						"name": "role_id",
+						"name": "newsletterId",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -166,13 +192,23 @@
 						}
 					}
 				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/NewsletterDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
 				"responses": {
 					"200": {
 						"description": "OK",
 						"content": {
 							"*/*": {
 								"schema": {
-									"$ref": "#/components/schemas/RoleEntity"
+									"$ref": "#/components/schemas/NewsletterEntity"
 								}
 							}
 						}
@@ -180,7 +216,7 @@
 				}
 			}
 		},
-		"/capstone/membership/{membership_id}": {
+		"/capstone/membership/adminAccess/updateMembership/{membershipId}": {
 			"put": {
 				"tags": [
 					"membership-controller"
@@ -188,7 +224,7 @@
 				"operationId": "updateMembership",
 				"parameters": [
 					{
-						"name": "membership_id",
+						"name": "membershipId",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -201,7 +237,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/MembershipEntity"
+								"$ref": "#/components/schemas/MembershipDtoPost"
 							}
 						}
 					},
@@ -219,15 +255,17 @@
 						}
 					}
 				}
-			},
-			"delete": {
+			}
+		},
+		"/capstone/member/adminAccess/updateMember/{memberId}": {
+			"put": {
 				"tags": [
-					"membership-controller"
+					"member-controller"
 				],
-				"operationId": "deleteMembership",
+				"operationId": "updateMember",
 				"parameters": [
 					{
-						"name": "membership_id",
+						"name": "memberId",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -236,13 +274,23 @@
 						}
 					}
 				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MemberDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
 				"responses": {
 					"200": {
 						"description": "OK",
 						"content": {
 							"*/*": {
 								"schema": {
-									"$ref": "#/components/schemas/MembershipEntity"
+									"$ref": "#/components/schemas/MemberEntity"
 								}
 							}
 						}
@@ -250,7 +298,7 @@
 				}
 			}
 		},
-		"/capstone/instructor/{instructor_id}": {
+		"/capstone/instructor/adminAccess/updateInstructure/{instructorId}": {
 			"put": {
 				"tags": [
 					"instructor-controller"
@@ -258,7 +306,7 @@
 				"operationId": "updateInstructor",
 				"parameters": [
 					{
-						"name": "instructor_id",
+						"name": "instructorId",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -271,7 +319,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/InstructorEntity"
+								"$ref": "#/components/schemas/InstructorDtoPost"
 							}
 						}
 					},
@@ -289,15 +337,17 @@
 						}
 					}
 				}
-			},
-			"delete": {
+			}
+		},
+		"/capstone/content/adminAccess/updateContent/{contentId}": {
+			"put": {
 				"tags": [
-					"instructor-controller"
+					"content-controller"
 				],
-				"operationId": "deleteInstructor",
+				"operationId": "updateContent",
 				"parameters": [
 					{
-						"name": "instructor_id",
+						"name": "contentId",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -306,13 +356,23 @@
 						}
 					}
 				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ContentDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
 				"responses": {
 					"200": {
 						"description": "OK",
 						"content": {
 							"*/*": {
 								"schema": {
-									"$ref": "#/components/schemas/InstructorEntity"
+									"$ref": "#/components/schemas/ContentEntity"
 								}
 							}
 						}
@@ -320,7 +380,7 @@
 				}
 			}
 		},
-		"/capstone/class/{class_id}": {
+		"/capstone/class/adminAccess/updateClass/{classId}": {
 			"put": {
 				"tags": [
 					"class-controller"
@@ -328,7 +388,7 @@
 				"operationId": "updateClass",
 				"parameters": [
 					{
-						"name": "class_id",
+						"name": "classId",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -341,7 +401,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/ClassEntity"
+								"$ref": "#/components/schemas/ClassDtoPost"
 							}
 						}
 					},
@@ -359,46 +419,17 @@
 						}
 					}
 				}
-			},
-			"delete": {
-				"tags": [
-					"class-controller"
-				],
-				"operationId": "deleteClass",
-				"parameters": [
-					{
-						"name": "class_id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int64"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/ClassEntity"
-								}
-							}
-						}
-					}
-				}
 			}
 		},
-		"/capstone/booking/{booking_id}": {
+		"/capstone/category/adminAccess/updateCategory/{categoryId}": {
 			"put": {
 				"tags": [
-					"booking-controller"
+					"category-controller"
 				],
-				"operationId": "updateBooking",
+				"operationId": "updateCategory",
 				"parameters": [
 					{
-						"name": "booking_id",
+						"name": "categoryId",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -411,10 +442,52 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/BookingEntity"
+								"$ref": "#/components/schemas/CategoryDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/CategoryEntity"
+								}
 							}
 						}
 					}
+				}
+			}
+		},
+		"/capstone/booking/adminAccess/updateBooking/{bookingId}": {
+			"put": {
+				"tags": [
+					"booking-controller"
+				],
+				"operationId": "updateBooking",
+				"parameters": [
+					{
+						"name": "bookingId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/BookingDtoPost"
+							}
+						}
+					},
+					"required": true
 				},
 				"responses": {
 					"200": {
@@ -430,7 +503,7 @@
 				}
 			}
 		},
-		"/capstone/user/addRole": {
+		"/capstone/user/managerOnly/addRoleToUser": {
 			"post": {
 				"tags": [
 					"user-controller"
@@ -460,38 +533,17 @@
 				}
 			}
 		},
-		"/capstone/role": {
-			"get": {
-				"tags": [
-					"role-controller"
-				],
-				"operationId": "getAllRole",
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/RoleEntity"
-									}
-								}
-							}
-						}
-					}
-				}
-			},
+		"/capstone/user/adminAccess/createUser": {
 			"post": {
 				"tags": [
-					"role-controller"
+					"user-controller"
 				],
-				"operationId": "createRole",
+				"operationId": "createUser",
 				"requestBody": {
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/RoleEntity"
+								"$ref": "#/components/schemas/UserDtoPost"
 							}
 						}
 					},
@@ -503,7 +555,7 @@
 						"content": {
 							"*/*": {
 								"schema": {
-									"$ref": "#/components/schemas/RoleEntity"
+									"$ref": "#/components/schemas/UserDtoPost"
 								}
 							}
 						}
@@ -511,17 +563,137 @@
 				}
 			}
 		},
-		"/capstone/membership": {
+		"/capstone/type/adminAccess/createNewType": {
+			"post": {
+				"tags": [
+					"type-controller"
+				],
+				"operationId": "createTypeDto",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TypeDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/TypeDtoPost"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/room/adminAccess/createNewRoom": {
+			"post": {
+				"tags": [
+					"room-controller"
+				],
+				"operationId": "createRoomDto",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RoomDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RoomDtoPost"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/role/managerOnly/createNewRole": {
+			"post": {
+				"tags": [
+					"role-controller"
+				],
+				"operationId": "createRoleDto",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RoleDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RoleDtoPost"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/newsletter/adminAccess/createNewNewsletter": {
+			"post": {
+				"tags": [
+					"newsletter-controller"
+				],
+				"operationId": "createNewsletterDto",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/NewsletterDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/NewsletterDtoPost"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/membership/adminAccess/createNewMembership": {
 			"post": {
 				"tags": [
 					"membership-controller"
 				],
-				"operationId": "createMembership",
+				"operationId": "createMemberDto",
 				"requestBody": {
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/MembershipEntity"
+								"$ref": "#/components/schemas/MembershipDtoPost"
 							}
 						}
 					},
@@ -533,7 +705,7 @@
 						"content": {
 							"*/*": {
 								"schema": {
-									"$ref": "#/components/schemas/MembershipEntity"
+									"$ref": "#/components/schemas/MembershipDtoPost"
 								}
 							}
 						}
@@ -541,17 +713,47 @@
 				}
 			}
 		},
-		"/capstone/instructor": {
+		"/capstone/member/adminAccess/createNewMember": {
+			"post": {
+				"tags": [
+					"member-controller"
+				],
+				"operationId": "createMemberDto_1",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MemberDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/MemberDtoPost"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/instructor/adminAccess/createNewInstructure": {
 			"post": {
 				"tags": [
 					"instructor-controller"
 				],
-				"operationId": "createInstructor",
+				"operationId": "createInstructorDto",
 				"requestBody": {
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/InstructorEntity"
+								"$ref": "#/components/schemas/InstructorDtoPost"
 							}
 						}
 					},
@@ -563,7 +765,7 @@
 						"content": {
 							"*/*": {
 								"schema": {
-									"$ref": "#/components/schemas/InstructorEntity"
+									"$ref": "#/components/schemas/InstructorDtoPost"
 								}
 							}
 						}
@@ -571,38 +773,47 @@
 				}
 			}
 		},
-		"/capstone/class": {
-			"get": {
+		"/capstone/content/adminAccess/createNewContent": {
+			"post": {
 				"tags": [
-					"class-controller"
+					"content-controller"
 				],
-				"operationId": "getAllClass",
+				"operationId": "createContentDto",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ContentDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
 				"responses": {
 					"200": {
 						"description": "OK",
 						"content": {
 							"*/*": {
 								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/ClassEntity"
-									}
+									"$ref": "#/components/schemas/ContentDtoPost"
 								}
 							}
 						}
 					}
 				}
-			},
+			}
+		},
+		"/capstone/class/adminAccess/createNewClass": {
 			"post": {
 				"tags": [
 					"class-controller"
 				],
-				"operationId": "createClass",
+				"operationId": "createClassDto",
 				"requestBody": {
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/ClassEntity"
+								"$ref": "#/components/schemas/ClassDtoPost"
 							}
 						}
 					},
@@ -614,7 +825,7 @@
 						"content": {
 							"*/*": {
 								"schema": {
-									"$ref": "#/components/schemas/ClassEntity"
+									"$ref": "#/components/schemas/ClassDtoPost"
 								}
 							}
 						}
@@ -622,20 +833,51 @@
 				}
 			}
 		},
-		"/capstone/booking/user": {
+		"/capstone/category/adminAccess/createNewCategory": {
+			"post": {
+				"tags": [
+					"category-controller"
+				],
+				"operationId": "createCategoryDto",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CategoryDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/CategoryDtoPost"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/booking/userAcess/createNewBooking": {
 			"post": {
 				"tags": [
 					"booking-controller"
 				],
-				"operationId": "createBooking",
+				"operationId": "createBookingDto",
 				"requestBody": {
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/BookingEntity"
+								"$ref": "#/components/schemas/BookingDtoPost"
 							}
 						}
-					}
+					},
+					"required": true
 				},
 				"responses": {
 					"200": {
@@ -643,7 +885,7 @@
 						"content": {
 							"*/*": {
 								"schema": {
-									"$ref": "#/components/schemas/BookingEntity"
+									"$ref": "#/components/schemas/BookingDtoPost"
 								}
 							}
 						}
@@ -651,12 +893,181 @@
 				}
 			}
 		},
-		"/capstone/user": {
+		"/auth/resetPassword": {
+			"post": {
+				"tags": [
+					"auth-controller"
+				],
+				"operationId": "resetPassword",
+				"parameters": [
+					{
+						"name": "token",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ForgotPassword"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/resendToken": {
+			"post": {
+				"tags": [
+					"auth-controller"
+				],
+				"operationId": "resend",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ResendToken"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/register": {
+			"post": {
+				"tags": [
+					"auth-controller"
+				],
+				"operationId": "register",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RegistrationRequest"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/forgotPassword": {
+			"post": {
+				"tags": [
+					"auth-controller"
+				],
+				"operationId": "resetPass",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ResendToken"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/user/userAccess/getUserById": {
 			"get": {
 				"tags": [
 					"user-controller"
 				],
-				"operationId": "getAllUser",
+				"operationId": "getUserById",
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"name": "name",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/UserEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/user/userAccess/findAllRoleUser": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"operationId": "findAllRoleUser",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -674,12 +1085,12 @@
 				}
 			}
 		},
-		"/capstone/user/dto": {
+		"/capstone/user/adminAccess/getAllUser": {
 			"get": {
 				"tags": [
 					"user-controller"
 				],
-				"operationId": "getAllUserDto",
+				"operationId": "findAll",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -688,7 +1099,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/UserDto"
+										"$ref": "#/components/schemas/UserEntity"
 									}
 								}
 							}
@@ -697,22 +1108,547 @@
 				}
 			}
 		},
-		"/capstone/role/dto": {
+		"/capstone/user/adminAccess/getAllUserWithDto": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"operationId": "findAllDto",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/UserDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/user/adminAccess/getAllUser/{offset}/{pageSize}": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"operationId": "findAllPaginationSorting",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageUserEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/user/adminAccess/getAllUser/{offset}/{pageSize}/{field}": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"operationId": "findAllPaginationSorting_1",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "field",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageUserEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/user/adminAccess/findAllRoleSuperAdmin": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"operationId": "findAllRoleSuperAdmin",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/UserEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/user/adminAccess/findAllRoleAdmin": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"operationId": "findAllRoleAdmin",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/UserEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/user/adminAccess/countTotalUser": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"operationId": "totalUser",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "integer",
+									"format": "int32"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/type/userAccess/{offset}/{pageSize}": {
+			"get": {
+				"tags": [
+					"type-controller"
+				],
+				"operationId": "findAllPaginationSorting_2",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageTypeEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/type/userAccess/{offset}/{pageSize}/{field}": {
+			"get": {
+				"tags": [
+					"type-controller"
+				],
+				"operationId": "findAllPaginationSorting_3",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "field",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageTypeEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/type/userAccess/getTypeById": {
+			"get": {
+				"tags": [
+					"type-controller"
+				],
+				"operationId": "getTypeById",
+				"parameters": [
+					{
+						"name": "typeId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/TypeEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/type/userAccess/getAllType": {
+			"get": {
+				"tags": [
+					"type-controller"
+				],
+				"operationId": "findAll_1",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/TypeEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/type/userAccess/getAllTypeWithDto": {
+			"get": {
+				"tags": [
+					"type-controller"
+				],
+				"operationId": "findAllDto_1",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/TypeDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/room/userAccess/{offset}/{pageSize}": {
+			"get": {
+				"tags": [
+					"room-controller"
+				],
+				"operationId": "findAllPaginationSorting_4",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageRoomEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/room/userAccess/{offset}/{pageSize}/{field}": {
+			"get": {
+				"tags": [
+					"room-controller"
+				],
+				"operationId": "findAllPaginationSorting_5",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "field",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageRoomEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/room/userAccess/getRoomById": {
+			"get": {
+				"tags": [
+					"room-controller"
+				],
+				"operationId": "getRoomById",
+				"parameters": [
+					{
+						"name": "roomId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RoomEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/room/userAccess/getAllRoom": {
+			"get": {
+				"tags": [
+					"room-controller"
+				],
+				"operationId": "findAll_2",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/RoomEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/room/userAccess/getAllRoomWithDto": {
+			"get": {
+				"tags": [
+					"room-controller"
+				],
+				"operationId": "findAllDto_2",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/RoomDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/role/managerOnly/{offset}/{pageSize}": {
 			"get": {
 				"tags": [
 					"role-controller"
 				],
-				"operationId": "getAllRoleDto",
+				"operationId": "findAllPaginationSorting_6",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "OK",
 						"content": {
 							"*/*": {
 								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/RoleDto"
-									}
+									"$ref": "#/components/schemas/PageRoleEntity"
 								}
 							}
 						}
@@ -720,12 +1656,91 @@
 				}
 			}
 		},
-		"/capstone/membership/user": {
+		"/capstone/role/managerOnly/{offset}/{pageSize}/{field}": {
 			"get": {
 				"tags": [
-					"membership-controller"
+					"role-controller"
 				],
-				"operationId": "getAllMembership",
+				"operationId": "findAllPaginationSorting_7",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "field",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageRoleEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/role/managerOnly/getRoleById": {
+			"get": {
+				"tags": [
+					"role-controller"
+				],
+				"operationId": "getRoleById",
+				"parameters": [
+					{
+						"name": "roleId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RoleEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/role/managerOnly/getAllRole": {
+			"get": {
+				"tags": [
+					"role-controller"
+				],
+				"operationId": "findAll_3",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -734,7 +1749,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/MembershipEntity"
+										"$ref": "#/components/schemas/RoleEntity"
 									}
 								}
 							}
@@ -743,7 +1758,195 @@
 				}
 			}
 		},
-		"/capstone/membership/user/{membership_id}": {
+		"/capstone/role/managerOnly/getAllRoleWithDto": {
+			"get": {
+				"tags": [
+					"role-controller"
+				],
+				"operationId": "findAllDto_3",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/RoleDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/newsletter/userAccess/{offset}/{pageSize}": {
+			"get": {
+				"tags": [
+					"newsletter-controller"
+				],
+				"operationId": "findAllPaginationSorting_8",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageNewsletterEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/newsletter/userAccess/{offset}/{pageSize}/{field}": {
+			"get": {
+				"tags": [
+					"newsletter-controller"
+				],
+				"operationId": "findAllPaginationSorting_9",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "field",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageNewsletterEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/newsletter/userAccess/getNewsletterById": {
+			"get": {
+				"tags": [
+					"newsletter-controller"
+				],
+				"operationId": "getNewsletterById",
+				"parameters": [
+					{
+						"name": "newsletterId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/NewsletterEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/newsletter/userAccess/getAllNewsletter": {
+			"get": {
+				"tags": [
+					"newsletter-controller"
+				],
+				"operationId": "findAll_4",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/NewsletterEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/newsletter/userAccess/getAllNewsletterWithDto": {
+			"get": {
+				"tags": [
+					"newsletter-controller"
+				],
+				"operationId": "findAllDto_4",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/NewsletterDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/membership/userAccess/getMembershipById": {
 			"get": {
 				"tags": [
 					"membership-controller"
@@ -751,8 +1954,8 @@
 				"operationId": "getMembershipById",
 				"parameters": [
 					{
-						"name": "membership_id",
-						"in": "path",
+						"name": "membershipId",
+						"in": "query",
 						"required": true,
 						"schema": {
 							"type": "integer",
@@ -774,12 +1977,100 @@
 				}
 			}
 		},
-		"/capstone/membership/user/dto": {
+		"/capstone/membership/adminAccess/{offset}/{pageSize}": {
 			"get": {
 				"tags": [
 					"membership-controller"
 				],
-				"operationId": "getAllMembershipDto",
+				"operationId": "findAllPaginationSorting_10",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageMembershipEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/membership/adminAccess/{offset}/{pageSize}/{field}": {
+			"get": {
+				"tags": [
+					"membership-controller"
+				],
+				"operationId": "findAllPaginationSorting_11",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "field",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageMembershipEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/membership/adminAccess/getAllMembership": {
+			"get": {
+				"tags": [
+					"membership-controller"
+				],
+				"operationId": "findAll_5",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -788,7 +2079,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/MembershipDto"
+										"$ref": "#/components/schemas/MembershipEntity"
 									}
 								}
 							}
@@ -797,22 +2088,248 @@
 				}
 			}
 		},
-		"/capstone/instructor/user": {
+		"/capstone/membership/adminAccess/getAllMembershipWithDto": {
+			"get": {
+				"tags": [
+					"membership-controller"
+				],
+				"operationId": "findAllDto_5",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/MembershipDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/membership/adminAccess/countTotalMembership": {
+			"get": {
+				"tags": [
+					"membership-controller"
+				],
+				"operationId": "totalUser_1",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "integer",
+									"format": "int32"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/member/userAccess/{offset}/{pageSize}": {
+			"get": {
+				"tags": [
+					"member-controller"
+				],
+				"operationId": "findAllPaginationSorting_12",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageMemberEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/member/userAccess/{offset}/{pageSize}/{field}": {
+			"get": {
+				"tags": [
+					"member-controller"
+				],
+				"operationId": "findAllPaginationSorting_13",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "field",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageMemberEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/member/userAccess/getMemberById": {
+			"get": {
+				"tags": [
+					"member-controller"
+				],
+				"operationId": "getMemberById",
+				"parameters": [
+					{
+						"name": "memberId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/MemberEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/member/userAccess/getAllMember": {
+			"get": {
+				"tags": [
+					"member-controller"
+				],
+				"operationId": "findAll_6",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/MemberEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/member/userAccess/getAllMemberByWithDto": {
+			"get": {
+				"tags": [
+					"member-controller"
+				],
+				"operationId": "findAllDto_6",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/MemberDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/instructor/userAcess/{offset}/{pageSize}": {
 			"get": {
 				"tags": [
 					"instructor-controller"
 				],
-				"operationId": "getAllInstructor",
+				"operationId": "findAllPaginationSorting_14",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "OK",
 						"content": {
 							"*/*": {
 								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/InstructorEntity"
-									}
+									"$ref": "#/components/schemas/PageInstructorEntity"
 								}
 							}
 						}
@@ -820,7 +2337,55 @@
 				}
 			}
 		},
-		"/capstone/instructor/user/{instructor_id}": {
+		"/capstone/instructor/userAcess/{offset}/{pageSize}/{field}": {
+			"get": {
+				"tags": [
+					"instructor-controller"
+				],
+				"operationId": "findAllPaginationSorting_15",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "field",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageInstructorEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/instructor/userAcess/getInstructureWithId": {
 			"get": {
 				"tags": [
 					"instructor-controller"
@@ -828,8 +2393,8 @@
 				"operationId": "getInstructorById",
 				"parameters": [
 					{
-						"name": "instructor_id",
-						"in": "path",
+						"name": "instructorId",
+						"in": "query",
 						"required": true,
 						"schema": {
 							"type": "integer",
@@ -851,12 +2416,12 @@
 				}
 			}
 		},
-		"/capstone/instructor/user/dto": {
+		"/capstone/instructor/userAcess/getAllInstructure": {
 			"get": {
 				"tags": [
 					"instructor-controller"
 				],
-				"operationId": "getAllInstructorDto",
+				"operationId": "findAll_7",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -865,7 +2430,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/InstructorDto"
+										"$ref": "#/components/schemas/InstructorEntity"
 									}
 								}
 							}
@@ -874,7 +2439,283 @@
 				}
 			}
 		},
-		"/capstone/class/user/{class_id}": {
+		"/capstone/instructor/userAcess/getAllInstructureWithDto": {
+			"get": {
+				"tags": [
+					"instructor-controller"
+				],
+				"operationId": "findAllDto_7",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/InstructorDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/content/userAccess/{offset}/{pageSize}": {
+			"get": {
+				"tags": [
+					"content-controller"
+				],
+				"operationId": "findAllPaginationSorting_16",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageContentEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/content/userAccess/{offset}/{pageSize}/{field}": {
+			"get": {
+				"tags": [
+					"content-controller"
+				],
+				"operationId": "findAllPaginationSorting_17",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "field",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageContentEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/content/userAccess/getContentById": {
+			"get": {
+				"tags": [
+					"content-controller"
+				],
+				"operationId": "getContentById",
+				"parameters": [
+					{
+						"name": "contentId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/ContentEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/content/userAccess/getAllContent": {
+			"get": {
+				"tags": [
+					"content-controller"
+				],
+				"operationId": "findAll_8",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/ContentEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/content/userAccess/getAllContentWithDto": {
+			"get": {
+				"tags": [
+					"content-controller"
+				],
+				"operationId": "findAllDto_8",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/ContentDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/class/userAccess/{offset}/{pageSize}": {
+			"get": {
+				"tags": [
+					"class-controller"
+				],
+				"operationId": "findAllPaginationSorting_18",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageClassEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/class/userAccess/{offset}/{pageSize}/{field}": {
+			"get": {
+				"tags": [
+					"class-controller"
+				],
+				"operationId": "findAllPaginationSorting_19",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "field",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageClassEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/class/userAccess/getClassById": {
 			"get": {
 				"tags": [
 					"class-controller"
@@ -882,8 +2723,8 @@
 				"operationId": "getClassById",
 				"parameters": [
 					{
-						"name": "class_id",
-						"in": "path",
+						"name": "classId",
+						"in": "query",
 						"required": true,
 						"schema": {
 							"type": "integer",
@@ -905,12 +2746,12 @@
 				}
 			}
 		},
-		"/capstone/class/dto": {
+		"/capstone/class/userAccess/getAllClass": {
 			"get": {
 				"tags": [
 					"class-controller"
 				],
-				"operationId": "getAllClassDto",
+				"operationId": "findAll_9",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -919,7 +2760,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/ClassDto"
+										"$ref": "#/components/schemas/ClassEntity"
 									}
 								}
 							}
@@ -928,12 +2769,342 @@
 				}
 			}
 		},
-		"/capstone/booking": {
+		"/capstone/class/userAccess/getAllClassWithDto": {
+			"get": {
+				"tags": [
+					"class-controller"
+				],
+				"operationId": "findAllDto_9",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/ClassDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/category/userAccess/{offset}/{pageSize}": {
+			"get": {
+				"tags": [
+					"category-controller"
+				],
+				"operationId": "findAllPaginationSorting_20",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageCategoryEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/category/userAccess/{offset}/{pageSize}/{field}": {
+			"get": {
+				"tags": [
+					"category-controller"
+				],
+				"operationId": "findAllPaginationSorting_21",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "field",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageCategoryEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/category/userAccess/getCategoryById": {
+			"get": {
+				"tags": [
+					"category-controller"
+				],
+				"operationId": "getCategoryById",
+				"parameters": [
+					{
+						"name": "categoryId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/CategoryEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/category/userAccess/getAllCategory": {
+			"get": {
+				"tags": [
+					"category-controller"
+				],
+				"operationId": "findAll_10",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/CategoryEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/category/userAccess/getAllCategoryWithDto": {
+			"get": {
+				"tags": [
+					"category-controller"
+				],
+				"operationId": "findAllDto_10",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/CategoryDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/booking/userAcess/getBookingById": {
 			"get": {
 				"tags": [
 					"booking-controller"
 				],
-				"operationId": "getAllBooking",
+				"operationId": "getBookingById",
+				"parameters": [
+					{
+						"name": "bookingId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/BookingEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/booking/adminAccess/{offset}/{pageSize}": {
+			"get": {
+				"tags": [
+					"booking-controller"
+				],
+				"operationId": "findAllPaginationSorting_22",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageBookingEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/booking/adminAccess/{offset}/{pageSize}/{field}": {
+			"get": {
+				"tags": [
+					"booking-controller"
+				],
+				"operationId": "findAllPaginationSorting_23",
+				"parameters": [
+					{
+						"name": "offset",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "field",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageBookingEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/booking/adminAccess/getAllWithDto": {
+			"get": {
+				"tags": [
+					"booking-controller"
+				],
+				"operationId": "findAllDto_11",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/BookingDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/booking/adminAccess/getAllBooking": {
+			"get": {
+				"tags": [
+					"booking-controller"
+				],
+				"operationId": "findAll_11",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -951,82 +3122,20 @@
 				}
 			}
 		},
-		"/capstone/booking/user/{booking_id}": {
+		"/capstone/booking/adminAccess/countTotalBooking": {
 			"get": {
 				"tags": [
 					"booking-controller"
 				],
-				"operationId": "getBookingById",
-				"parameters": [
-					{
-						"name": "booking_id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int64"
-						}
-					}
-				],
+				"operationId": "totalUser_2",
 				"responses": {
 					"200": {
 						"description": "OK",
 						"content": {
 							"*/*": {
 								"schema": {
-									"$ref": "#/components/schemas/BookingEntity"
-								}
-							}
-						}
-					}
-				}
-			},
-			"delete": {
-				"tags": [
-					"booking-controller"
-				],
-				"operationId": "deleteBooking",
-				"parameters": [
-					{
-						"name": "booking_id",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int64"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/BookingEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/booking/dto": {
-			"get": {
-				"tags": [
-					"booking-controller"
-				],
-				"operationId": "getAllBookingDto",
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/BookingDto"
-									}
+									"type": "integer",
+									"format": "int32"
 								}
 							}
 						}
@@ -1047,7 +3156,37 @@
 				}
 			}
 		},
-		"/capstone/user/{user_id}": {
+		"/auth/confirmToken": {
+			"get": {
+				"tags": [
+					"auth-controller"
+				],
+				"operationId": "verifyUser",
+				"parameters": [
+					{
+						"name": "token",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/user/adminAccess/deleteUser/{userId}": {
 			"delete": {
 				"tags": [
 					"user-controller"
@@ -1055,7 +3194,7 @@
 				"operationId": "deleteUser",
 				"parameters": [
 					{
-						"name": "user_id",
+						"name": "userId",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -1077,21 +3216,427 @@
 					}
 				}
 			}
+		},
+		"/capstone/type/adminAccess/deleteType/{typeId}": {
+			"delete": {
+				"tags": [
+					"type-controller"
+				],
+				"operationId": "deleteType",
+				"parameters": [
+					{
+						"name": "typeId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/TypeEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/room/adminAccess/deleteRoom/{roomId}": {
+			"delete": {
+				"tags": [
+					"room-controller"
+				],
+				"operationId": "deleteRoom",
+				"parameters": [
+					{
+						"name": "roomId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RoomEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/role/managerOnly/deleteRole/{roleId}": {
+			"delete": {
+				"tags": [
+					"role-controller"
+				],
+				"operationId": "deleteRole",
+				"parameters": [
+					{
+						"name": "roleId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RoleEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/newsletter/adminAccess/deleteNewsletter/{newsletterId}": {
+			"delete": {
+				"tags": [
+					"newsletter-controller"
+				],
+				"operationId": "deleteNewsletter",
+				"parameters": [
+					{
+						"name": "newsletterId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/NewsletterEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/membership/adminAccess/deleteMembership/{membershipId}": {
+			"delete": {
+				"tags": [
+					"membership-controller"
+				],
+				"operationId": "deleteMembership",
+				"parameters": [
+					{
+						"name": "membershipId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/MembershipEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/member/adminAccess/deleteMember/{memberId}": {
+			"delete": {
+				"tags": [
+					"member-controller"
+				],
+				"operationId": "deleteMember",
+				"parameters": [
+					{
+						"name": "memberId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/MemberEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/instructor/adminAccess/deleteInstructure/{instructorId}": {
+			"delete": {
+				"tags": [
+					"instructor-controller"
+				],
+				"operationId": "deleteInstructor",
+				"parameters": [
+					{
+						"name": "instructorId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/InstructorEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/content/adminAccess/deleteContent/{contentId}": {
+			"delete": {
+				"tags": [
+					"content-controller"
+				],
+				"operationId": "deleteContent",
+				"parameters": [
+					{
+						"name": "contentId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/ContentEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/class/adminAccess/deleteClass/{classId}": {
+			"delete": {
+				"tags": [
+					"class-controller"
+				],
+				"operationId": "deleteClass",
+				"parameters": [
+					{
+						"name": "classId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/ClassEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/category/adminAccess/deleteCategory/{categoryId}": {
+			"delete": {
+				"tags": [
+					"category-controller"
+				],
+				"operationId": "deleteCategory",
+				"parameters": [
+					{
+						"name": "categoryId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/CategoryEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/booking/adminAccess/deleteBooking/{bookingId}": {
+			"delete": {
+				"tags": [
+					"booking-controller"
+				],
+				"operationId": "deleteBooking",
+				"parameters": [
+					{
+						"name": "bookingId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/BookingEntity"
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"components": {
 		"schemas": {
+			"UserDtoPut": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"address": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string"
+					}
+				}
+			},
+			"MemberEntity": {
+				"type": "object",
+				"properties": {
+					"memberId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"length": {
+						"type": "string"
+					},
+					"price": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"MembershipEntity": {
+				"type": "object",
+				"properties": {
+					"membershipId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"status": {
+						"type": "boolean"
+					},
+					"user": {
+						"$ref": "#/components/schemas/UserEntity"
+					},
+					"member": {
+						"$ref": "#/components/schemas/MemberEntity"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
 			"RoleEntity": {
 				"type": "object",
 				"properties": {
-					"role_id": {
+					"roleId": {
 						"type": "integer",
 						"format": "int64"
 					},
 					"name": {
-						"type": "string"
-					},
-					"description": {
 						"type": "string"
 					},
 					"created_at": {
@@ -1107,7 +3652,7 @@
 			"UserEntity": {
 				"type": "object",
 				"properties": {
-					"user_id": {
+					"userId": {
 						"type": "integer",
 						"format": "int64"
 					},
@@ -1127,6 +3672,18 @@
 						"type": "integer",
 						"format": "int64"
 					},
+					"address": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"roleName": {
+						"type": "string"
+					},
+					"token": {
+						"type": "string"
+					},
 					"created_at": {
 						"type": "string",
 						"format": "date-time"
@@ -1140,25 +3697,29 @@
 						"items": {
 							"$ref": "#/components/schemas/RoleEntity"
 						}
+					},
+					"membership": {
+						"$ref": "#/components/schemas/MembershipEntity"
 					}
 				}
 			},
-			"MembershipEntity": {
+			"TypeDtoPost": {
 				"type": "object",
 				"properties": {
-					"membership_id": {
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"TypeEntity": {
+				"type": "object",
+				"properties": {
+					"typeId": {
 						"type": "integer",
 						"format": "int64"
 					},
 					"name": {
 						"type": "string"
-					},
-					"price": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"user": {
-						"$ref": "#/components/schemas/UserEntity"
 					},
 					"created_at": {
 						"type": "string",
@@ -1167,20 +3728,149 @@
 					"updated_at": {
 						"type": "string",
 						"format": "date-time"
+					}
+				}
+			},
+			"RoomDtoPost": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"RoomEntity": {
+				"type": "object",
+				"properties": {
+					"roomId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"RoleDtoPost": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"NewsletterDtoPost": {
+				"type": "object",
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"videoUrl": {
+						"type": "string"
+					}
+				}
+			},
+			"NewsletterEntity": {
+				"type": "object",
+				"properties": {
+					"newsletterId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"videoUrl": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"MembershipDtoPost": {
+				"type": "object",
+				"properties": {
+					"status": {
+						"type": "boolean"
+					},
+					"userId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"memberId": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"MemberDtoPost": {
+				"type": "object",
+				"properties": {
+					"length": {
+						"type": "string"
+					},
+					"price": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"InstructorDtoPost": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"contact": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"imageUrl": {
+						"type": "string"
 					}
 				}
 			},
 			"InstructorEntity": {
 				"type": "object",
 				"properties": {
-					"instructor_id": {
+					"instructorId": {
 						"type": "integer",
 						"format": "int64"
 					},
 					"name": {
 						"type": "string"
 					},
-					"phone": {
+					"contact": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"imageUrl": {
 						"type": "string"
 					},
 					"created_at": {
@@ -1190,30 +3880,150 @@
 					"updated_at": {
 						"type": "string",
 						"format": "date-time"
+					}
+				}
+			},
+			"ContentDtoPost": {
+				"type": "object",
+				"properties": {
+					"title": {
+						"type": "string"
 					},
-					"user": {
-						"$ref": "#/components/schemas/UserEntity"
+					"description": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"videoUrl": {
+						"type": "string"
+					}
+				}
+			},
+			"ContentEntity": {
+				"type": "object",
+				"properties": {
+					"contentId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"videoUrl": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"ClassDtoPost": {
+				"type": "object",
+				"properties": {
+					"status": {
+						"type": "boolean"
+					},
+					"capacity": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"schedule": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"price": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"instructorId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"categoryId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"roomId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"typeId": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"CategoryEntity": {
+				"type": "object",
+				"properties": {
+					"categoryId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
 					}
 				}
 			},
 			"ClassEntity": {
 				"type": "object",
 				"properties": {
-					"class_id": {
+					"classId": {
 						"type": "integer",
 						"format": "int64"
 					},
-					"name": {
-						"type": "string"
+					"status": {
+						"type": "boolean"
 					},
-					"description": {
-						"type": "string"
+					"capacity": {
+						"type": "integer",
+						"format": "int64"
 					},
-					"category": {
+					"schedule": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"price": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"imageUrl": {
 						"type": "string"
 					},
 					"instructor": {
 						"$ref": "#/components/schemas/InstructorEntity"
+					},
+					"category": {
+						"$ref": "#/components/schemas/CategoryEntity"
+					},
+					"room": {
+						"$ref": "#/components/schemas/RoomEntity"
+					},
+					"type": {
+						"$ref": "#/components/schemas/TypeEntity"
 					},
 					"created_at": {
 						"type": "string",
@@ -1225,19 +4035,43 @@
 					}
 				}
 			},
-			"BookingEntity": {
+			"CategoryDtoPost": {
 				"type": "object",
 				"properties": {
-					"booking_id": {
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"BookingDtoPost": {
+				"type": "object",
+				"properties": {
+					"status": {
+						"type": "boolean"
+					},
+					"userId": {
 						"type": "integer",
 						"format": "int64"
 					},
-					"name": {
-						"type": "string"
+					"classId": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"BookingEntity": {
+				"type": "object",
+				"properties": {
+					"bookingId": {
+						"type": "integer",
+						"format": "int64"
 					},
-					"date": {
-						"type": "string",
-						"format": "date-time"
+					"status": {
+						"type": "boolean"
+					},
+					"price": {
+						"type": "integer",
+						"format": "int64"
 					},
 					"created_at": {
 						"type": "string",
@@ -1266,10 +4100,77 @@
 					}
 				}
 			},
-			"UserDto": {
+			"UserDtoPost": {
 				"type": "object",
 				"properties": {
-					"user_id": {
+					"name": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"address": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string"
+					}
+				}
+			},
+			"ForgotPassword": {
+				"type": "object",
+				"properties": {
+					"password": {
+						"type": "string"
+					}
+				}
+			},
+			"ResendToken": {
+				"type": "object",
+				"properties": {
+					"email": {
+						"type": "string"
+					}
+				}
+			},
+			"RegistrationRequest": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"address": {
+						"type": "string"
+					}
+				}
+			},
+			"UserDtoGet": {
+				"type": "object",
+				"properties": {
+					"userId": {
 						"type": "integer",
 						"format": "int64"
 					},
@@ -1278,17 +4179,340 @@
 					},
 					"username": {
 						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"address": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"membership": {
+						"type": "integer",
+						"format": "int64"
 					}
 				}
 			},
-			"RoleDto": {
+			"PageUserEntity": {
 				"type": "object",
 				"properties": {
-					"role_id": {
+					"totalPages": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"totalElements": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"size": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/UserEntity"
+						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
+					},
+					"pageable": {
+						"$ref": "#/components/schemas/PageableObject"
+					},
+					"numberOfElements": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"first": {
+						"type": "boolean"
+					},
+					"last": {
+						"type": "boolean"
+					},
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"PageableObject": {
+				"type": "object",
+				"properties": {
+					"offset": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
+					},
+					"paged": {
+						"type": "boolean"
+					},
+					"unpaged": {
+						"type": "boolean"
+					},
+					"pageNumber": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"pageSize": {
+						"type": "integer",
+						"format": "int32"
+					}
+				}
+			},
+			"Sort": {
+				"type": "object",
+				"properties": {
+					"empty": {
+						"type": "boolean"
+					},
+					"sorted": {
+						"type": "boolean"
+					},
+					"unsorted": {
+						"type": "boolean"
+					}
+				}
+			},
+			"PageTypeEntity": {
+				"type": "object",
+				"properties": {
+					"totalPages": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"totalElements": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"size": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/TypeEntity"
+						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
+					},
+					"pageable": {
+						"$ref": "#/components/schemas/PageableObject"
+					},
+					"numberOfElements": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"first": {
+						"type": "boolean"
+					},
+					"last": {
+						"type": "boolean"
+					},
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"TypeDtoGet": {
+				"type": "object",
+				"properties": {
+					"typeId": {
 						"type": "integer",
 						"format": "int64"
 					},
 					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"PageRoomEntity": {
+				"type": "object",
+				"properties": {
+					"totalPages": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"totalElements": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"size": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/RoomEntity"
+						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
+					},
+					"pageable": {
+						"$ref": "#/components/schemas/PageableObject"
+					},
+					"numberOfElements": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"first": {
+						"type": "boolean"
+					},
+					"last": {
+						"type": "boolean"
+					},
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"RoomDtoGet": {
+				"type": "object",
+				"properties": {
+					"roomId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"PageRoleEntity": {
+				"type": "object",
+				"properties": {
+					"totalPages": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"totalElements": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"size": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/RoleEntity"
+						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
+					},
+					"pageable": {
+						"$ref": "#/components/schemas/PageableObject"
+					},
+					"numberOfElements": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"first": {
+						"type": "boolean"
+					},
+					"last": {
+						"type": "boolean"
+					},
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"RoleDtoGet": {
+				"type": "object",
+				"properties": {
+					"roleId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"PageNewsletterEntity": {
+				"type": "object",
+				"properties": {
+					"totalPages": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"totalElements": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"size": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/NewsletterEntity"
+						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
+					},
+					"pageable": {
+						"$ref": "#/components/schemas/PageableObject"
+					},
+					"numberOfElements": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"first": {
+						"type": "boolean"
+					},
+					"last": {
+						"type": "boolean"
+					},
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"NewsletterDtoGet": {
+				"type": "object",
+				"properties": {
+					"newsletterId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"title": {
 						"type": "string"
 					},
 					"description": {
@@ -1296,14 +4520,124 @@
 					}
 				}
 			},
-			"MembershipDto": {
+			"PageMembershipEntity": {
 				"type": "object",
 				"properties": {
-					"membership_id": {
+					"totalPages": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"totalElements": {
 						"type": "integer",
 						"format": "int64"
 					},
-					"name": {
+					"size": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MembershipEntity"
+						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
+					},
+					"pageable": {
+						"$ref": "#/components/schemas/PageableObject"
+					},
+					"numberOfElements": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"first": {
+						"type": "boolean"
+					},
+					"last": {
+						"type": "boolean"
+					},
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"MembershipDtoGet": {
+				"type": "object",
+				"properties": {
+					"membershipId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"status": {
+						"type": "boolean"
+					},
+					"user": {
+						"type": "string"
+					},
+					"member": {
+						"type": "string"
+					}
+				}
+			},
+			"PageMemberEntity": {
+				"type": "object",
+				"properties": {
+					"totalPages": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"totalElements": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"size": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MemberEntity"
+						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
+					},
+					"pageable": {
+						"$ref": "#/components/schemas/PageableObject"
+					},
+					"numberOfElements": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"first": {
+						"type": "boolean"
+					},
+					"last": {
+						"type": "boolean"
+					},
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"MemberDtoGet": {
+				"type": "object",
+				"properties": {
+					"memberId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"length": {
 						"type": "string"
 					},
 					"price": {
@@ -1312,52 +4646,336 @@
 					}
 				}
 			},
-			"InstructorDto": {
+			"PageInstructorEntity": {
 				"type": "object",
 				"properties": {
-					"instructor_id": {
+					"totalPages": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"totalElements": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"size": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/InstructorEntity"
+						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
+					},
+					"pageable": {
+						"$ref": "#/components/schemas/PageableObject"
+					},
+					"numberOfElements": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"first": {
+						"type": "boolean"
+					},
+					"last": {
+						"type": "boolean"
+					},
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"InstructorDtoGet": {
+				"type": "object",
+				"properties": {
+					"instructorId": {
 						"type": "integer",
 						"format": "int64"
 					},
 					"name": {
 						"type": "string"
 					},
-					"phone": {
+					"contact": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"imageUrl": {
 						"type": "string"
 					}
 				}
 			},
-			"ClassDto": {
+			"PageContentEntity": {
 				"type": "object",
 				"properties": {
-					"class_id": {
+					"totalPages": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"totalElements": {
 						"type": "integer",
 						"format": "int64"
 					},
-					"name": {
+					"size": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ContentEntity"
+						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
+					},
+					"pageable": {
+						"$ref": "#/components/schemas/PageableObject"
+					},
+					"numberOfElements": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"first": {
+						"type": "boolean"
+					},
+					"last": {
+						"type": "boolean"
+					},
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"ContentDtoGet": {
+				"type": "object",
+				"properties": {
+					"contentId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"title": {
 						"type": "string"
 					},
 					"description": {
 						"type": "string"
+					}
+				}
+			},
+			"PageClassEntity": {
+				"type": "object",
+				"properties": {
+					"totalPages": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"totalElements": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"size": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ClassEntity"
+						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
+					},
+					"pageable": {
+						"$ref": "#/components/schemas/PageableObject"
+					},
+					"numberOfElements": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"first": {
+						"type": "boolean"
+					},
+					"last": {
+						"type": "boolean"
+					},
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"ClassDtoGet": {
+				"type": "object",
+				"properties": {
+					"classId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"capacity": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"schedule": {
+						"type": "string"
+					},
+					"price": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"status": {
+						"type": "boolean"
+					},
+					"type": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"instructor": {
+						"type": "string"
 					},
 					"category": {
+						"type": "string"
+					},
+					"room": {
 						"type": "string"
 					}
 				}
 			},
-			"BookingDto": {
+			"PageCategoryEntity": {
 				"type": "object",
 				"properties": {
-					"booking_id": {
+					"totalPages": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"totalElements": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"size": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/CategoryEntity"
+						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
+					},
+					"pageable": {
+						"$ref": "#/components/schemas/PageableObject"
+					},
+					"numberOfElements": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"first": {
+						"type": "boolean"
+					},
+					"last": {
+						"type": "boolean"
+					},
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"CategoryDtoGet": {
+				"type": "object",
+				"properties": {
+					"categoryId": {
 						"type": "integer",
 						"format": "int64"
 					},
 					"name": {
 						"type": "string"
+					}
+				}
+			},
+			"PageBookingEntity": {
+				"type": "object",
+				"properties": {
+					"totalPages": {
+						"type": "integer",
+						"format": "int32"
 					},
-					"date": {
-						"type": "string",
-						"format": "date-time"
+					"totalElements": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"size": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/BookingEntity"
+						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
+					},
+					"pageable": {
+						"$ref": "#/components/schemas/PageableObject"
+					},
+					"numberOfElements": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"first": {
+						"type": "boolean"
+					},
+					"last": {
+						"type": "boolean"
+					},
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"BookingDtoGet": {
+				"type": "object",
+				"properties": {
+					"bookingId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"status": {
+						"type": "string"
+					},
+					"user": {
+						"type": "string"
+					},
+					"classes": {
+						"type": "integer",
+						"format": "int64"
 					}
 				}
 			}

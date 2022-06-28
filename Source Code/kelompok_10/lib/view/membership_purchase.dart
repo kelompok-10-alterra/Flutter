@@ -6,6 +6,7 @@ import '../component/back_button.dart';
 import '../component/card_list_membership.dart';
 import '../component/card_membership.dart';
 import '../component/small_button_orange.dart';
+import 'membership_detail.dart';
 
 class MembershipPurchase extends StatelessWidget {
   static const String routeName = '/membership_purchase';
@@ -47,13 +48,19 @@ class MembershipPurchase extends StatelessWidget {
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         children: [
-          CardListMembership(
-            starColor: gradientTwoColor,
-            endColor: gradientFiveColor,
-            typeCard: 'Silver',
-            berlaku: 'Berlaku 1 bulan',
-            starPrice: '100.000',
-            discountPrice: '20.000',
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(
+              context,
+              MembershipDetail.routeName,
+            ),
+            child: CardListMembership(
+              starColor: gradientTwoColor,
+              endColor: gradientFiveColor,
+              typeCard: 'Silver',
+              berlaku: 'Berlaku 1 bulan',
+              starPrice: '100.000',
+              discountPrice: '20.000',
+            ),
           ),
           CardListMembership(
             starColor: gradientPurpleOneColor,

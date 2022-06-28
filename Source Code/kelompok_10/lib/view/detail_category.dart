@@ -123,21 +123,19 @@ class _DetailCategoryState extends State<DetailCategory>
         left: defaultMargin - 6.0,
         right: defaultMargin - 6.0,
       ),
-      child: GridView(
+      child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: 0.68,
           crossAxisSpacing: 16.0,
           mainAxisSpacing: 16.0,
+          mainAxisExtent: 237.0,
         ),
+        itemCount: 6,
         shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        children: List.generate(
-          6,
-          (index) => CardGridView(
-            tags: index,
-          ),
-        ),
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (BuildContext context, int index) {
+          return CardGridView(tags: index);
+        },
       ),
     );
   }

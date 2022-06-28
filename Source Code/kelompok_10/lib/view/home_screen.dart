@@ -1,20 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kelompok_10/animation/scale_animation.dart';
-import 'package:kelompok_10/animation/shimmer_effect.dart';
 import 'package:kelompok_10/component/banner_style.dart';
+import 'package:kelompok_10/component/card_gridview.dart';
 import 'package:kelompok_10/component/dots_indicator.dart';
 import 'package:kelompok_10/model/banner_model.dart';
 import 'package:kelompok_10/theme/theme.dart';
 import 'package:kelompok_10/view/membership_purchase.dart';
-import 'package:shimmer/shimmer.dart';
 
-import '../component/card_gridview.dart';
 import '../component/category_style.dart';
 import '../component/small_button_orange.dart';
 import 'detail_category.dart';
-import 'detail_class.dart';
 import 'on_search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -336,19 +332,19 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 10.0,
           ),
-          GridView(
+          GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 0.68,
               crossAxisSpacing: 16.0,
               mainAxisSpacing: 16.0,
+              mainAxisExtent: 237.0,
             ),
+            itemCount: 6,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            children: List.generate(
-              6,
-              (index) => CardGridView(tags: index),
-            ),
+            itemBuilder: (BuildContext context, int index) {
+              return CardGridView(tags: index);
+            },
           ),
           SizedBox(
             height: defaultMargin,
@@ -357,6 +353,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+  // List.generate(
+  //             6,
+  //             (index) => CardGridView(tags: index),
+  //           ),
+  //         ),
 
   @override
   void dispose() {

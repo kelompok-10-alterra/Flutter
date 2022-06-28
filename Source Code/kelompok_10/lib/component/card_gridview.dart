@@ -22,7 +22,6 @@ class CardGridView extends StatelessWidget {
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 6.0, left: 6.0, right: 6.0),
-        height: 275.0,
         width: displayWidth(context) * 0.5,
         decoration: BoxDecoration(
           color: whiteColor,
@@ -35,7 +34,7 @@ class CardGridView extends StatelessWidget {
               offset: const Offset(
                 0,
                 0,
-              ), // changes position of shadow
+              ),
             ),
           ],
         ),
@@ -94,7 +93,7 @@ class CardGridView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Full Body Stretching',
+                    'Full Body Stretching sdsds sdsds',
                     style: blackTextStyle.copyWith(
                       fontSize: 14.0,
                       fontWeight: semiBold,

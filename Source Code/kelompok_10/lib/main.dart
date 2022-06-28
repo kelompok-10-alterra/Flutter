@@ -7,6 +7,7 @@ import 'view/detail_category.dart';
 import 'view/detail_class.dart';
 import 'view/login_screen.dart';
 import 'view/main_screen.dart';
+import 'view/membership_detail.dart';
 import 'view/membership_purchase.dart';
 import 'view/on_search_screen.dart';
 import 'view/profile_screen.dart';
@@ -104,6 +105,11 @@ class MyApp extends StatelessWidget {
           if (setting.name == MembershipPurchase.routeName) {
             return FadeInRoute(
               page: const MembershipPurchase(),
+            );
+          }
+          if (setting.name == MembershipDetail.routeName) {
+            return FadeInRoute(
+              page: MembershipDetail(),
             );
           }
           return null;
