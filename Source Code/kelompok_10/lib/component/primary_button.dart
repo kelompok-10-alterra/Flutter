@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:kelompok_10/theme/theme.dart';
 
 class PrimaryButton extends StatelessWidget {
@@ -9,7 +8,7 @@ class PrimaryButton extends StatelessWidget {
     required this.press,
   }) : super(key: key);
   final String? text;
-  // ignore: non_constant_identifier_names
+
   final Function press;
 
   @override
@@ -30,9 +29,8 @@ class PrimaryButton extends StatelessWidget {
         child: Text(
           text ?? 'Button',
           style: whiteTextStyle.copyWith(
-            fontFamily: GoogleFonts.montserrat().fontFamily,
-            fontSize: 18,
-            fontWeight: semiBold,
+            fontSize: 16,
+            fontWeight: medium,
           ),
         ),
       ),

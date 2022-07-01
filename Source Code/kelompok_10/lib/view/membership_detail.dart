@@ -5,7 +5,7 @@ import 'package:kelompok_10/theme/theme.dart';
 
 import '../component/back_button.dart';
 import '../component/card_membership.dart';
-import 'payment_method_screen.dart';
+import 'payment_screen.dart';
 
 class MembershipDetail extends StatelessWidget {
   static const String routeName = '/membership_detail';
@@ -34,7 +34,7 @@ class MembershipDetail extends StatelessWidget {
               width: 40.0,
             ),
             Text(
-              'Metode Pembayaran',
+              'Silver',
               style: blackTextStyle.copyWith(
                 fontSize: 20.0,
                 fontWeight: semiBold,
@@ -92,7 +92,8 @@ class MembershipDetail extends StatelessWidget {
                 ),
                 PrimaryButton(
                   press: () {
-                    Navigator.pushNamed(context, PaymentMethod.routeName);
+                    Navigator.pushNamed(context, PaymentScreen.routeName);
+                    print('cek');
                   },
                   text: 'Bayar Sekarang',
                 ),

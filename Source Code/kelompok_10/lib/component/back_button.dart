@@ -9,18 +9,21 @@ class BackButtons extends StatelessWidget {
     this.color,
     this.width,
     this.height,
+    this.press,
   }) : super(key: key);
 
   final Color? color;
   final double? width;
-  final double? height;
+  final double? height; // ignore: non_constant_identifier_names
+  final Function? press;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pop(context);
-      },
+      onTap: press as void Function()? ??
+          () {
+            Navigator.pop(context);
+          },
       child: Container(
         height: height ?? 50.0,
         width: width ?? 50.0,

@@ -107,7 +107,7 @@ class CostumStapper extends StatelessWidget {
                   color: circleColor,
                   shape: BoxShape.circle,
                 ),
-                child: getInnerElementOfStepper(i)),
+                child: getNumberOfElement(i)),
             const SizedBox(
               width: 6.0,
             ),
@@ -146,7 +146,7 @@ class CostumStapper extends StatelessWidget {
     return list;
   }
 
-  Widget getInnerElementOfStepper(index) {
+  Widget getNumberOfElement(index) {
     if (index + 1 < curStep) {
       return const Icon(
         Icons.check,

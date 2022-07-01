@@ -239,9 +239,11 @@ class _LogInScreenState extends State<LogInScreen> {
                                 activeColor: primaryColor,
                                 splashRadius: 0.0,
                                 onChanged: (bool? value) {
-                                  setState(() {
-                                    _isChecked = value!;
-                                  });
+                                  setState(
+                                    () {
+                                      _isChecked = value!;
+                                    },
+                                  );
                                 },
                               ),
                             ),

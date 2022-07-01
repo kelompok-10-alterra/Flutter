@@ -11,7 +11,7 @@ class ScaleAnimations extends StatefulWidget {
 class _ScaleAnimationsState extends State<ScaleAnimations>
     with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 2),
+    duration: const Duration(milliseconds: 800),
     vsync: this,
   );
 
