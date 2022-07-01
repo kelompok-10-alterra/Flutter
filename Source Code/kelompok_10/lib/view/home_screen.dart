@@ -138,18 +138,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             ),
-            items: bannerList.map((banner) {
-              return Builder(
-                builder: (BuildContext context) {
-                  return BannerStyle(
-                    image: banner.image,
-                    title: banner.title,
-                    discount: banner.discount,
-                    date: banner.date,
-                  );
-                },
-              );
-            }).toList(),
+            items: bannerList.map(
+              (banner) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return BannerStyle(
+                      image: banner.image,
+                      title: banner.title,
+                      discount: banner.discount,
+                      date: banner.date,
+                    );
+                  },
+                );
+              },
+            ).toList(),
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 12.0),

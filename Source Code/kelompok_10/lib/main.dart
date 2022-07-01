@@ -10,6 +10,7 @@ import 'view/main_screen.dart';
 import 'view/membership_detail.dart';
 import 'view/membership_purchase.dart';
 import 'view/on_search_screen.dart';
+import 'view/payment_method_screen.dart';
 import 'view/profile_screen.dart';
 import 'view/news_screen.dart';
 import 'view/signup_screen.dart';
@@ -110,6 +111,11 @@ class MyApp extends StatelessWidget {
           if (setting.name == MembershipDetail.routeName) {
             return FadeInRoute(
               page: MembershipDetail(),
+            );
+          }
+          if (setting.name == PaymentMethod.routeName) {
+            return FadeInRoute(
+              page: PaymentMethod(),
             );
           }
           return null;

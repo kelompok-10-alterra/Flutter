@@ -35,12 +35,9 @@ class DetailClass extends StatelessWidget {
                   topLeft: Radius.circular(12.0),
                   topRight: Radius.circular(12.0),
                 ),
-                child: Hero(
-                  tag: 'image',
-                  child: Image.asset(
-                    'assets/images/human-two.png',
-                    fit: BoxFit.cover,
-                  ),
+                child: Image.asset(
+                  'assets/images/human-two.png',
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

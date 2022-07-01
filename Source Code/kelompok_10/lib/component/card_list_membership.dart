@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../theme/theme.dart';
+import '../view/membership_detail.dart';
 import 'small_button_orange.dart';
 
 class CardListMembership extends StatelessWidget {
@@ -25,9 +26,10 @@ class CardListMembership extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: defaultMargin,
-        vertical: 8.0,
+      margin: EdgeInsets.only(
+        left: defaultMargin,
+        right: defaultMargin,
+        bottom: 16.0,
       ),
       width: displayWidth(context),
       height: 175.0,
@@ -154,7 +156,12 @@ class CardListMembership extends StatelessWidget {
                   SizedBox(
                     width: 64.0,
                     child: SmallOrangeButton(
-                      press: () {},
+                      press: () {
+                        Navigator.pushNamed(
+                          context,
+                          MembershipDetail.routeName,
+                        );
+                      },
                       text: 'Beli',
                     ),
                   ),

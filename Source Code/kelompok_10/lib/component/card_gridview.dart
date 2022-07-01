@@ -62,12 +62,9 @@ class CardGridView extends StatelessWidget {
                         topLeft: Radius.circular(12.0),
                         topRight: Radius.circular(12.0),
                       ),
-                      child: Hero(
-                        tag: tags,
-                        child: Image.asset(
-                          'assets/images/human-two.png',
-                          fit: BoxFit.cover,
-                        ),
+                      child: Image.asset(
+                        'assets/images/human-two.png',
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),

@@ -5,6 +5,7 @@ import 'package:kelompok_10/theme/theme.dart';
 
 import '../component/back_button.dart';
 import '../component/card_membership.dart';
+import 'payment_method_screen.dart';
 
 class MembershipDetail extends StatelessWidget {
   static const String routeName = '/membership_detail';
@@ -19,14 +20,13 @@ class MembershipDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget header() {
-      return Padding(
-        padding: EdgeInsets.only(
-          top: 32.0,
-          left: defaultMargin,
-          right: defaultMargin,
-        ),
-        child: Row(
+    AppBar header() {
+      return AppBar(
+        backgroundColor: whiteColor,
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        centerTitle: true,
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const BackButtons(
@@ -34,7 +34,7 @@ class MembershipDetail extends StatelessWidget {
               width: 40.0,
             ),
             Text(
-              'Silver',
+              'Metode Pembayaran',
               style: blackTextStyle.copyWith(
                 fontSize: 20.0,
                 fontWeight: semiBold,
@@ -87,11 +87,13 @@ class MembershipDetail extends StatelessWidget {
                     },
                   ).toList(),
                 ),
-                const SizedBox(
-                  height: 16.0,
+                SizedBox(
+                  height: defaultMargin,
                 ),
                 PrimaryButton(
-                  press: () {},
+                  press: () {
+                    Navigator.pushNamed(context, PaymentMethod.routeName);
+                  },
                   text: 'Bayar Sekarang',
                 ),
                 SizedBox(
@@ -105,11 +107,11 @@ class MembershipDetail extends StatelessWidget {
     }
 
     return Scaffold(
+      appBar: header(),
       body: ListView(
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         children: [
-          header(),
           const SizedBox(
             height: 16.0,
           ),

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:kelompok_10/theme/theme.dart';
 
 import '../component/back_button.dart';
 import '../component/card_list_membership.dart';
-import '../component/card_membership.dart';
-import '../component/small_button_orange.dart';
 import 'membership_detail.dart';
 
 class MembershipPurchase extends StatelessWidget {
@@ -14,14 +11,13 @@ class MembershipPurchase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget header() {
-      return Padding(
-        padding: EdgeInsets.only(
-          top: 32.0,
-          left: defaultMargin,
-          right: defaultMargin,
-        ),
-        child: Row(
+    AppBar header() {
+      return AppBar(
+        backgroundColor: whiteColor,
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        centerTitle: true,
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const BackButtons(
@@ -29,7 +25,7 @@ class MembershipPurchase extends StatelessWidget {
               width: 40.0,
             ),
             Text(
-              'Membership',
+              'Metode Pembayaran',
               style: blackTextStyle.copyWith(
                 fontSize: 20.0,
                 fontWeight: semiBold,
@@ -48,19 +44,13 @@ class MembershipPurchase extends StatelessWidget {
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         children: [
-          GestureDetector(
-            onTap: () => Navigator.pushNamed(
-              context,
-              MembershipDetail.routeName,
-            ),
-            child: CardListMembership(
-              starColor: gradientTwoColor,
-              endColor: gradientFiveColor,
-              typeCard: 'Silver',
-              berlaku: 'Berlaku 1 bulan',
-              starPrice: '100.000',
-              discountPrice: '20.000',
-            ),
+          CardListMembership(
+            starColor: gradientTwoColor,
+            endColor: gradientFiveColor,
+            typeCard: 'Silver',
+            berlaku: 'Berlaku 1 bulan',
+            starPrice: '100.000',
+            discountPrice: '20.000',
           ),
           CardListMembership(
             starColor: gradientPurpleOneColor,
@@ -83,11 +73,11 @@ class MembershipPurchase extends StatelessWidget {
     }
 
     return Scaffold(
+      appBar: header(),
       body: ListView(
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         children: [
-          header(),
           const SizedBox(
             height: 16.0,
           ),
