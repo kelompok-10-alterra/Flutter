@@ -3,7 +3,6 @@ import 'package:kelompok_10/theme/theme.dart';
 
 import '../component/back_button.dart';
 import '../component/card_list_membership.dart';
-import 'membership_detail.dart';
 
 class MembershipPurchase extends StatelessWidget {
   static const String routeName = '/membership_purchase';
@@ -25,7 +24,7 @@ class MembershipPurchase extends StatelessWidget {
               width: 40.0,
             ),
             Text(
-              'Metode Pembayaran',
+              'Membership',
               style: blackTextStyle.copyWith(
                 fontSize: 20.0,
                 fontWeight: semiBold,
@@ -73,6 +72,7 @@ class MembershipPurchase extends StatelessWidget {
     }
 
     return Scaffold(
+      backgroundColor: whiteColor,
       appBar: header(),
       body: ListView(
         shrinkWrap: true,

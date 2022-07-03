@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kelompok_10/animation/transition_animation.dart';
 import 'package:kelompok_10/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -212,6 +211,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     } else if (value.length < 6) {
                       return 'Password minimal 6 karakter';
                     }
+                    return null;
                   },
                   onChangeds: (value) {
                     _usernameController.text = value!;

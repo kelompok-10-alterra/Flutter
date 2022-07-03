@@ -29,8 +29,6 @@ class AuthViewModel extends ChangeNotifier {
       final data = await AuthService().login(username, password);
       _token = data['access_token'];
 
-      print('token: $_token');
-
       _state = AuthState.hashdata;
       notifyListeners();
 

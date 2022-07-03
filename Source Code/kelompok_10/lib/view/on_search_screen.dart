@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:kelompok_10/component/back_button.dart';
 
 import '../component/card_recent_search.dart';
@@ -27,7 +26,7 @@ class _OnSearchScreenState extends State<OnSearchScreen> {
           padding: EdgeInsets.symmetric(horizontal: defaultMargin),
           child: Row(
             children: [
-              BackButtons(),
+              const BackButtons(),
               const SizedBox(
                 width: 16.0,
               ),

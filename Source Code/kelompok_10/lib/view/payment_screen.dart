@@ -6,6 +6,7 @@ import '../component/back_button.dart';
 import '../component/primary_button.dart';
 import '../component/stepper.dart';
 import '../theme/theme.dart';
+import 'pay_screen.dart';
 import 'payment_method_screen.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -114,19 +115,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget content() {
     if (currentStep == 1) {
       return PaymentMethodScreen(
-        // selectedValue: selectedValue ?? 'Pilih Paket Membership',
         selectedRadio: selectedRadio,
       );
     } else if (currentStep == 2) {
-      return const Center(
-        child: Text(
-          "2!",
-          style: TextStyle(
-            fontSize: 30,
-            color: Colors.blue,
-          ),
-        ),
-      );
+      return const PayScreen();
     } else {
       return const Center(
         child: Text(
@@ -142,12 +134,23 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   Widget bottomBar() {
     if (currentStep == 1) {
-      return Padding(
+      return Container(
         padding: EdgeInsets.only(
           top: 16.0,
           left: defaultMargin,
           right: defaultMargin,
           bottom: defaultMargin,
+        ),
+        decoration: BoxDecoration(
+          color: whiteColor,
+          boxShadow: [
+            BoxShadow(
+              color: greyColor.withOpacity(0.15),
+              spreadRadius: 1,
+              offset: const Offset(0, 1),
+              blurRadius: 7,
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,11 +169,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     setState(
                       () {
                         isUsePoint = !isUsePoint;
-                        print(isUsePoint);
                       },
                     );
                   },
-                  value: isUsePoint,
+                  values: isUsePoint,
                 )
               ],
             ),
@@ -187,9 +189,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {
-                    print(isUsePoint);
-                  },
+                  onTap: () {},
                   child: Text(
                     'Rp. 20.000',
                     style: blackTextStyle.copyWith(
@@ -223,6 +223,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ],
         ),
       );
+    } else if (currentStep == 2) {
+      return Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: defaultMargin,
+          vertical: defaultMargin,
+        ),
+        child: PrimaryButton(
+          text: 'Bayar Sekarang',
+          press: () {
+            handleNext();
+          },
+        ),
+      );
     } else {
       return Padding(
         padding: EdgeInsets.symmetric(
@@ -230,7 +243,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           vertical: defaultMargin,
         ),
         child: PrimaryButton(
-          text: 'Bayar',
+          text: 'Bagikan',
           press: () {
             handleNext();
           },

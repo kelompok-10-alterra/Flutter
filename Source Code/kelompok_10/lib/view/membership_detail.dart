@@ -90,16 +90,6 @@ class MembershipDetail extends StatelessWidget {
                 SizedBox(
                   height: defaultMargin,
                 ),
-                PrimaryButton(
-                  press: () {
-                    Navigator.pushNamed(context, PaymentScreen.routeName);
-                    print('cek');
-                  },
-                  text: 'Bayar Sekarang',
-                ),
-                SizedBox(
-                  height: defaultMargin,
-                ),
               ],
             ),
           ),
@@ -107,7 +97,43 @@ class MembershipDetail extends StatelessWidget {
       );
     }
 
+    Widget bottomBar() {
+      return Container(
+        padding: EdgeInsets.only(
+          left: defaultMargin,
+          right: defaultMargin,
+          top: 16.0,
+        ),
+        decoration: BoxDecoration(
+          color: whiteColor,
+          boxShadow: [
+            BoxShadow(
+              color: greyColor.withOpacity(0.15),
+              spreadRadius: 1,
+              offset: const Offset(0, 1),
+              blurRadius: 7,
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            PrimaryButton(
+              press: () {
+                Navigator.pushNamed(context, PaymentScreen.routeName);
+              },
+              text: 'Bayar Sekarang',
+            ),
+            SizedBox(
+              height: defaultMargin,
+            ),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
+      backgroundColor: whiteColor,
       appBar: header(),
       body: ListView(
         shrinkWrap: true,
@@ -119,6 +145,7 @@ class MembershipDetail extends StatelessWidget {
           content(),
         ],
       ),
+      bottomNavigationBar: bottomBar(),
     );
   }
 }

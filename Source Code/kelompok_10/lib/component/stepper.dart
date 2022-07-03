@@ -27,11 +27,6 @@ class CostumStapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List stepTitle = [
-      'Pilih metode',
-      'Bayar',
-      'Selesai',
-    ];
     return Container(
       padding: EdgeInsets.only(
         top: 20.0,

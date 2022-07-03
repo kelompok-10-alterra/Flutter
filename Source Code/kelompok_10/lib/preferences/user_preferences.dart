@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreferences {
@@ -8,7 +7,6 @@ class UserPreferences {
     final prefs = await SharedPreferences.getInstance();
 
     final userDataToken = prefs.getString(saveToken);
-    print("User Prefernces: getUser ->$userDataToken");
 
     //Check if userDataToken is null
     if (userDataToken == null) {
@@ -21,8 +19,6 @@ class UserPreferences {
   setUser(String token) async {
     final prefs = await SharedPreferences.getInstance();
 
-    // final setToken = jsonEncode(token);
-    print("User Prefernces: setUser ->$token");
     await prefs.setString(saveToken, token);
   }
 

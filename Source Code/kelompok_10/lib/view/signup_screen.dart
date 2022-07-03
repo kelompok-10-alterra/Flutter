@@ -180,6 +180,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     } else if (value.length < 6) {
                       return 'Password minimal 6 karakter';
                     }
+                    return null;
                   },
                   onChangeds: (value) {
                     _emailController.text = value!;
@@ -202,6 +203,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     } else if (value != _passwordController.text) {
                       return 'Konfirmasi Password tidak sama';
                     }
+                    return null;
                   },
                   onChangeds: (value) {
                     _emailController.text = value!;

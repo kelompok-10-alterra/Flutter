@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 import 'package:kelompok_10/theme/theme.dart';
@@ -6,10 +8,10 @@ class CostumSwitchButton extends StatelessWidget {
   CostumSwitchButton({
     Key? key,
     required this.press,
-    this.value,
+    this.values,
   }) : super(key: key);
 
-  bool? value;
+  bool? values;
   Function press;
 
   @override
@@ -30,9 +32,9 @@ class CostumSwitchButton extends StatelessWidget {
         ),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
-          transform: value != true
+          transform: values != true
               ? Matrix4.translationValues(-7, 0, 0)
-              : Matrix4.translationValues(value != true ? -7 : 7, 0, 0),
+              : Matrix4.translationValues(values != true ? -7 : 7, 0, 0),
           curve: Curves.easeInOut,
           height: 12.0,
           width: 12.0,
