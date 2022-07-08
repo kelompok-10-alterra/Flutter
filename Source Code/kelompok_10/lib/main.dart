@@ -3,16 +3,21 @@ import 'package:provider/provider.dart';
 
 import 'animation/transition_animation.dart';
 import 'view/date_screen.dart';
+import 'view/detail_akun_screen.dart';
 import 'view/detail_category.dart';
 import 'view/detail_class.dart';
+import 'view/favorite_screen.dart';
 import 'view/login_screen.dart';
 import 'view/main_screen.dart';
 import 'view/membership_detail.dart';
 import 'view/membership_purchase.dart';
 import 'view/on_search_screen.dart';
+import 'view/payment_done_screen.dart';
 import 'view/payment_screen.dart';
+import 'view/point_screen.dart';
 import 'view/profile_screen.dart';
 import 'view/news_screen.dart';
+import 'view/riwayat_pembelian_screen.dart';
 import 'view/signup_screen.dart';
 import 'view/home_screen.dart';
 import 'view/onboarding_page.dart';
@@ -116,6 +121,31 @@ class MyApp extends StatelessWidget {
           if (setting.name == PaymentScreen.routeName) {
             return FadeInRoute(
               page: const PaymentScreen(),
+            );
+          }
+          if (setting.name == PaymentDoneScreen.routeName) {
+            return FadeInRoute(
+              page: const PaymentDoneScreen(),
+            );
+          }
+          if (setting.name == DetailAkunScreen.routeName) {
+            return FadeInRoute(
+              page: const DetailAkunScreen(),
+            );
+          }
+          if (setting.name == FavoriteScreen.routeName) {
+            return FadeInRoute(
+              page: const FavoriteScreen(),
+            );
+          }
+          if (setting.name == RiwayatPembelianScreen.routeName) {
+            return FadeInRoute(
+              page: const RiwayatPembelianScreen(),
+            );
+          }
+          if (setting.name == PointScreen.routeName) {
+            return FadeInRoute(
+              page: const PointScreen(),
             );
           }
           return null;

@@ -74,7 +74,7 @@ class CostumStapper extends StatelessWidget {
   getText(i) {
     if (i == 0) {
       return 'Pilih metode';
-    } else if (i == 2) {
+    } else if (i == 1) {
       return 'Bayar';
     } else {
       return 'Selesai';
@@ -89,7 +89,6 @@ class CostumStapper extends StatelessWidget {
       var circleColor = getCircleColor(i);
       var lineColor = getLineColor(i);
 
-      // step circles
       list.add(
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -118,7 +117,6 @@ class CostumStapper extends StatelessWidget {
         ),
       );
 
-      //line between step circles
       if (i != totalSteps - 1) {
         list.add(
           Expanded(
@@ -143,6 +141,12 @@ class CostumStapper extends StatelessWidget {
 
   Widget getNumberOfElement(index) {
     if (index + 1 < curStep) {
+      return const Icon(
+        Icons.check,
+        color: Colors.white,
+        size: 16.0,
+      );
+    } else if (index + 1 == 3 && curStep == 3) {
       return const Icon(
         Icons.check,
         color: Colors.white,

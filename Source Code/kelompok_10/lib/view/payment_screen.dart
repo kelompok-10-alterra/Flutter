@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kelompok_10/component/costum_switch_button.dart';
+import 'package:kelompok_10/component/text_button.dart';
 
 import '../component/back_button.dart';
 import '../component/primary_button.dart';
 import '../component/stepper.dart';
 import '../theme/theme.dart';
 import 'pay_screen.dart';
+import 'payment_done_screen.dart';
 import 'payment_method_screen.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -34,6 +36,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
   next() {
     if (currentStep <= stepLength) {
       goTo(currentStep + 1);
+    } else if (currentStep == stepLength) {
+      null;
     }
   }
 
@@ -71,7 +75,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       width: MediaQuery.of(context).size.width,
       curStep: currentStep,
       stepCompleteColor: greenColor,
-      currentStepColor: greenColor.withAlpha(100),
+      currentStepColor: greenColor,
       inactiveColor: orangeColor,
       lineWidth: 2.0,
     );
@@ -94,7 +98,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             width: 40.0,
           ),
           Text(
-            'Metode Pembayaran',
+            currentStep != 3 ? 'Metode Pembayaran' : 'Pembayaran Berhasil',
             style: blackTextStyle.copyWith(
               fontSize: 20.0,
               fontWeight: semiBold,
@@ -120,15 +124,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     } else if (currentStep == 2) {
       return const PayScreen();
     } else {
-      return const Center(
-        child: Text(
-          "3!",
-          style: TextStyle(
-            fontSize: 30,
-            color: Colors.blue,
-          ),
-        ),
-      );
+      return const PaymentDoneScreen();
     }
   }
 
@@ -242,11 +238,29 @@ class _PaymentScreenState extends State<PaymentScreen> {
           horizontal: defaultMargin,
           vertical: defaultMargin,
         ),
-        child: PrimaryButton(
-          text: 'Bagikan',
-          press: () {
-            handleNext();
-          },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            PrimaryButton(
+              withIcon: true,
+              icons: 'assets/svg/ic-forward.svg',
+              text: 'Bagikan',
+              press: () {},
+            ),
+            const SizedBox(
+              height: 12.0,
+            ),
+            SizedBox(
+              height: 32.0,
+              width: displayWidth(context),
+              child: Center(
+                child: TextButtons(
+                  text: 'Unduh',
+                  press: () {},
+                ),
+              ),
+            ),
+          ],
         ),
       );
     }

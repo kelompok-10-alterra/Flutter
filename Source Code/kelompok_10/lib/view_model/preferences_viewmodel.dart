@@ -7,6 +7,8 @@ class PreferencesViewModel extends ChangeNotifier {
     String userData = await UserPreferences().getUser();
     notifyListeners();
 
+    print(userData);
+
     return userData;
   }
 

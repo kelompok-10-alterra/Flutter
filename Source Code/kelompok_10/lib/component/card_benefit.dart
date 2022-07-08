@@ -21,13 +21,7 @@ class CardBenefit extends StatelessWidget {
       decoration: BoxDecoration(
         color: whiteColor,
         borderRadius: BorderRadius.circular(12.0),
-        boxShadow: [
-          BoxShadow(
-            color: greyTwoColor.withOpacity(0.15),
-            offset: const Offset(0, 6),
-            blurRadius: 4,
-          ),
-        ],
+        boxShadow: defaultCardShadow,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,

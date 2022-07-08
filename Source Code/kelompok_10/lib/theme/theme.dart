@@ -46,6 +46,15 @@ Color gradientPurpleTwoColor = const Color(0xffCEA6FF);
 Color gradientBrownOneColor = const Color(0xff767676);
 Color gradientBrownTwoColor = const Color(0xffB2ACAC);
 
+List<BoxShadow> defaultCardShadow = [
+  BoxShadow(
+    color: greyTwoColor.withOpacity(0.15),
+    spreadRadius: 3,
+    offset: const Offset(0, 2),
+    blurRadius: 4,
+  ),
+];
+
 TextStyle primaryTextStyle = GoogleFonts.inter(color: primaryColor);
 
 TextStyle secondaryTextStyle = GoogleFonts.inter(color: secondaryColor);

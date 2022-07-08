@@ -47,6 +47,7 @@ dependencies:
   readmore: ^2.2.0
   dropdown_button2: ^1.6.2
   fluttertoast: ^8.0.9
+  ticket_widget: ^0.0.1
 
 
 dev_dependencies:

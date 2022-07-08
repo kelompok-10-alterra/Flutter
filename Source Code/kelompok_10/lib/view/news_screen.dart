@@ -24,12 +24,7 @@ class _NewsScreenState extends State<NewsScreen> {
         // Logo Flutter
         child: ScaleAnimations(
           child: PrimaryButton(
-            press: () {
-              Provider.of<PreferencesViewModel>(context, listen: false)
-                  .deleteUser();
-              Navigator.pushNamedAndRemoveUntil(
-                  context, LogInScreen.routeName, (route) => false);
-            },
+            press: () {},
           ),
         ), //F
       ),
