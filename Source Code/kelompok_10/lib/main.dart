@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kelompok_10/view_model/class_view_model.dart';
 import 'package:provider/provider.dart';
 
 import 'animation/transition_animation.dart';
-import 'view/date_screen.dart';
+import 'view/cart_screen.dart';
+import 'view/schedule_screen.dart';
 import 'view/detail_akun_screen.dart';
 import 'view/detail_category.dart';
 import 'view/detail_class.dart';
@@ -24,6 +26,7 @@ import 'view/onboarding_page.dart';
 import 'view/splash_screen.dart';
 import 'view_model/auth_view_model.dart';
 import 'view_model/preferences_viewmodel.dart';
+import 'view_model/type_view_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,6 +44,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => PreferencesViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => TypeViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ClassViewModel(),
         ),
       ],
       child: MaterialApp(
@@ -83,9 +92,9 @@ class MyApp extends StatelessWidget {
               page: const NewsScreen(),
             );
           }
-          if (setting.name == DateScreen.routeName) {
+          if (setting.name == ScheduleScreen.routeName) {
             return FadeInRoute(
-              page: const DateScreen(),
+              page: const ScheduleScreen(),
             );
           }
           if (setting.name == ProfileScreen.routeName) {
@@ -146,6 +155,11 @@ class MyApp extends StatelessWidget {
           if (setting.name == PointScreen.routeName) {
             return FadeInRoute(
               page: const PointScreen(),
+            );
+          }
+          if (setting.name == CartScreen.routeName) {
+            return FadeInRoute(
+              page: const CartScreen(),
             );
           }
           return null;

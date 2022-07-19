@@ -51,16 +51,20 @@ class _LogInScreenState extends State<LogInScreen> {
   }
 
   _loginHandle() async {
-    final loginProvider = Provider.of<AuthViewModel>(context, listen: false);
+    final authProvider = Provider.of<AuthViewModel>(context, listen: false);
 
     if (formGlobalKey.currentState!.validate()) {
-      if (await loginProvider.login(
+      if (await authProvider.login(
         _usernameController.text,
         _passwordController.text,
       )) {
         if (_isChecked == true) {
           Provider.of<PreferencesViewModel>(context, listen: false)
-              .setToken(loginProvider.token);
+              .setToken(authProvider.token);
+          authProvider.getUserByUsername(
+            _usernameController.text,
+            authProvider.token.accessToken!,
+          );
           Navigator.pushNamedAndRemoveUntil(
               context, MainScreen.routeName, (route) => false);
 
@@ -86,7 +90,10 @@ class _LogInScreenState extends State<LogInScreen> {
         } else {
           Navigator.pushNamedAndRemoveUntil(
               context, MainScreen.routeName, (route) => false);
-
+          authProvider.getUserByUsername(
+            _usernameController.text,
+            authProvider.token.accessToken!,
+          );
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: greenColor,

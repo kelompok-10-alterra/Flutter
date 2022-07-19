@@ -134,16 +134,16 @@
 				}
 			}
 		},
-		"/capstone/role/managerOnly/updateRole/{roleId}": {
+		"/capstone/rating/userAccess/updateRating": {
 			"put": {
 				"tags": [
-					"role-controller"
+					"rating-controller"
 				],
-				"operationId": "updateRole",
+				"operationId": "updateRating",
 				"parameters": [
 					{
-						"name": "roleId",
-						"in": "path",
+						"name": "ratingId",
+						"in": "query",
 						"required": true,
 						"schema": {
 							"type": "integer",
@@ -155,7 +155,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/RoleDtoPost"
+								"$ref": "#/components/schemas/RatingDtoPost"
 							}
 						}
 					},
@@ -167,7 +167,7 @@
 						"content": {
 							"*/*": {
 								"schema": {
-									"$ref": "#/components/schemas/RoleEntity"
+									"$ref": "#/components/schemas/RatingEntity"
 								}
 							}
 						}
@@ -332,6 +332,47 @@
 							"*/*": {
 								"schema": {
 									"$ref": "#/components/schemas/InstructorEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/graph/adminAccess/updateGraph/{graphId}": {
+			"put": {
+				"tags": [
+					"graph-controller"
+				],
+				"operationId": "updateGraph",
+				"parameters": [
+					{
+						"name": "graphId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/GraphDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/GraphEntity"
 								}
 							}
 						}
@@ -653,6 +694,66 @@
 				}
 			}
 		},
+		"/capstone/rating/userAcess/createNewRating": {
+			"post": {
+				"tags": [
+					"rating-controller"
+				],
+				"operationId": "createRatingDto",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RatingDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RatingDtoPost"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/payment/adminAccess/createNewPayment": {
+			"post": {
+				"tags": [
+					"payment-controller"
+				],
+				"operationId": "createPaymentDto",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PaymentDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/capstone/newsletter/adminAccess/createNewNewsletter": {
 			"post": {
 				"tags": [
@@ -766,6 +867,66 @@
 							"*/*": {
 								"schema": {
 									"$ref": "#/components/schemas/InstructorDtoPost"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/graph/adminAccess/createNewGraph": {
+			"post": {
+				"tags": [
+					"graph-controller"
+				],
+				"operationId": "createGraphDto",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/GraphDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/GraphDtoPost"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/favoriteClass/userAcess/createNewFavoriteClass": {
+			"post": {
+				"tags": [
+					"favorite-class-controller"
+				],
+				"operationId": "createFavoriteClassDto",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/FavoriteClassDtoPost"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/FavoriteClassDtoPost"
 								}
 							}
 						}
@@ -1023,6 +1184,36 @@
 				}
 			}
 		},
+		"/capstone/user/userAccess/getUserByUsername": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"operationId": "getUserUsingUsername",
+				"parameters": [
+					{
+						"name": "username",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/UserDtoGet"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/capstone/user/userAccess/getUserById": {
 			"get": {
 				"tags": [
@@ -1068,6 +1259,16 @@
 					"user-controller"
 				],
 				"operationId": "findAllRoleUser",
+				"parameters": [
+					{
+						"name": "keyword",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -1091,6 +1292,16 @@
 					"user-controller"
 				],
 				"operationId": "findAll",
+				"parameters": [
+					{
+						"name": "keyword",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -1419,29 +1630,6 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/TypeEntity"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/type/userAccess/getAllTypeWithDto": {
-			"get": {
-				"tags": [
-					"type-controller"
-				],
-				"operationId": "findAllDto_1",
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "array",
-									"items": {
 										"$ref": "#/components/schemas/TypeDtoGet"
 									}
 								}
@@ -1576,29 +1764,6 @@
 					"room-controller"
 				],
 				"operationId": "findAll_2",
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/RoomEntity"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/room/userAccess/getAllRoomWithDto": {
-			"get": {
-				"tags": [
-					"room-controller"
-				],
-				"operationId": "findAllDto_2",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -1763,7 +1928,7 @@
 				"tags": [
 					"role-controller"
 				],
-				"operationId": "findAllDto_3",
+				"operationId": "findAllDto_1",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -1774,6 +1939,212 @@
 									"items": {
 										"$ref": "#/components/schemas/RoleDtoGet"
 									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/rating/userAcess/getRatingById": {
+			"get": {
+				"tags": [
+					"rating-controller"
+				],
+				"operationId": "getRatingById",
+				"parameters": [
+					{
+						"name": "ratingId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RatingEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/rating/userAccess/getAllRatingByUserId": {
+			"get": {
+				"tags": [
+					"rating-controller"
+				],
+				"operationId": "findRatingByUserId",
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/RatingEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/rating/adminAccess/getAllRating": {
+			"get": {
+				"tags": [
+					"rating-controller"
+				],
+				"operationId": "findAll_4",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/RatingEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/rating/adminAccess/getAllRatingByClassId": {
+			"get": {
+				"tags": [
+					"rating-controller"
+				],
+				"operationId": "findRatingByClassId",
+				"parameters": [
+					{
+						"name": "classId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/RatingEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/payment/userAccess/getPaymentById": {
+			"get": {
+				"tags": [
+					"payment-controller"
+				],
+				"operationId": "getPaymentById",
+				"parameters": [
+					{
+						"name": "paymentId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PaymentDtoGet"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/payment/adminAccess/getAllPayment": {
+			"get": {
+				"tags": [
+					"payment-controller"
+				],
+				"operationId": "findAll_5",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/PaymentDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/payment/adminAccess/confirmPayment": {
+			"get": {
+				"tags": [
+					"payment-controller"
+				],
+				"operationId": "confirmPayment",
+				"parameters": [
+					{
+						"name": "token",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "string"
 								}
 							}
 						}
@@ -1905,7 +2276,7 @@
 				"tags": [
 					"newsletter-controller"
 				],
-				"operationId": "findAll_4",
+				"operationId": "findAll_6",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -1928,7 +2299,7 @@
 				"tags": [
 					"newsletter-controller"
 				],
-				"operationId": "findAllDto_4",
+				"operationId": "findAllDto_2",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -1951,7 +2322,7 @@
 				"tags": [
 					"membership-controller"
 				],
-				"operationId": "getMembershipById",
+				"operationId": "getMembershipByIdDto",
 				"parameters": [
 					{
 						"name": "membershipId",
@@ -1969,7 +2340,7 @@
 						"content": {
 							"*/*": {
 								"schema": {
-									"$ref": "#/components/schemas/MembershipEntity"
+									"$ref": "#/components/schemas/MembershipDtoGet"
 								}
 							}
 						}
@@ -2070,7 +2441,17 @@
 				"tags": [
 					"membership-controller"
 				],
-				"operationId": "findAll_5",
+				"operationId": "findAll_7",
+				"parameters": [
+					{
+						"name": "keyword",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -2079,7 +2460,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/MembershipEntity"
+										"$ref": "#/components/schemas/MembershipDtoGet"
 									}
 								}
 							}
@@ -2093,7 +2474,7 @@
 				"tags": [
 					"membership-controller"
 				],
-				"operationId": "findAllDto_5",
+				"operationId": "findAllDto_3",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -2256,30 +2637,7 @@
 				"tags": [
 					"member-controller"
 				],
-				"operationId": "findAll_6",
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/MemberEntity"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/member/userAccess/getAllMemberByWithDto": {
-			"get": {
-				"tags": [
-					"member-controller"
-				],
-				"operationId": "findAllDto_6",
+				"operationId": "findAll_8",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -2421,30 +2779,7 @@
 				"tags": [
 					"instructor-controller"
 				],
-				"operationId": "findAll_7",
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/InstructorEntity"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/instructor/userAcess/getAllInstructureWithDto": {
-			"get": {
-				"tags": [
-					"instructor-controller"
-				],
-				"operationId": "findAllDto_7",
+				"operationId": "findAll_9",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -2454,6 +2789,168 @@
 									"type": "array",
 									"items": {
 										"$ref": "#/components/schemas/InstructorDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/graph/adminAccess/getGraphById": {
+			"get": {
+				"tags": [
+					"graph-controller"
+				],
+				"operationId": "getGraphById",
+				"parameters": [
+					{
+						"name": "graphId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/GraphEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/graph/adminAccess/getAllGraph": {
+			"get": {
+				"tags": [
+					"graph-controller"
+				],
+				"operationId": "findAll_10",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/GraphEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/favoriteClass/userAcess/getFavoriteClassById": {
+			"get": {
+				"tags": [
+					"favorite-class-controller"
+				],
+				"operationId": "getFavoriteClassById",
+				"parameters": [
+					{
+						"name": "favoriteClassId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/FavoriteClassEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/favoriteClass/adminAccess/getAllFavoriteClass": {
+			"get": {
+				"tags": [
+					"favorite-class-controller"
+				],
+				"operationId": "findAll_11",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/FavoriteClassEntity"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/favorite/userAccess/getFavoriteById": {
+			"get": {
+				"tags": [
+					"favorite-controller"
+				],
+				"operationId": "getRoleById_1",
+				"parameters": [
+					{
+						"name": "favoriteId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/FavoriteEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/favorite/adminAccess/getAllFavorite": {
+			"get": {
+				"tags": [
+					"favorite-controller"
+				],
+				"operationId": "findAll_12",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/FavoriteEntity"
 									}
 								}
 							}
@@ -2586,7 +3083,7 @@
 				"tags": [
 					"content-controller"
 				],
-				"operationId": "findAll_8",
+				"operationId": "findAll_13",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -2609,7 +3106,7 @@
 				"tags": [
 					"content-controller"
 				],
-				"operationId": "findAllDto_8",
+				"operationId": "findAllDto_4",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -2715,6 +3212,39 @@
 				}
 			}
 		},
+		"/capstone/class/userAccess/getClassByType": {
+			"get": {
+				"tags": [
+					"class-controller"
+				],
+				"operationId": "getClassByType",
+				"parameters": [
+					{
+						"name": "typeName",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/ClassDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/capstone/class/userAccess/getClassById": {
 			"get": {
 				"tags": [
@@ -2746,22 +3276,30 @@
 				}
 			}
 		},
-		"/capstone/class/userAccess/getAllClass": {
+		"/capstone/class/userAccess/getClassByIdDto": {
 			"get": {
 				"tags": [
 					"class-controller"
 				],
-				"operationId": "findAll_9",
+				"operationId": "getClassByIdDto",
+				"parameters": [
+					{
+						"name": "classId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "OK",
 						"content": {
 							"*/*": {
 								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/ClassEntity"
-									}
+									"$ref": "#/components/schemas/ClassDtoGet"
 								}
 							}
 						}
@@ -2769,12 +3307,22 @@
 				}
 			}
 		},
-		"/capstone/class/userAccess/getAllClassWithDto": {
+		"/capstone/class/userAccess/getClassByCategory": {
 			"get": {
 				"tags": [
 					"class-controller"
 				],
-				"operationId": "findAllDto_9",
+				"operationId": "getClassByCategory",
+				"parameters": [
+					{
+						"name": "categoryName",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -2784,6 +3332,73 @@
 									"type": "array",
 									"items": {
 										"$ref": "#/components/schemas/ClassDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/class/userAccess/getAllClass": {
+			"get": {
+				"tags": [
+					"class-controller"
+				],
+				"operationId": "findAll_14",
+				"parameters": [
+					{
+						"name": "keyword",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/ClassDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/class/adminAccess/getUserByClassId": {
+			"get": {
+				"tags": [
+					"class-controller"
+				],
+				"operationId": "getUserByClass",
+				"parameters": [
+					{
+						"name": "classId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/GetUserByClass"
 									}
 								}
 							}
@@ -2916,30 +3531,7 @@
 				"tags": [
 					"category-controller"
 				],
-				"operationId": "findAll_10",
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/CategoryEntity"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/category/userAccess/getAllCategoryWithDto": {
-			"get": {
-				"tags": [
-					"category-controller"
-				],
-				"operationId": "findAllDto_10",
+				"operationId": "findAll_15",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -2949,6 +3541,60 @@
 									"type": "array",
 									"items": {
 										"$ref": "#/components/schemas/CategoryDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/cart/userAccess/getCartById": {
+			"get": {
+				"tags": [
+					"cart-controller"
+				],
+				"operationId": "getRoleById_2",
+				"parameters": [
+					{
+						"name": "cartId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/CartEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/cart/adminAccess/getAllCart": {
+			"get": {
+				"tags": [
+					"cart-controller"
+				],
+				"operationId": "findAll_16",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/CartEntity"
 									}
 								}
 							}
@@ -2981,6 +3627,37 @@
 							"*/*": {
 								"schema": {
 									"$ref": "#/components/schemas/BookingEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/booking/userAcess/getBookingByIdDto": {
+			"get": {
+				"tags": [
+					"booking-controller"
+				],
+				"operationId": "getBookingByIdDto",
+				"parameters": [
+					{
+						"name": "bookingId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/BookingDtoGet"
 								}
 							}
 						}
@@ -3076,12 +3753,23 @@
 				}
 			}
 		},
-		"/capstone/booking/adminAccess/getAllWithDto": {
+		"/capstone/booking/adminAccess/getAllBooking": {
 			"get": {
 				"tags": [
 					"booking-controller"
 				],
-				"operationId": "findAllDto_11",
+				"operationId": "findAll_17",
+				"parameters": [
+					{
+						"name": "bookingId",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -3091,29 +3779,6 @@
 									"type": "array",
 									"items": {
 										"$ref": "#/components/schemas/BookingDtoGet"
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/booking/adminAccess/getAllBooking": {
-			"get": {
-				"tags": [
-					"booking-controller"
-				],
-				"operationId": "findAll_11",
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/BookingEntity"
 									}
 								}
 							}
@@ -3279,15 +3944,15 @@
 				}
 			}
 		},
-		"/capstone/role/managerOnly/deleteRole/{roleId}": {
+		"/capstone/rating/adminAccess/deleteRating/{ratingId}": {
 			"delete": {
 				"tags": [
-					"role-controller"
+					"rating-controller"
 				],
-				"operationId": "deleteRole",
+				"operationId": "deleteRating",
 				"parameters": [
 					{
-						"name": "roleId",
+						"name": "RatingId",
 						"in": "path",
 						"required": true,
 						"schema": {
@@ -3302,7 +3967,7 @@
 						"content": {
 							"*/*": {
 								"schema": {
-									"$ref": "#/components/schemas/RoleEntity"
+									"$ref": "#/components/schemas/RatingEntity"
 								}
 							}
 						}
@@ -3427,6 +4092,68 @@
 							"*/*": {
 								"schema": {
 									"$ref": "#/components/schemas/InstructorEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/graph/adminAccess/deleteGraph/{graphId}": {
+			"delete": {
+				"tags": [
+					"graph-controller"
+				],
+				"operationId": "deleteGraph",
+				"parameters": [
+					{
+						"name": "graphId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/GraphEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/favoriteClass/adminAccess/deleteFavoriteClass/{favoriteClassId}": {
+			"delete": {
+				"tags": [
+					"favorite-class-controller"
+				],
+				"operationId": "deleteFavoriteClass",
+				"parameters": [
+					{
+						"name": "favoriteClassId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/FavoriteClassEntity"
 								}
 							}
 						}
@@ -3568,56 +4295,138 @@
 						"type": "string"
 					},
 					"phone": {
-						"type": "integer",
-						"format": "int64"
+						"type": "string"
 					},
 					"address": {
 						"type": "string"
+					},
+					"birthDate": {
+						"type": "string",
+						"format": "date"
 					},
 					"imageUrl": {
 						"type": "string"
 					}
 				}
 			},
-			"MemberEntity": {
+			"BookingEntity": {
 				"type": "object",
 				"properties": {
-					"memberId": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"length": {
-						"type": "string"
-					},
-					"price": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"created_at": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updated_at": {
-						"type": "string",
-						"format": "date-time"
-					}
-				}
-			},
-			"MembershipEntity": {
-				"type": "object",
-				"properties": {
-					"membershipId": {
+					"bookingId": {
 						"type": "integer",
 						"format": "int64"
 					},
 					"status": {
 						"type": "boolean"
 					},
+					"price": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"cartIdentity": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"classIdentity": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					},
 					"user": {
 						"$ref": "#/components/schemas/UserEntity"
 					},
-					"member": {
-						"$ref": "#/components/schemas/MemberEntity"
+					"classes": {
+						"$ref": "#/components/schemas/ClassEntity"
+					},
+					"cart": {
+						"$ref": "#/components/schemas/CartEntity"
+					}
+				}
+			},
+			"CartEntity": {
+				"type": "object",
+				"properties": {
+					"cartId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"total": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"booking": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/BookingEntity"
+						}
+					}
+				}
+			},
+			"ClassEntity": {
+				"type": "object",
+				"properties": {
+					"classId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"status": {
+						"type": "boolean"
+					},
+					"capacity": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"booked": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"schedule": {
+						"type": "string",
+						"format": "date"
+					},
+					"hour": {
+						"maximum": 2,
+						"minimum": 2,
+						"type": "integer",
+						"format": "int64"
+					},
+					"price": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"ratings": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"typeName": {
+						"type": "string"
+					},
+					"categoryName": {
+						"type": "string"
 					},
 					"created_at": {
 						"type": "string",
@@ -3629,23 +4438,67 @@
 					}
 				}
 			},
-			"RoleEntity": {
+			"FavoriteClassEntity": {
 				"type": "object",
 				"properties": {
-					"roleId": {
+					"favoriteClassId": {
 						"type": "integer",
 						"format": "int64"
 					},
-					"name": {
+					"classIdentity": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"className": {
 						"type": "string"
 					},
-					"created_at": {
+					"classPrice": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"schedule": {
+						"type": "string",
+						"format": "date"
+					},
+					"classes": {
+						"$ref": "#/components/schemas/ClassEntity"
+					},
+					"favorite": {
+						"$ref": "#/components/schemas/FavoriteEntity"
+					},
+					"user": {
+						"$ref": "#/components/schemas/UserEntity"
+					},
+					"createdAt": {
 						"type": "string",
 						"format": "date-time"
 					},
-					"updated_at": {
+					"updatedAt": {
 						"type": "string",
 						"format": "date-time"
+					}
+				}
+			},
+			"FavoriteEntity": {
+				"type": "object",
+				"properties": {
+					"favoriteId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"favClass": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/FavoriteClassEntity"
+						}
 					}
 				}
 			},
@@ -3669,17 +4522,30 @@
 						"type": "string"
 					},
 					"phone": {
-						"type": "integer",
-						"format": "int64"
+						"type": "string"
 					},
 					"address": {
 						"type": "string"
+					},
+					"birthDate": {
+						"type": "string",
+						"format": "date"
 					},
 					"imageUrl": {
 						"type": "string"
 					},
 					"roleName": {
 						"type": "string"
+					},
+					"membership": {
+						"type": "string"
+					},
+					"point": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"status": {
+						"type": "boolean"
 					},
 					"token": {
 						"type": "string"
@@ -3692,14 +4558,11 @@
 						"type": "string",
 						"format": "date-time"
 					},
-					"roles": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/RoleEntity"
-						}
+					"cart": {
+						"$ref": "#/components/schemas/CartEntity"
 					},
-					"membership": {
-						"$ref": "#/components/schemas/MembershipEntity"
+					"favorite": {
+						"$ref": "#/components/schemas/FavoriteEntity"
 					}
 				}
 			},
@@ -3720,6 +4583,12 @@
 					},
 					"name": {
 						"type": "string"
+					},
+					"classes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ClassEntity"
+						}
 					},
 					"created_at": {
 						"type": "string",
@@ -3749,6 +4618,12 @@
 					"name": {
 						"type": "string"
 					},
+					"classes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ClassEntity"
+						}
+					},
 					"created_at": {
 						"type": "string",
 						"format": "date-time"
@@ -3759,11 +4634,60 @@
 					}
 				}
 			},
-			"RoleDtoPost": {
+			"RatingDtoPost": {
 				"type": "object",
 				"properties": {
-					"name": {
+					"rating": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"classId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"userId": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"RatingEntity": {
+				"type": "object",
+				"properties": {
+					"ratingId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"rating": {
+						"maximum": 1,
+						"minimum": 1,
+						"type": "integer",
+						"format": "int64"
+					},
+					"username": {
 						"type": "string"
+					},
+					"userIdentity": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"classIdentity": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"classes": {
+						"$ref": "#/components/schemas/ClassEntity"
+					},
+					"user": {
+						"$ref": "#/components/schemas/UserEntity"
 					}
 				}
 			},
@@ -3816,9 +4740,6 @@
 			"MembershipDtoPost": {
 				"type": "object",
 				"properties": {
-					"status": {
-						"type": "boolean"
-					},
 					"userId": {
 						"type": "integer",
 						"format": "int64"
@@ -3829,15 +4750,75 @@
 					}
 				}
 			},
+			"MembershipEntity": {
+				"type": "object",
+				"properties": {
+					"membershipId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"status": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"expiredAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
 			"MemberDtoPost": {
 				"type": "object",
 				"properties": {
-					"length": {
+					"name": {
+						"type": "string"
+					},
+					"period": {
 						"type": "string"
 					},
 					"price": {
 						"type": "integer",
 						"format": "int64"
+					}
+				}
+			},
+			"MemberEntity": {
+				"type": "object",
+				"properties": {
+					"memberId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"period": {
+						"type": "string"
+					},
+					"price": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"membership": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MembershipEntity"
+						}
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
 					}
 				}
 			},
@@ -3850,6 +4831,9 @@
 					"contact": {
 						"type": "integer",
 						"format": "int64"
+					},
+					"address": {
+						"type": "string"
 					},
 					"imageUrl": {
 						"type": "string"
@@ -3870,14 +4854,75 @@
 						"type": "integer",
 						"format": "int64"
 					},
+					"address": {
+						"type": "string"
+					},
 					"imageUrl": {
 						"type": "string"
+					},
+					"classes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ClassEntity"
+						}
 					},
 					"created_at": {
 						"type": "string",
 						"format": "date-time"
 					},
 					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"GraphDtoPost": {
+				"type": "object",
+				"properties": {
+					"month": {
+						"type": "string"
+					},
+					"year": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"totalUser": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"totalMember": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"GraphEntity": {
+				"type": "object",
+				"properties": {
+					"graphId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"month": {
+						"type": "string"
+					},
+					"year": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"totalUser": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"totalMember": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
 						"type": "string",
 						"format": "date-time"
 					}
@@ -3935,13 +4980,23 @@
 					"status": {
 						"type": "boolean"
 					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
 					"capacity": {
 						"type": "integer",
 						"format": "int64"
 					},
 					"schedule": {
 						"type": "string",
-						"format": "date-time"
+						"format": "date"
+					},
+					"hour": {
+						"type": "integer",
+						"format": "int64"
 					},
 					"price": {
 						"type": "integer",
@@ -3968,6 +5023,14 @@
 					}
 				}
 			},
+			"CategoryDtoPost": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					}
+				}
+			},
 			"CategoryEntity": {
 				"type": "object",
 				"properties": {
@@ -3978,52 +5041,11 @@
 					"name": {
 						"type": "string"
 					},
-					"created_at": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updated_at": {
-						"type": "string",
-						"format": "date-time"
-					}
-				}
-			},
-			"ClassEntity": {
-				"type": "object",
-				"properties": {
-					"classId": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"status": {
-						"type": "boolean"
-					},
-					"capacity": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"schedule": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"price": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"imageUrl": {
-						"type": "string"
-					},
-					"instructor": {
-						"$ref": "#/components/schemas/InstructorEntity"
-					},
-					"category": {
-						"$ref": "#/components/schemas/CategoryEntity"
-					},
-					"room": {
-						"$ref": "#/components/schemas/RoomEntity"
-					},
-					"type": {
-						"$ref": "#/components/schemas/TypeEntity"
+					"classes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ClassEntity"
+						}
 					},
 					"created_at": {
 						"type": "string",
@@ -4032,14 +5054,6 @@
 					"updated_at": {
 						"type": "string",
 						"format": "date-time"
-					}
-				}
-			},
-			"CategoryDtoPost": {
-				"type": "object",
-				"properties": {
-					"name": {
-						"type": "string"
 					}
 				}
 			},
@@ -4056,36 +5070,6 @@
 					"classId": {
 						"type": "integer",
 						"format": "int64"
-					}
-				}
-			},
-			"BookingEntity": {
-				"type": "object",
-				"properties": {
-					"bookingId": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"status": {
-						"type": "boolean"
-					},
-					"price": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"created_at": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updated_at": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"user": {
-						"$ref": "#/components/schemas/UserEntity"
-					},
-					"classes": {
-						"$ref": "#/components/schemas/ClassEntity"
 					}
 				}
 			},
@@ -4116,14 +5100,54 @@
 						"type": "string"
 					},
 					"phone": {
-						"type": "integer",
-						"format": "int64"
+						"type": "string"
 					},
 					"address": {
 						"type": "string"
 					},
 					"imageUrl": {
 						"type": "string"
+					}
+				}
+			},
+			"RoleDtoPost": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"PaymentDtoPost": {
+				"type": "object",
+				"properties": {
+					"totalPayment": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"method": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"cartId": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"FavoriteClassDtoPost": {
+				"type": "object",
+				"properties": {
+					"classId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"userId": {
+						"type": "integer",
+						"format": "int64"
 					}
 				}
 			},
@@ -4159,8 +5183,7 @@
 						"type": "string"
 					},
 					"phone": {
-						"type": "integer",
-						"format": "int64"
+						"type": "string"
 					},
 					"address": {
 						"type": "string"
@@ -4184,8 +5207,7 @@
 						"type": "string"
 					},
 					"phone": {
-						"type": "integer",
-						"format": "int64"
+						"type": "string"
 					},
 					"address": {
 						"type": "string"
@@ -4194,6 +5216,9 @@
 						"type": "string"
 					},
 					"membership": {
+						"type": "string"
+					},
+					"point": {
 						"type": "integer",
 						"format": "int64"
 					}
@@ -4277,10 +5302,10 @@
 					"empty": {
 						"type": "boolean"
 					},
-					"sorted": {
+					"unsorted": {
 						"type": "boolean"
 					},
-					"unsorted": {
+					"sorted": {
 						"type": "boolean"
 					}
 				}
@@ -4340,6 +5365,12 @@
 					},
 					"name": {
 						"type": "string"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string"
 					}
 				}
 			},
@@ -4398,6 +5429,12 @@
 					},
 					"name": {
 						"type": "string"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string"
 					}
 				}
 			},
@@ -4447,6 +5484,26 @@
 					}
 				}
 			},
+			"RoleEntity": {
+				"type": "object",
+				"properties": {
+					"roleId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
 			"RoleDtoGet": {
 				"type": "object",
 				"properties": {
@@ -4456,6 +5513,48 @@
 					},
 					"name": {
 						"type": "string"
+					}
+				}
+			},
+			"PaymentDtoGet": {
+				"type": "object",
+				"properties": {
+					"paymentId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"totalPayment": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"totalDebt": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"username": {
+						"type": "string"
+					},
+					"method": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"cartId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
 					}
 				}
 			},
@@ -4520,6 +5619,57 @@
 					}
 				}
 			},
+			"MembershipDtoGet": {
+				"type": "object",
+				"properties": {
+					"membershipId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"status": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"username": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"contact": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"memberId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"memberName": {
+						"type": "string"
+					},
+					"memberPeriod": {
+						"type": "string"
+					},
+					"expiredAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
 			"PageMembershipEntity": {
 				"type": "object",
 				"properties": {
@@ -4563,24 +5713,6 @@
 					},
 					"empty": {
 						"type": "boolean"
-					}
-				}
-			},
-			"MembershipDtoGet": {
-				"type": "object",
-				"properties": {
-					"membershipId": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"status": {
-						"type": "boolean"
-					},
-					"user": {
-						"type": "string"
-					},
-					"member": {
-						"type": "string"
 					}
 				}
 			},
@@ -4637,12 +5769,21 @@
 						"type": "integer",
 						"format": "int64"
 					},
-					"length": {
+					"name": {
+						"type": "string"
+					},
+					"period": {
 						"type": "string"
 					},
 					"price": {
 						"type": "integer",
 						"format": "int64"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string"
 					}
 				}
 			},
@@ -4706,7 +5847,16 @@
 						"type": "integer",
 						"format": "int64"
 					},
+					"address": {
+						"type": "string"
+					},
 					"imageUrl": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
 						"type": "string"
 					}
 				}
@@ -4825,33 +5975,96 @@
 						"type": "integer",
 						"format": "int64"
 					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"status": {
+						"type": "boolean"
+					},
 					"capacity": {
 						"type": "integer",
 						"format": "int64"
 					},
+					"booked": {
+						"type": "integer",
+						"format": "int64"
+					},
 					"schedule": {
-						"type": "string"
+						"type": "string",
+						"format": "date"
+					},
+					"hour": {
+						"type": "integer",
+						"format": "int64"
 					},
 					"price": {
 						"type": "integer",
 						"format": "int64"
 					},
-					"status": {
-						"type": "boolean"
-					},
-					"type": {
-						"type": "string"
-					},
 					"imageUrl": {
 						"type": "string"
 					},
-					"instructor": {
+					"createdAt": {
 						"type": "string"
 					},
-					"category": {
+					"updatedAt": {
 						"type": "string"
 					},
-					"room": {
+					"typeId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"typeName": {
+						"type": "string"
+					},
+					"instructureId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"instructureName": {
+						"type": "string"
+					},
+					"contact": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"categoryId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"categoryName": {
+						"type": "string"
+					},
+					"roomId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"roomName": {
+						"type": "string"
+					},
+					"rating": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"GetUserByClass": {
+				"type": "object",
+				"properties": {
+					"userId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"username": {
+						"type": "string"
+					},
+					"status": {
+						"type": "boolean"
+					},
+					"joinedAt": {
 						"type": "string"
 					}
 				}
@@ -4911,6 +6124,79 @@
 					},
 					"name": {
 						"type": "string"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string"
+					}
+				}
+			},
+			"BookingDtoGet": {
+				"type": "object",
+				"properties": {
+					"bookingId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"status": {
+						"type": "boolean"
+					},
+					"price": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"userName": {
+						"type": "string"
+					},
+					"membership": {
+						"type": "string"
+					},
+					"instructureId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"instructureName": {
+						"type": "string"
+					},
+					"classId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"classIdentity": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"className": {
+						"type": "string"
+					},
+					"categoryId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"categoryName": {
+						"type": "string"
+					},
+					"schedule": {
+						"type": "string",
+						"format": "date"
+					},
+					"room": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
 					}
 				}
 			},
@@ -4957,25 +6243,6 @@
 					},
 					"empty": {
 						"type": "boolean"
-					}
-				}
-			},
-			"BookingDtoGet": {
-				"type": "object",
-				"properties": {
-					"bookingId": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"status": {
-						"type": "string"
-					},
-					"user": {
-						"type": "string"
-					},
-					"classes": {
-						"type": "integer",
-						"format": "int64"
 					}
 				}
 			}

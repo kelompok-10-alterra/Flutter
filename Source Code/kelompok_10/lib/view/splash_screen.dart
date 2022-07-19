@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kelompok_10/view/main_screen.dart';
 import 'package:kelompok_10/view/onboarding_page.dart';
+import 'package:kelompok_10/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,12 +41,20 @@ class _SplashScreenState extends State<SplashScreen> {
             .getToken()
             .then(
           (value) async {
-            if (value.isEmpty && isViews != 0) {
+            if (value.username == null &&
+                value.accessToken == null &&
+                isViews != 0) {
               Navigator.pushReplacementNamed(
                   context, OnboardingScreen.routeName);
-            } else if (isViews != 1 && value.isNotEmpty) {
+            } else if (isViews != 1 &&
+                value.username != null &&
+                value.accessToken != null) {
+              Provider.of<AuthViewModel>(context, listen: false)
+                  .getUserByUsername(value.username!, value.accessToken!);
               Navigator.pushReplacementNamed(context, MainScreen.routeName);
-            } else if (isViews != 1 && value.isEmpty) {
+            } else if (isViews != 1 &&
+                value.username == null &&
+                value.accessToken == null) {
               Navigator.pushReplacementNamed(context, LogInScreen.routeName);
             }
           },

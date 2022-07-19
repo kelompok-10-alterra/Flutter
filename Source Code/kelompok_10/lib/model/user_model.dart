@@ -1,43 +1,48 @@
-// ignore_for_file: non_constant_identifier_names
-
-import 'dart:convert';
-
-UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
-
-String userModelToJson(UserModel data) => json.encode(data.toJson());
-
 class UserModel {
-  UserModel({
-    required this.email,
-    required this.name,
-    required this.password,
-    required this.phone,
-    required this.username,
-    this.access_token,
-  });
+  int? userId;
+  String? name;
+  String? username;
+  String? email;
+  String? phone;
+  String? address;
+  String? imageUrl;
+  String? membership;
+  int? point;
 
-  String email;
-  String name;
-  String password;
-  int phone;
-  String username;
-  String? access_token;
+  UserModel(
+      {this.userId,
+      this.name,
+      this.username,
+      this.email,
+      this.phone,
+      this.address,
+      this.imageUrl,
+      this.membership,
+      this.point});
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        email: json["email"],
-        name: json["name"],
-        password: json["password"],
-        phone: json["phone"],
-        username: json["username"],
-        access_token: json["access_token"],
-      );
+  UserModel.fromJson(Map<String, dynamic> json) {
+    userId = json['userId'];
+    name = json['name'];
+    username = json['username'];
+    email = json['email'];
+    phone = json['phone'];
+    address = json['address'];
+    imageUrl = json['imageUrl'];
+    membership = json['membership'];
+    point = json['point'];
+  }
 
-  Map<String, dynamic> toJson() => {
-        "email": email,
-        "name": name,
-        "password": password,
-        "phone": phone,
-        "username": username,
-        "access_token": access_token,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['userId'] = userId;
+    data['name'] = name;
+    data['username'] = username;
+    data['email'] = email;
+    data['phone'] = phone;
+    data['address'] = address;
+    data['imageUrl'] = imageUrl;
+    data['membership'] = membership;
+    data['point'] = point;
+    return data;
+  }
 }

@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:kelompok_10/component/button_love.dart';
 import 'package:kelompok_10/component/small_button.dart';
 
+import '../model/class_model.dart';
 import '../theme/theme.dart';
 import '../view/detail_class.dart';
 
 class CardGridView extends StatelessWidget {
   const CardGridView({
     Key? key,
-    required this.tags,
+    required this.classData,
   }) : super(key: key);
 
-  final int tags;
+
+  final ClassModel classData;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +82,7 @@ class CardGridView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Full Body Stretching sdsds sdsds',
+                  classData.typeName ?? 'Nama Kelas',
                     style: blackTextStyle.copyWith(
                       fontSize: 14.0,
                       fontWeight: semiBold,

@@ -728,6 +728,8 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                           virtualAccount[i].imagesSelected;
                                       currentPaymentMethodName =
                                           virtualAccount[i].name;
+
+                                      Navigator.pop(context);
                                     },
                                   );
                                 },
@@ -774,6 +776,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                           transfer[i].imagesSelected;
                                       currentPaymentMethodName =
                                           transfer[i].name;
+                                      Navigator.pop(context);
                                     },
                                   );
                                 },
@@ -820,6 +823,8 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                           eWallet[i].imagesSelected;
                                       currentPaymentMethodName =
                                           eWallet[i].name;
+
+                                      Navigator.pop(context);
                                     },
                                   );
                                 },

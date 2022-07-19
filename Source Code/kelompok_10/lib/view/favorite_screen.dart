@@ -62,7 +62,8 @@ class FavoriteScreen extends StatelessWidget {
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                return CardGridView(tags: index);
+                return SizedBox();
+                // CardGridView();
               },
             ),
             SizedBox(

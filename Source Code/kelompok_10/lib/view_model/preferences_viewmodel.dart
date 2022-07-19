@@ -1,13 +1,19 @@
 import 'package:flutter/cupertino.dart';
 
+import '../model/token_model.dart';
 import '../preferences/user_preferences.dart';
 
 class PreferencesViewModel extends ChangeNotifier {
-  Future<String> getToken() async {
-    String userData = await UserPreferences().getUser();
+  TokenModel? _token;
+  TokenModel get token => _token!;
+
+  Future<TokenModel> getToken() async {
+    TokenModel userData = await UserPreferences().getUser();
     notifyListeners();
 
-    print(userData);
+    // print(userData);
+
+    _token = userData;
 
     return userData;
   }

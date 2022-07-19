@@ -1,21 +1,18 @@
-// ignore_for_file: non_constant_identifier_names
-
 class TokenModel {
-  String? access_token;
+  String? username;
+  String? accessToken;
 
-  TokenModel({
-    this.access_token,
-  });
+  TokenModel({this.username, this.accessToken});
 
-  factory TokenModel.fromJson(Map<String, dynamic> json) {
-    return TokenModel(
-      access_token: json["access_token"] ?? "",
-    );
+  TokenModel.fromJson(Map<String, dynamic> json) {
+    username = json['username'];
+    accessToken = json['access_token'];
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      "access_token": access_token,
-    };
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['username'] = username;
+    data['access_token'] = accessToken;
+    return data;
   }
 }

@@ -50,7 +50,7 @@ List<BoxShadow> defaultCardShadow = [
   BoxShadow(
     color: greyTwoColor.withOpacity(0.15),
     spreadRadius: 3,
-    offset: const Offset(0, 2),
+    offset: const Offset(0, 0),
     blurRadius: 4,
   ),
 ];

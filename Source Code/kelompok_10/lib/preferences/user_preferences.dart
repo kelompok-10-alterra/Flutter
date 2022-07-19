@@ -1,25 +1,37 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../model/token_model.dart';
 
 class UserPreferences {
   final saveToken = "token";
 
-  Future<String> getUser() async {
+  Future<TokenModel> getUser() async {
     final prefs = await SharedPreferences.getInstance();
 
-    final userDataToken = prefs.getString(saveToken);
+    Map<String, dynamic>? userMap;
+    final userData = prefs.getString(saveToken);
+    print("User Prefernces: getUser ->$userData");
 
-    //Check if userDataToken is null
-    if (userDataToken == null) {
-      return "";
-    } else {
-      return userDataToken;
+    if (userData != null) {
+      userMap = jsonDecode(userData) as Map<String, dynamic>;
     }
+
+    if (userMap != null) {
+      final user = TokenModel.fromJson(userMap);
+      return user;
+    }
+    return TokenModel.fromJson({});
   }
 
-  setUser(String token) async {
+  setUser(TokenModel token) async {
     final prefs = await SharedPreferences.getInstance();
 
-    await prefs.setString(saveToken, token);
+    final setToken = jsonEncode(token);
+    print("User Prefernces: setUser ->$setToken");
+
+    await prefs.setString(saveToken, setToken);
   }
 
   deleteUser() async {

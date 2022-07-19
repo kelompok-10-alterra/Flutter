@@ -30,15 +30,9 @@ class DetailClass extends StatelessWidget {
               left: 0.0,
               right: 0.0,
               bottom: 0.0,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12.0),
-                  topRight: Radius.circular(12.0),
-                ),
-                child: Image.asset(
-                  'assets/images/human-two.png',
-                  fit: BoxFit.cover,
-                ),
+              child: Image.asset(
+                'assets/images/human-two.png',
+                fit: BoxFit.cover,
               ),
             ),
             Align(

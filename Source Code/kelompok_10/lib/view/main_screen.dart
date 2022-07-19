@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kelompok_10/theme/theme.dart';
 
-import 'date_screen.dart';
+import 'schedule_screen.dart';
 import 'home_screen.dart';
 import 'profile_screen.dart';
 import 'news_screen.dart';
@@ -22,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> body = [
     const HomeScreen(),
     const NewsScreen(),
-    const DateScreen(),
+    const ScheduleScreen(),
     const ProfileScreen(),
   ];
 

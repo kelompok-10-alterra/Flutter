@@ -9,6 +9,7 @@ import '../view_model/preferences_viewmodel.dart';
 import 'detail_akun_screen.dart';
 import 'favorite_screen.dart';
 import 'login_screen.dart';
+import 'point_screen.dart';
 import 'riwayat_pembelian_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -88,6 +89,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   } else if (index == 2) {
                     Navigator.pushNamed(
                         context, RiwayatPembelianScreen.routeName);
+                  } else if (index == 3) {
+                    Navigator.pushNamed(context, PointScreen.routeName);
                   } else {
                     _showToast('Maintenance in progress');
                   }

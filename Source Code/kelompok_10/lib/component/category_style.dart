@@ -1,40 +1,75 @@
 import 'package:flutter/material.dart';
 
+import '../animation/shimmer_effect.dart';
+import '../model/type_model.dart';
 import '../theme/theme.dart';
 
 class CategoryStyle extends StatelessWidget {
   const CategoryStyle({
     Key? key,
+    required this.type,
   }) : super(key: key);
+
+  final TypeModel type;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(8.0),
       height: 100.0,
       width: 100.0,
       decoration: BoxDecoration(
         color: whiteColor,
         borderRadius: BorderRadius.circular(12.0),
         boxShadow: defaultCardShadow,
-        image: const DecorationImage(
-          image: AssetImage(
-            'assets/images/human-two.png',
-          ),
-          fit: BoxFit.cover,
-        ),
       ),
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Text(
-          'Yoga',
-          style: blackTextStyle.copyWith(
-              fontSize: 14.0,
-              fontWeight: semiBold,
-              color: Colors.white,
-              overflow: TextOverflow.ellipsis),
-          maxLines: 1,
-        ),
+      child: Stack(
+        children: [
+          Positioned(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12.0),
+              child: Image.network(
+                type.imageUrl!,
+                height: 100.0,
+                width: 100.0,
+                fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+                  return Center(
+                    child: ShimmerEffect(
+                      child: Container(
+                        height: 100.0,
+                        width: 100.0,
+                        decoration: BoxDecoration(
+                          color: greyColor,
+                          boxShadow: defaultCardShadow,
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                type.name!,
+                style: blackTextStyle.copyWith(
+                  fontSize: 14.0,
+                  fontWeight: semiBold,
+                  color: Colors.white,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                maxLines: 1,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

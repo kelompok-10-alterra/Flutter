@@ -134,7 +134,7 @@ class _DetailCategoryState extends State<DetailCategory>
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
-          return CardGridView(tags: index);
+          return SizedBox();
         },
       ),
     );
