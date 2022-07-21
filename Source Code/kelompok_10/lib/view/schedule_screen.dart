@@ -13,12 +13,10 @@ class ScheduleScreen extends StatefulWidget {
 
 class _ScheduleScreenState extends State<ScheduleScreen>
     with TickerProviderStateMixin {
-  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
   }
 
   List<String> member = [
@@ -119,7 +117,7 @@ class _ScheduleScreenState extends State<ScheduleScreen>
         body: TabBarView(
           children: <Widget>[
             comingSoon(),
-            Center(
+            const Center(
               child: Text('Semua'),
             ),
           ],

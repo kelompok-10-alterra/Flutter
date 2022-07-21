@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:kelompok_10/theme/theme.dart';
 
 class PrimaryButton extends StatelessWidget {
-  PrimaryButton({
+  const PrimaryButton({
     Key? key,
     this.text,
     this.withIcon = false,

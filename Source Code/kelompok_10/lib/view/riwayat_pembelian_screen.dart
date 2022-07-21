@@ -55,7 +55,7 @@ class RiwayatPembelianScreen extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemCount: 10,
               itemBuilder: (context, index) {
-                return CardRiwayatPembelian();
+                return const CardRiwayatPembelian();
               },
             ),
             SizedBox(

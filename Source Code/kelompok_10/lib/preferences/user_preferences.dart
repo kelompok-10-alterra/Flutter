@@ -8,11 +8,11 @@ class UserPreferences {
   final saveToken = "token";
 
   Future<TokenModel> getUser() async {
-    final prefs = await SharedPreferences.getInstance();
+    final pref = await SharedPreferences.getInstance();
 
     Map<String, dynamic>? userMap;
-    final userData = prefs.getString(saveToken);
-    print("User Prefernces: getUser ->$userData");
+    final userData = pref.getString(saveToken);
+    // print("User Preferences: getUser ->$userData");
 
     if (userData != null) {
       userMap = jsonDecode(userData) as Map<String, dynamic>;
@@ -26,16 +26,16 @@ class UserPreferences {
   }
 
   setUser(TokenModel token) async {
-    final prefs = await SharedPreferences.getInstance();
+    final pref = await SharedPreferences.getInstance();
 
     final setToken = jsonEncode(token);
-    print("User Prefernces: setUser ->$setToken");
+    // print("User Preferences: setUser ->$setToken");
 
-    await prefs.setString(saveToken, setToken);
+    await pref.setString(saveToken, setToken);
   }
 
   deleteUser() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.remove(saveToken);
+    final pref = await SharedPreferences.getInstance();
+    pref.remove(saveToken);
   }
 }

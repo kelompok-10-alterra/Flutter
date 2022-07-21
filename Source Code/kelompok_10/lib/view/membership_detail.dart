@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import '../component/back_button.dart';
 import '../component/card_membership.dart';
 import '../view_model/auth_view_model.dart';
-import '../view_model/payment_view_model.dart';
 import 'Payment_Membership/payment_screen.dart';
 
 class MembershipDetail extends StatelessWidget {

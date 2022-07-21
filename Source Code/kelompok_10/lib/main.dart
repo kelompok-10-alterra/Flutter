@@ -5,12 +5,10 @@ import 'package:provider/provider.dart';
 
 import 'animation/transition_animation.dart';
 import 'model/member_model.dart';
-import 'view/Payment_Membership/payment_done_screen.dart';
 import 'view/Payment_Membership/payment_screen.dart';
 import 'view/cart_screen.dart';
 import 'view/schedule_screen.dart';
 import 'view/detail_akun_screen.dart';
-import 'view/detail_category.dart';
 import 'view/detail_class.dart';
 import 'view/favorite_screen.dart';
 import 'view/login_screen.dart';
@@ -124,7 +122,7 @@ class MyApp extends StatelessWidget {
           }
           if (setting.name == DetailClass.routeName) {
             return FadeInRoute(
-              page: DetailClass(),
+              page: const DetailClass(),
             );
           }
           if (setting.name == MembershipPurchase.routeName) {

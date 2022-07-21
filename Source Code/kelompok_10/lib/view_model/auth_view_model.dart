@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/widgets.dart';
 import 'package:kelompok_10/model/token_model.dart';
 import 'package:kelompok_10/service/auth_services.dart';

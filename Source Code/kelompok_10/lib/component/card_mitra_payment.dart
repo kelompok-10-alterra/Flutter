@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../model/payment_method_model.dart';
 import '../theme/theme.dart';
-import '../view/Payment_Membership/payment_method_screen.dart';
 
 class CardMitraPayment extends StatelessWidget {
   const CardMitraPayment({

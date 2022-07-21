@@ -3,7 +3,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../component/card-profile.dart';
-import '../component/card_membership.dart';
 import '../theme/theme.dart';
 import '../view_model/preferences_viewmodel.dart';
 import 'detail_akun_screen.dart';
