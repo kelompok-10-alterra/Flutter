@@ -10,12 +10,13 @@ import 'package:kelompok_10/model/class_model.dart';
 import 'package:kelompok_10/theme/theme.dart';
 
 import '../component/back_button.dart';
+import '../component/button_icon.dart';
 import '../component/small_button.dart';
 import '../view_model/class_view_model.dart';
 
 class DetailClass extends StatelessWidget {
   static const routeName = '/detail-class';
-  DetailClass({
+  const DetailClass({
     Key? key,
     this.classModel,
   }) : super(key: key);
@@ -148,12 +149,14 @@ class DetailClass extends StatelessWidget {
               ],
             ),
             Row(
-              children: const [
-                SmallButton(),
-                SizedBox(
+              children: [
+                const SmallButton(),
+                const SizedBox(
                   width: 8.0,
                 ),
-                SmallButton(),
+                SmallButton(
+                  text: classModel?.categoryName ?? '',
+                ),
               ],
             )
           ],
@@ -304,24 +307,56 @@ class DetailClass extends StatelessWidget {
       );
     }
 
-    Widget button() {
-      return Container(
-        padding: EdgeInsets.only(
-          left: defaultMargin,
-          right: defaultMargin,
-          bottom: defaultMargin,
-        ),
+    Widget bottomNavigationBar() {
+      return BottomAppBar(
         color: transparentColor,
-        child: PrimaryButton(
-          press: () {},
-          text: 'Beli Sekarang',
+        elevation: 0,
+        child: Container(
+          padding: EdgeInsets.only(
+            left: defaultMargin,
+            right: defaultMargin,
+            bottom: defaultMargin,
+          ),
+          color: transparentColor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 1,
+                child: PrimaryButtonIcon(
+                  icons: 'assets/svg/ic-wh.svg',
+                  press: () {},
+                ),
+              ),
+              const SizedBox(
+                width: 16.0,
+              ),
+              Expanded(
+                flex: 1,
+                child: PrimaryButtonIcon(
+                  icons: 'assets/svg/ic-chart.svg',
+                  press: () {},
+                ),
+              ),
+              const SizedBox(
+                width: 16.0,
+              ),
+              Expanded(
+                flex: 3,
+                child: PrimaryButton(
+                  press: () {},
+                  text: 'Beli Sekarang',
+                ),
+              ),
+            ],
+          ),
         ),
       );
     }
 
     return Scaffold(
       backgroundColor: whiteColor,
-      bottomNavigationBar: button(),
+      bottomNavigationBar: bottomNavigationBar(),
       extendBody: true,
       body: ListView(
         shrinkWrap: true,

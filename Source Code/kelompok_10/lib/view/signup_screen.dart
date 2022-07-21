@@ -1,9 +1,6 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kelompok_10/view_model/toast_view_model.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../component/loading_button.dart';
@@ -14,7 +11,6 @@ import '../component/text_from_field_pw.dart';
 import '../theme/theme.dart';
 import '../view_model/auth_view_model.dart';
 import 'login_screen.dart';
-import 'main_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const routeName = '/signup';
@@ -109,7 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           behavior: SnackBarBehavior.floating,
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
           backgroundColor: greenColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(
@@ -389,45 +385,3 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 }
 
-Future<bool?> _showConfirmationDialog(
-  BuildContext ctx,
-  String username,
-  String email,
-) {
-  return showDialog<bool>(
-    context: ctx,
-    builder: (BuildContext context) {
-      return Consumer<AuthViewModel>(builder: (context, state, _) {
-        return AlertDialog(
-          backgroundColor: whiteColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
-          ),
-          title: Text(
-            'Daftar akun berhasil!',
-            style: blackTextStyle.copyWith(
-              fontSize: 18.0,
-              fontWeight: bold,
-            ),
-          ),
-          content: Text(
-            'Hallo $username, silahkan cek email $email untuk melakukan verifikasi',
-            style: blackTextStyle.copyWith(fontSize: 16),
-          ),
-          actions: [
-            TextButton(
-              child: Text(
-                'Verifikasi',
-                style: primaryTextStyle.copyWith(
-                  fontSize: 16,
-                  fontWeight: bold,
-                ),
-              ),
-              onPressed: () {},
-            ),
-          ],
-        );
-      });
-    },
-  );
-}

@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:kelompok_10/model/payment_method_model.dart';
 import 'package:uuid/uuid.dart';
 
-import '../model/member_model.dart';
 import '../service/member_services.dart';
 
 enum PaymentState { none, loading, hashdata, error, isEmpty }
@@ -138,7 +137,7 @@ class PaymentViewModel extends ChangeNotifier {
   }
 
   getUid() {
-    var uuid = Uuid();
+    var uuid = const Uuid();
     _noTransaksi = uuid.v1();
     _noReferensi = uuid.v4();
     notifyListeners();

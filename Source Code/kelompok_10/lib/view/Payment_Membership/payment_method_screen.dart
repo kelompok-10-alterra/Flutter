@@ -15,7 +15,7 @@ import '../../model/payment_method_model.dart';
 import '../../theme/theme.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
-  PaymentMethodScreen({
+  const PaymentMethodScreen({
     Key? key,
     required this.member,
   }) : super(key: key);
@@ -596,40 +596,4 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
         });
   }
 
-  _showToast() {
-    Widget toast = Container(
-      padding: EdgeInsets.symmetric(horizontal: defaultMargin, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24.0),
-        color: greyFiveColor,
-        boxShadow: [
-          BoxShadow(
-            color: greyTwoColor.withOpacity(0.15),
-            spreadRadius: 3,
-            offset: const Offset(0, 6),
-            blurRadius: 4,
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'Pembayaran Belum Dipilih',
-            style: whiteTextStyle.copyWith(
-              fontSize: 14.0,
-              fontWeight: medium,
-            ),
-          ),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 2),
-    );
-  }
 }

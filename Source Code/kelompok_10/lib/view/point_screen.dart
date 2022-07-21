@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../component/back_button.dart';
 import '../component/banner_style_point.dart';
-import '../component/card_gridview.dart';
 import '../theme/theme.dart';
 import '../view_model/auth_view_model.dart';
 
@@ -155,7 +154,7 @@ class PointScreen extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
-                    return SizedBox();
+                    return const SizedBox();
                     // CardGridView();
                   },
                 ),

@@ -1,8 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kelompok_10/animation/fade_animation.dart';
 import 'package:kelompok_10/component/primary_button.dart';
-import 'package:kelompok_10/service/auth_services.dart';
 import 'package:kelompok_10/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 

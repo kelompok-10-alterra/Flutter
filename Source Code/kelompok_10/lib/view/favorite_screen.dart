@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../component/back_button.dart';
-import '../component/card_gridview.dart';
 import '../theme/theme.dart';
 
 class FavoriteScreen extends StatelessWidget {
@@ -62,7 +61,7 @@ class FavoriteScreen extends StatelessWidget {
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                return SizedBox();
+                return const SizedBox();
                 // CardGridView();
               },
             ),
