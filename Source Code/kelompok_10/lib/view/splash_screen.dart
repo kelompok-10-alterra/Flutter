@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:kelompok_10/view/main_screen.dart';
+import 'package:kelompok_10/view/onboarding_page.dart';
+import 'package:kelompok_10/view_model/auth_view_model.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../theme/theme.dart';
+import '../view_model/preferences_viewmodel.dart';
+import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
+  static const routeName = '/splashscreen';
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
@@ -8,19 +18,80 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  int? isViews;
 
   @override
   void initState() {
     super.initState();
-    // Future.delayed(Duration(seconds: 3), () {
-    //   Navigator.pushReplacementNamed(context, '/home');
-    // });
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        _checkOnBoard();
+      },
+    );
+
+    Future.delayed(
+      const Duration(seconds: 3),
+      () async {
+        // isViews != 0
+        //     ? Navigator.pushReplacementNamed(
+        //         context, OnboardingScreen.routeName)
+        //     : Navigator.pushReplacementNamed(context, LogInScreen.routeName);
+        Provider.of<PreferencesViewModel>(context, listen: false)
+            .getToken()
+            .then(
+          (value) async {
+            if (value.username == null &&
+                value.accessToken == null &&
+                isViews != 0) {
+              Navigator.pushReplacementNamed(
+                  context, OnboardingScreen.routeName);
+            } else if (isViews != 1 &&
+                value.username != null &&
+                value.accessToken != null) {
+              Provider.of<AuthViewModel>(context, listen: false)
+                  .getUserByUsername(value.username!, value.accessToken!);
+              Navigator.pushReplacementNamed(context, MainScreen.routeName);
+            } else if (isViews != 1 &&
+                value.username == null &&
+                value.accessToken == null) {
+              Navigator.pushReplacementNamed(context, LogInScreen.routeName);
+            }
+          },
+        );
+      },
+    );
   }
+
+  _checkOnBoard() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    isViews = prefs.getInt('onBoard');
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  const Scaffold(
-      body: Center(
-        child: Text('Splash Screen Development'),
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.all(64.0),
+        height: displayHeight(context),
+        width: displayWidth(context),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              gradientOneColor,
+              gradientTwoColor,
+            ],
+          ),
+        ),
+        child: Center(
+          child: Image.asset(
+            'assets/images/logo-white.png',
+            width: displayWidth(context) * 0.6,
+          ),
+        ),
       ),
     );
   }
