@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kelompok_10/view_model/class_view_model.dart';
+import 'package:kelompok_10/view_model/toast_view_model.dart';
 import 'package:provider/provider.dart';
 
 import 'animation/transition_animation.dart';
+import 'model/member_model.dart';
+import 'view/Payment_Membership/payment_done_screen.dart';
+import 'view/Payment_Membership/payment_screen.dart';
 import 'view/cart_screen.dart';
 import 'view/schedule_screen.dart';
 import 'view/detail_akun_screen.dart';
@@ -14,8 +18,7 @@ import 'view/main_screen.dart';
 import 'view/membership_detail.dart';
 import 'view/membership_purchase.dart';
 import 'view/on_search_screen.dart';
-import 'view/payment_done_screen.dart';
-import 'view/payment_screen.dart';
+
 import 'view/point_screen.dart';
 import 'view/profile_screen.dart';
 import 'view/news_screen.dart';
@@ -25,6 +28,8 @@ import 'view/home_screen.dart';
 import 'view/onboarding_page.dart';
 import 'view/splash_screen.dart';
 import 'view_model/auth_view_model.dart';
+import 'view_model/member_view_model.dart';
+import 'view_model/payment_view_model.dart';
 import 'view_model/preferences_viewmodel.dart';
 import 'view_model/type_view_model.dart';
 
@@ -50,6 +55,15 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => ClassViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => MemberViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => PaymentViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ToastViewModel(),
         ),
       ],
       child: MaterialApp(
@@ -102,11 +116,7 @@ class MyApp extends StatelessWidget {
               page: const ProfileScreen(),
             );
           }
-          if (setting.name == DetailCategory.routeName) {
-            return FadeInRoute(
-              page: const DetailCategory(),
-            );
-          }
+
           if (setting.name == OnSearchScreen.routeName) {
             return FadeInRoute(
               page: const OnSearchScreen(),
@@ -114,7 +124,7 @@ class MyApp extends StatelessWidget {
           }
           if (setting.name == DetailClass.routeName) {
             return FadeInRoute(
-              page: const DetailClass(),
+              page: DetailClass(),
             );
           }
           if (setting.name == MembershipPurchase.routeName) {
@@ -124,19 +134,19 @@ class MyApp extends StatelessWidget {
           }
           if (setting.name == MembershipDetail.routeName) {
             return FadeInRoute(
-              page: MembershipDetail(),
+              page: MembershipDetail(
+                member: setting.arguments as MemberModel,
+              ),
             );
           }
           if (setting.name == PaymentScreen.routeName) {
             return FadeInRoute(
-              page: const PaymentScreen(),
+              page: PaymentScreen(
+                member: setting.arguments as MemberModel,
+              ),
             );
           }
-          if (setting.name == PaymentDoneScreen.routeName) {
-            return FadeInRoute(
-              page: const PaymentDoneScreen(),
-            );
-          }
+          
           if (setting.name == DetailAkunScreen.routeName) {
             return FadeInRoute(
               page: const DetailAkunScreen(),

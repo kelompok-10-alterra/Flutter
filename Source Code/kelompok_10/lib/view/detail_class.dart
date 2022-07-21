@@ -1,52 +1,79 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kelompok_10/animation/shimmer_effect.dart';
+import 'package:provider/provider.dart';
+import 'package:readmore/readmore.dart';
+
 import 'package:kelompok_10/component/button_love.dart';
 import 'package:kelompok_10/component/button_share.dart';
 import 'package:kelompok_10/component/primary_button.dart';
+import 'package:kelompok_10/model/class_model.dart';
 import 'package:kelompok_10/theme/theme.dart';
-import 'package:readmore/readmore.dart';
 
 import '../component/back_button.dart';
 import '../component/small_button.dart';
+import '../view_model/class_view_model.dart';
 
 class DetailClass extends StatelessWidget {
   static const routeName = '/detail-class';
-  const DetailClass({Key? key}) : super(key: key);
+  DetailClass({
+    Key? key,
+    this.classModel,
+  }) : super(key: key);
+
+  final ClassModel? classModel;
 
   @override
   Widget build(BuildContext context) {
     Widget header() {
-      return Container(
-        height: displayHeight(context) * 0.4,
-        width: displayWidth(context),
-        decoration: BoxDecoration(
-          color: primaryColor,
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: 0.0,
-              left: 0.0,
-              right: 0.0,
-              bottom: 0.0,
-              child: Image.asset(
-                'assets/images/human-two.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: EdgeInsets.all(defaultMargin),
-                child: BackButtons(
-                  color: blackColor.withOpacity(0.1),
+      return Consumer<ClassViewModel>(builder: (context, state, _) {
+        return Container(
+          height: displayHeight(context) * 0.4,
+          width: displayWidth(context),
+          decoration: BoxDecoration(
+            color: greyTwoColor.withOpacity(0.2),
+          ),
+          child: Stack(
+            children: [
+              Positioned(
+                top: 0.0,
+                left: 0.0,
+                right: 0.0,
+                bottom: 0.0,
+                child: Image.network(
+                  classModel?.imageUrl ?? '',
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset('assets/svg/il-empty.svg'),
+                          const SizedBox(height: 20.0),
+                          Text(
+                            'Yah Gambarnya Gak Ada',
+                            style: blackTextStyle.copyWith(
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
-            ),
-          ],
-        ),
-      );
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: EdgeInsets.all(defaultMargin),
+                  child: BackButtons(
+                    color: blackColor.withOpacity(0.1),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      });
     }
 
     Widget namaClass() {
@@ -62,13 +89,13 @@ class DetailClass extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                'Full Body Stretching',
+                classModel?.name ?? 'Nama Tidak Diketahui',
                 style: blackTextStyle.copyWith(
                   fontSize: 22.0,
                   fontWeight: semiBold,
                   overflow: TextOverflow.ellipsis,
                 ),
-                maxLines: 1,
+                maxLines: 2,
               ),
             ),
             const SizedBox(
@@ -99,20 +126,20 @@ class DetailClass extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Text(
+                //   'Rp. 90.000',
+                //   style: blackTextStyle.copyWith(
+                //     decoration: TextDecoration.lineThrough,
+                //     decorationColor: redColor,
+                //     fontSize: 12.0,
+                //     fontWeight: light,
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: 4.0,
+                // ),
                 Text(
-                  'Rp. 90.000',
-                  style: blackTextStyle.copyWith(
-                    decoration: TextDecoration.lineThrough,
-                    decorationColor: redColor,
-                    fontSize: 12.0,
-                    fontWeight: light,
-                  ),
-                ),
-                const SizedBox(
-                  height: 4.0,
-                ),
-                Text(
-                  'Rp. 35.000',
+                  'Rp. ${classModel?.price}',
                   style: blackTextStyle.copyWith(
                     fontSize: 16.0,
                     fontWeight: semiBold,
@@ -168,16 +195,15 @@ class DetailClass extends StatelessWidget {
                         width: 8.0,
                       ),
                       Expanded(
-                        child: ShimmerEffect(
-                          child: Text(
-                            'Mentor',
-                            style: greyTextStyle.copyWith(
-                              fontSize: 14.0,
-                              fontWeight: medium,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            maxLines: 1,
+                        child: Text(
+                          classModel?.instructureName ??
+                              'Nama Mentor Tidak Diketahui',
+                          style: greyTextStyle.copyWith(
+                            fontSize: 14.0,
+                            fontWeight: semiBold,
+                            overflow: TextOverflow.ellipsis,
                           ),
+                          maxLines: 1,
                         ),
                       ),
                     ],
@@ -194,7 +220,7 @@ class DetailClass extends StatelessWidget {
                       width: 8.0,
                     ),
                     Text(
-                      '4.5',
+                      classModel?.rating.toString() ?? '0',
                       style: greyTextStyle.copyWith(
                         fontSize: 14.0,
                         fontWeight: medium,
@@ -211,7 +237,7 @@ class DetailClass extends StatelessWidget {
                       width: 8.0,
                     ),
                     Text(
-                      '45 Menit',
+                      '${classModel?.hour} jam',
                       style: greyTextStyle.copyWith(
                         fontSize: 14.0,
                         fontWeight: medium,
@@ -254,7 +280,7 @@ class DetailClass extends StatelessWidget {
               height: 8.0,
             ),
             ReadMoreText(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+              classModel?.description ?? 'Deskripsi Tidak Diketahui',
               style: greyTextStyle.copyWith(
                 fontSize: 14.0,
                 fontWeight: regular,
@@ -288,7 +314,7 @@ class DetailClass extends StatelessWidget {
         color: transparentColor,
         child: PrimaryButton(
           press: () {},
-          text: 'Cek ketersediaan',
+          text: 'Beli Sekarang',
         ),
       );
     }

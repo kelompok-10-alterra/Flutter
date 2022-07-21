@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'package:kelompok_10/model/member_model.dart';
+
 import '../theme/theme.dart';
 import '../view/membership_detail.dart';
 import 'small_button_orange.dart';
@@ -10,18 +12,15 @@ class CardListMembership extends StatelessWidget {
     Key? key,
     required this.starColor,
     required this.endColor,
-    required this.typeCard,
-    required this.berlaku,
     required this.starPrice,
-    required this.discountPrice,
+    required this.member,
   }) : super(key: key);
 
   final Color starColor;
   final Color endColor;
-  final String typeCard;
-  final String berlaku;
   final String starPrice;
-  final String discountPrice;
+
+  final MemberModel member;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +76,7 @@ class CardListMembership extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        typeCard,
+                        member.name!,
                         style: whiteTextStyle.copyWith(
                           fontSize: 16.0,
                           fontWeight: medium,
@@ -87,7 +86,7 @@ class CardListMembership extends StatelessWidget {
                         height: 4.0,
                       ),
                       Text(
-                        berlaku,
+                        member.period!,
                         style: whiteTextStyle.copyWith(
                           fontSize: 12.0,
                           fontWeight: medium,
@@ -145,7 +144,7 @@ class CardListMembership extends StatelessWidget {
                         height: 4.0,
                       ),
                       Text(
-                        "RP. $discountPrice",
+                        "RP. ${member.price}",
                         style: whiteTextStyle.copyWith(
                           fontSize: 16.0,
                           fontWeight: semiBold,
@@ -160,6 +159,7 @@ class CardListMembership extends StatelessWidget {
                         Navigator.pushNamed(
                           context,
                           MembershipDetail.routeName,
+                          arguments: member,
                         );
                       },
                       text: 'Beli',

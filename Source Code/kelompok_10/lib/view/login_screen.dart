@@ -88,12 +88,16 @@ class _LogInScreenState extends State<LogInScreen> {
             ),
           );
         } else {
-          Navigator.pushNamedAndRemoveUntil(
-              context, MainScreen.routeName, (route) => false);
+          Provider.of<PreferencesViewModel>(context, listen: false)
+              .setToken(authProvider.token);
+
           authProvider.getUserByUsername(
             _usernameController.text,
             authProvider.token.accessToken!,
           );
+          Navigator.pushNamedAndRemoveUntil(
+              context, MainScreen.routeName, (route) => false);
+
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: greenColor,

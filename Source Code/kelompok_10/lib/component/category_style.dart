@@ -25,6 +25,10 @@ class CategoryStyle extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
+            top: 0.0,
+            left: 0.0,
+            right: 0.0,
+            bottom: 0.0,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
               child: Image.network(

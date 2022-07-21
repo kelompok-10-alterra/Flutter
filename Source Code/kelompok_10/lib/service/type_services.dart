@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 
 import '../model/type_model.dart';
+import '../theme/utils.dart';
 
 class TypeServices {
-  String baseUrl = 'https://api.rafdev.my.id';
 
   Dio dio = Dio();
 

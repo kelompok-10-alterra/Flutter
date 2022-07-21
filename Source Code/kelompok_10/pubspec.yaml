@@ -48,7 +48,11 @@ dependencies:
   dropdown_button2: ^1.6.2
   fluttertoast: ^8.0.9
   ticket_widget: ^0.0.1
-
+  slide_countdown: ^0.2.8
+  intl: ^0.17.0
+  uuid: ^3.0.6
+  lottie: ^1.3.0
+  external_app_launcher: ^3.0.0
 
 dev_dependencies:
   flutter_test:

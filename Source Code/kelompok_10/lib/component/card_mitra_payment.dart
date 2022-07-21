@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../model/payment_method_model.dart';
 import '../theme/theme.dart';
-import '../view/payment_method_screen.dart';
+import '../view/Payment_Membership/payment_method_screen.dart';
 
 class CardMitraPayment extends StatelessWidget {
   const CardMitraPayment({
@@ -14,7 +15,7 @@ class CardMitraPayment extends StatelessWidget {
 
   final int index;
   final int? currentPaymentIndex;
-  final List<PaymentModel> list;
+  final List<PaymentMethodModel> list;
   final bool isActive;
 
   @override

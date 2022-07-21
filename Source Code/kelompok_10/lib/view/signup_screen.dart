@@ -1,10 +1,18 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: use_build_context_synchronously
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kelompok_10/view_model/toast_view_model.dart';
+import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+
+import '../component/loading_button.dart';
 import '../component/primary_button.dart';
 import '../component/text_button.dart';
 import '../component/text_from_field.dart';
 import '../component/text_from_field_pw.dart';
 import '../theme/theme.dart';
+import '../view_model/auth_view_model.dart';
 import 'login_screen.dart';
 import 'main_screen.dart';
 
@@ -21,6 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
@@ -28,6 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _userNameController.dispose();
     _phoneController.dispose();
@@ -42,7 +52,102 @@ class _SignUpScreenState extends State<SignUpScreen> {
     FocusNode(),
     FocusNode(),
     FocusNode(),
+    FocusNode(),
   ];
+
+  signUpHandle(
+      // BuildContext ctx,
+      ) async {
+    final signUp = Provider.of<AuthViewModel>(context, listen: false);
+    if (formGlobalKey.currentState!.validate()) {
+      // ignore: unrelated_type_equality_checks
+      await signUp.register(
+        _nameController.text.trim(),
+        _userNameController.text.trim(),
+        _emailController.text.trim(),
+        _phoneController.text.trim(),
+        _passwordController.text.trim(),
+      );
+
+      if (signUp.state == AuthState.hashdata &&
+          signUp.confirmToken.isNotEmpty) {
+        handleVerifEmail();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: redColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                8.0,
+              ),
+            ),
+            content: Text(
+              'Account already exist!',
+              style: whiteTextStyle.copyWith(
+                fontSize: 14.0,
+                fontWeight: medium,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }
+    }
+  }
+
+  handleVerifEmail() {
+    final state = Provider.of<AuthViewModel>(context, listen: false);
+    print(state.confirmToken);
+
+    state.verifyEmail(state.confirmToken);
+
+    print(state.checkVerif);
+    if (state.checkVerif == 'Verify Success') {
+      Navigator.pushReplacementNamed(
+          context, LogInScreen.routeName);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 3),
+          backgroundColor: greenColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              8.0,
+            ),
+          ),
+          content: Text(
+            'Verifikasi berhasil',
+            style: whiteTextStyle.copyWith(
+              fontSize: 14.0,
+              fontWeight: medium,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    } else if (state.checkVerif == 'Verify Fail') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: redColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              8.0,
+            ),
+          ),
+          content: Text(
+            'Verifikasi Gagal',
+            style: whiteTextStyle.copyWith(
+              fontSize: 14.0,
+              fontWeight: medium,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
+  }
 
   @override
   void initState() {
@@ -60,13 +165,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
       return Form(
         key: formGlobalKey,
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: defaultMargin),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: displayHeight(context) * 0.15),
+                SizedBox(height: displayHeight(context) * 0.1),
                 Center(
                   child: Image.asset(
                     'assets/images/logo-blue-no-txt.png',
@@ -101,9 +207,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 CostumTextFromField(
                   textInputAction: TextInputAction.next,
                   focusNode: _focusNodes[0],
-                  controllers: _userNameController,
+                  controllers: _nameController,
                   keyboardTypes: TextInputType.name,
-                  hintTexts: 'Username',
+                  hintTexts: 'Name',
                   prefixIcons: 'assets/svg/ic-username.svg',
                   prefixColors:
                       _focusNodes[0].hasFocus ? primaryColor : greyColor,
@@ -121,12 +227,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 CostumTextFromField(
                   textInputAction: TextInputAction.next,
                   focusNode: _focusNodes[1],
+                  controllers: _userNameController,
+                  keyboardTypes: TextInputType.name,
+                  hintTexts: 'Username',
+                  prefixIcons: 'assets/svg/ic-username.svg',
+                  prefixColors:
+                      _focusNodes[1].hasFocus ? primaryColor : greyColor,
+                  validators: (value) {
+                    if (value!.isEmpty) {
+                      return 'Username tidak boleh kosong';
+                    }
+                    return null;
+                  },
+                  onChangeds: (value) {
+                    _emailController.text = value!;
+                  },
+                ),
+                SizedBox(height: defaultMargin),
+                CostumTextFromField(
+                  textInputAction: TextInputAction.next,
+                  focusNode: _focusNodes[2],
                   controllers: _emailController,
                   keyboardTypes: TextInputType.emailAddress,
                   hintTexts: 'Email',
                   prefixIcons: 'assets/svg/ic-email.svg',
                   prefixColors:
-                      _focusNodes[1].hasFocus ? primaryColor : greyColor,
+                      _focusNodes[2].hasFocus ? primaryColor : greyColor,
                   validators: (value) {
                     if (value!.isEmpty) {
                       return 'Email tidak boleh kosong';
@@ -144,13 +270,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: defaultMargin),
                 CostumTextFromField(
                   textInputAction: TextInputAction.next,
-                  focusNode: _focusNodes[2],
+                  focusNode: _focusNodes[3],
                   controllers: _phoneController,
                   keyboardTypes: TextInputType.phone,
                   hintTexts: 'Nomor Telepon',
                   prefixIcons: 'assets/svg/ic-phone.svg',
                   prefixColors:
-                      _focusNodes[2].hasFocus ? primaryColor : greyColor,
+                      _focusNodes[3].hasFocus ? primaryColor : greyColor,
                   validators: (value) {
                     if (value!.isEmpty) {
                       return 'Nomor Telepon tidak boleh kosong';
@@ -166,14 +292,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: defaultMargin),
                 CostumTextFromFieldPW(
                   textInputAction: TextInputAction.next,
-                  focusNode: _focusNodes[3],
+                  focusNode: _focusNodes[4],
                   controllers: _passwordController,
                   hintTexts: 'Password',
                   prefixIcons: 'assets/svg/ic-password.svg',
                   prefixColors:
-                      _focusNodes[3].hasFocus ? primaryColor : greyColor,
+                      _focusNodes[4].hasFocus ? primaryColor : greyColor,
                   suffixColors:
-                      _focusNodes[3].hasFocus ? primaryColor : greyColor,
+                      _focusNodes[4].hasFocus ? primaryColor : greyColor,
                   validators: (value) {
                     if (value!.isEmpty) {
                       return 'Password tidak boleh kosong';
@@ -189,14 +315,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: defaultMargin),
                 CostumTextFromFieldPW(
                   textInputAction: TextInputAction.done,
-                  focusNode: _focusNodes[4],
+                  focusNode: _focusNodes[5],
                   controllers: _confirmPasswordController,
                   hintTexts: 'Konfirmasi Password',
                   prefixIcons: 'assets/svg/ic-password.svg',
                   prefixColors:
-                      _focusNodes[4].hasFocus ? primaryColor : greyColor,
+                      _focusNodes[5].hasFocus ? primaryColor : greyColor,
                   suffixColors:
-                      _focusNodes[4].hasFocus ? primaryColor : greyColor,
+                      _focusNodes[5].hasFocus ? primaryColor : greyColor,
                   validators: (value) {
                     if (value!.isEmpty) {
                       return 'Konfirmasi Password tidak boleh kosong';
@@ -211,14 +337,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
 
                 const SizedBox(height: 32.0),
-                PrimaryButton(
-                  press: () {
-                    if (formGlobalKey.currentState!.validate()) {
-                      Navigator.pushNamed(context, MainScreen.routeName);
-                    }
-                  },
-                  text: 'Masuk',
-                ),
+                Consumer<AuthViewModel>(builder: (context, state, _) {
+                  if (state.state == AuthState.loading) {
+                    return const LoadingButton();
+                  }
+                  return PrimaryButton(
+                    press: () {
+                      signUpHandle();
+                    },
+                    text: 'Masuk',
+                  );
+                }),
+
                 const SizedBox(
                   height: 8.0,
                 ),
@@ -257,4 +387,47 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: content(),
     );
   }
+}
+
+Future<bool?> _showConfirmationDialog(
+  BuildContext ctx,
+  String username,
+  String email,
+) {
+  return showDialog<bool>(
+    context: ctx,
+    builder: (BuildContext context) {
+      return Consumer<AuthViewModel>(builder: (context, state, _) {
+        return AlertDialog(
+          backgroundColor: whiteColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          ),
+          title: Text(
+            'Daftar akun berhasil!',
+            style: blackTextStyle.copyWith(
+              fontSize: 18.0,
+              fontWeight: bold,
+            ),
+          ),
+          content: Text(
+            'Hallo $username, silahkan cek email $email untuk melakukan verifikasi',
+            style: blackTextStyle.copyWith(fontSize: 16),
+          ),
+          actions: [
+            TextButton(
+              child: Text(
+                'Verifikasi',
+                style: primaryTextStyle.copyWith(
+                  fontSize: 16,
+                  fontWeight: bold,
+                ),
+              ),
+              onPressed: () {},
+            ),
+          ],
+        );
+      });
+    },
+  );
 }

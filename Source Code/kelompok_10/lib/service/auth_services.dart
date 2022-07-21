@@ -1,12 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
 import '../model/token_model.dart';
+import '../theme/utils.dart';
 
 class AuthService {
-  String baseUrl = 'https://api.rafdev.my.id';
-
   Dio dio = Dio();
 
   Future<String> login(
@@ -35,6 +35,39 @@ class AuthService {
     }
   }
 
+  //Register with dio
+  Future<String> register(
+    String name,
+    String username,
+    String email,
+    String phone,
+    String password,
+  ) async {
+    try {
+      Response response = await dio.post(
+        '$baseUrl/auth/register',
+        options: Options(headers: {
+          'Content-Type': "application/json",
+        }),
+        data: {
+          'name': name,
+          'username': username,
+          'email': email,
+          'phone': phone,
+          'password': password,
+          'address': "Alamat belum diisi",
+        },
+      );
+      print('response: ${response.data} ${response.statusCode}');
+
+      final data = response.data.toString();
+
+      return data;
+    } on DioError catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<Map<String, dynamic>> getUserByUsername(
     String username,
     String token,
@@ -48,11 +81,28 @@ class AuthService {
           headers: {'Authorization': 'Bearer ' '$token'},
         ),
       );
-      // print('User Services 47 : ${response.data} ${response.statusCode}');
 
       final data = response.data;
 
-      // print('User From data services : $data');
+      return data;
+    } on DioError catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<String> verifyEmail(String token) async {
+    String url = '$baseUrl/auth/confirmToken?token=$token';
+    try {
+      Response response = await dio.get(
+        url,
+        // queryParameters: {
+        //   'token': token.trim(),
+        // },
+      );
+
+      print('response Verification: ${response.data} ${response.statusCode}');
+
+      final data = response.data.toString();
 
       return data;
     } on DioError catch (e) {

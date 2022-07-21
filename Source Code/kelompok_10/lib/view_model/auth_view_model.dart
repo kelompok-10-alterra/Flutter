@@ -14,6 +14,12 @@ class AuthViewModel extends ChangeNotifier {
   TokenModel? _token;
   TokenModel get token => _token!;
 
+  String? _confirmToken;
+  String get confirmToken => _confirmToken ?? '';
+
+  String? _checkVerif;
+  String get checkVerif => _checkVerif ?? '';
+
   String? _message;
   String get message => _message!;
 
@@ -55,6 +61,42 @@ class AuthViewModel extends ChangeNotifier {
     }
   }
 
+  //register
+  Future<bool> register(
+    String name,
+    String username,
+    String email,
+    String phone,
+    String password,
+  ) async {
+    _state = AuthState.loading;
+    notifyListeners();
+
+    try {
+      final data = await AuthService().register(
+        name,
+        username,
+        email,
+        phone,
+        password,
+      );
+
+      _confirmToken = data;
+      notifyListeners();
+
+      _state = AuthState.hashdata;
+      notifyListeners();
+
+      return true;
+    } catch (e) {
+      _message = e.toString();
+      _state = AuthState.error;
+      print('Akun Telah Terdaftar');
+      notifyListeners();
+      return false;
+    }
+  }
+
   Future<UserModel> getUserByUsername(
     String username,
     String token,
@@ -81,6 +123,37 @@ class AuthViewModel extends ChangeNotifier {
       _state = AuthState.error;
       notifyListeners();
       return UserModel.fromJson({});
+    }
+  }
+
+  Future<String> verifyEmail(
+    String token,
+  ) async {
+    _state = AuthState.loading;
+    notifyListeners();
+
+    try {
+      final data = await AuthService().verifyEmail(_confirmToken.toString());
+
+      print(data);
+
+      if (data == 'Verify Success') {
+        _state = AuthState.hashdata;
+        notifyListeners();
+      } else {
+        _message = data;
+        _state = AuthState.error;
+        notifyListeners();
+      }
+
+      _checkVerif = data;
+
+      return data;
+    } catch (e) {
+      _message = e.toString();
+      _state = AuthState.error;
+      notifyListeners();
+      return '';
     }
   }
 }

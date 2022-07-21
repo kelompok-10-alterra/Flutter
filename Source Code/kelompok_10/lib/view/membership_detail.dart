@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
+
 import 'package:kelompok_10/component/card_benefit.dart';
 import 'package:kelompok_10/component/primary_button.dart';
+import 'package:kelompok_10/model/member_model.dart';
 import 'package:kelompok_10/theme/theme.dart';
+import 'package:provider/provider.dart';
 
 import '../component/back_button.dart';
 import '../component/card_membership.dart';
-import 'payment_screen.dart';
+import '../view_model/auth_view_model.dart';
+import '../view_model/payment_view_model.dart';
+import 'Payment_Membership/payment_screen.dart';
 
 class MembershipDetail extends StatelessWidget {
   static const String routeName = '/membership_detail';
-  MembershipDetail({Key? key}) : super(key: key);
+  MembershipDetail({
+    Key? key,
+    required this.member,
+  }) : super(key: key);
+
+  final MemberModel member;
 
   final List<String> benefit = [
     'Diskon di setiap pembelian  kelas hingga 20%',
@@ -49,52 +59,60 @@ class MembershipDetail extends StatelessWidget {
     }
 
     Widget content() {
-      return ListView(
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        children: [
-          CardMembership(
-            starColor: gradientFiveColor,
-            endColor: gradientTwoColor,
-            username: 'John Doe',
-            id: '123456789',
-            membershipType: 'Silver',
-            date: 'Berlaku 1 bulan',
-          ),
-          const SizedBox(
-            height: 8.0,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Benefit',
-                  style: blackTextStyle.copyWith(
-                    fontSize: 18.0,
-                    fontWeight: semiBold,
-                  ),
-                ),
-                ListView(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  children: benefit.map(
-                    (item) {
-                      return CardBenefit(
-                        title: item,
-                      );
-                    },
-                  ).toList(),
-                ),
-                SizedBox(
-                  height: defaultMargin,
-                ),
-              ],
+      return Consumer<AuthViewModel>(builder: (context, state, _) {
+        return ListView(
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          children: [
+            CardMembership(
+              starColor: member.memberId == 1
+                  ? gradientTwoColor
+                  : member.memberId == 2
+                      ? gradientPurpleOneColor
+                      : gradientBrownOneColor,
+              endColor: member.memberId == 1
+                  ? gradientFiveColor
+                  : member.memberId == 2
+                      ? gradientPurpleTwoColor
+                      : gradientBrownTwoColor,
+              member: member,
+              user: state.user,
             ),
-          ),
-        ],
-      );
+            const SizedBox(
+              height: 8.0,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Benefit',
+                    style: blackTextStyle.copyWith(
+                      fontSize: 18.0,
+                      fontWeight: semiBold,
+                    ),
+                  ),
+                  ListView(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    children: benefit.map(
+                      (item) {
+                        return CardBenefit(
+                          title: item,
+                        );
+                      },
+                    ).toList(),
+                  ),
+                  SizedBox(
+                    height: defaultMargin,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      });
     }
 
     Widget bottomBar() {
@@ -120,7 +138,8 @@ class MembershipDetail extends StatelessWidget {
           children: [
             PrimaryButton(
               press: () {
-                Navigator.pushNamed(context, PaymentScreen.routeName);
+                Navigator.pushNamed(context, PaymentScreen.routeName,
+                    arguments: member);
               },
               text: 'Bayar Sekarang',
             ),

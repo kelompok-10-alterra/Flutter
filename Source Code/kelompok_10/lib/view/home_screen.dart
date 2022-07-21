@@ -2,11 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kelompok_10/animation/shimmer_effect.dart';
+import 'package:kelompok_10/animation/transition_animation.dart';
 import 'package:kelompok_10/component/banner_style.dart';
 import 'package:kelompok_10/component/card_gridview.dart';
 import 'package:kelompok_10/component/dots_indicator.dart';
 import 'package:kelompok_10/model/banner_model.dart';
 import 'package:kelompok_10/theme/theme.dart';
+import 'package:kelompok_10/view/detail_class.dart';
 import 'package:kelompok_10/view/membership_purchase.dart';
 import 'package:kelompok_10/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
       Provider.of<TypeViewModel>(context, listen: false)
           .getAllType(token.token.accessToken!);
-      Provider.of<ClassViewModel>(context, listen: false).getAllClass();
+      Provider.of<ClassViewModel>(context, listen: false)
+          .getAllClass(token.token.accessToken!);
     });
   }
 
@@ -122,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
             horizontal: 16.0,
           ),
           decoration: BoxDecoration(
-            color: whiteColor,
+            color: greyThreeColor,
             borderRadius: BorderRadius.circular(24.0),
           ),
           child: Row(
@@ -271,8 +274,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           (index) {
                             return GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(
-                                    context, DetailCategory.routeName);
+                                Navigator.push(
+                                  context,
+                                  FadeInRoute(
+                                    page: DetailCategory(
+                                      typeName:
+                                          state.type[index].name.toString(),
+                                    ),
+                                  ),
+                                );
                               },
                               child: CategoryStyle(
                                 type: state.type[index],
@@ -396,14 +406,6 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // SizedBox(
-            //   height: 18.0,
-            //   width: displayWidth(context) * 0.27,
-            //   child: ShimmerEffect(
-            //     child: Container(
-            //       color: whiteColor,
-            //     ),
-            //   ),
             // ),
             Text(
               'Kelas favorit',
@@ -415,22 +417,60 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 10.0,
             ),
-            GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16.0,
-                mainAxisSpacing: 16.0,
-                mainAxisExtent: 237.0,
-              ),
-              itemCount: state.classData.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                return CardGridView(
-                  classData: state.classData[index],
-                );
-              },
-            ),
+            if (state.state == ClassState.loading)
+              ShimmerEffect(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16.0,
+                    mainAxisSpacing: 16.0,
+                    mainAxisExtent: 237.0,
+                  ),
+                  itemCount: state.classData.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return CardGridView(
+                      classData: state.classData[index],
+                    );
+                  },
+                ),
+              )
+            else
+              state.state == ClassState.hashdata
+                  ? GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 16.0,
+                        mainAxisSpacing: 16.0,
+                        mainAxisExtent: 237.0,
+                      ),
+                      itemCount: state.classData.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                FadeInRoute(
+                                    page: DetailClass(
+                                  classModel: state.classData[index],
+                                ),));
+                          },
+                          child: CardGridView(
+                            classData: state.classData[index],
+                          ),
+                        );
+                      },
+                    )
+                  : Center(
+                      child: Text(
+                        'Error',
+                        style: blackTextStyle,
+                      ),
+                    ),
             SizedBox(
               height: defaultMargin,
             ),
@@ -455,6 +495,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: whiteColor,
         body: ListView(
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),

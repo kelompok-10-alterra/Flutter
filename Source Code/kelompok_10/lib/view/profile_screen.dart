@@ -64,14 +64,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         children: [
-          CardMembership(
-            starColor: gradientFiveColor,
-            endColor: gradientTwoColor,
-            username: 'John Doe',
-            id: '123456789',
-            membershipType: 'Silver',
-            date: 'Berlaku 1 bulan',
-          ),
+          // CardMembership(
+          //   starColor: gradientFiveColor,
+          //   endColor: gradientTwoColor,
+          //   username: 'John Doe',
+          //   id: '123456789',
+          //   membershipType: 'Silver',
+          //   date: 'Berlaku 1 bulan',
+          // ),
           const SizedBox(
             height: 8.0,
           ),

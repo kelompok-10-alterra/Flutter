@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:kelompok_10/component/costum_tab.dart';
 import 'package:kelompok_10/theme/theme.dart';
+import 'package:provider/provider.dart';
 
+import '../animation/shimmer_effect.dart';
+import '../animation/transition_animation.dart';
 import '../component/card_gridview.dart';
 import '../component/search_text_input.dart';
+import '../view_model/class_view_model.dart';
+import '../view_model/preferences_viewmodel.dart';
+import 'detail_class.dart';
 
 class DetailCategory extends StatefulWidget {
   static const routeName = '/detail_category';
-  const DetailCategory({Key? key}) : super(key: key);
+  const DetailCategory({
+    Key? key,
+    required this.typeName,
+  }) : super(key: key);
+
+  final String typeName;
 
   @override
   State<DetailCategory> createState() => _DetailCategoryState();
@@ -19,6 +31,22 @@ class _DetailCategoryState extends State<DetailCategory>
     with SingleTickerProviderStateMixin {
   final TextEditingController searchController = TextEditingController();
   TabController? _tabController;
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: contents.length, vsync: this);
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final token = Provider.of<PreferencesViewModel>(context, listen: false);
+
+      Provider.of<ClassViewModel>(context, listen: false).getClassByType(
+        widget.typeName,
+        token.token.accessToken!,
+      );
+    });
+  }
 
   Widget appBar() {
     return Container(
@@ -37,6 +65,11 @@ class _DetailCategoryState extends State<DetailCategory>
               child: IconButton(
                 onPressed: () {
                   Navigator.pop(context);
+                  final token =
+                      Provider.of<PreferencesViewModel>(context, listen: false);
+
+                  Provider.of<ClassViewModel>(context, listen: false)
+                      .getAllClass(token.token.accessToken!);
                 },
                 icon: SvgPicture.asset(
                   'assets/svg/ic-back.svg',
@@ -93,6 +126,24 @@ class _DetailCategoryState extends State<DetailCategory>
             );
           },
         ).toList(),
+        onTap: (index) {
+          setState(
+            () {
+              currentIndex = index;
+            },
+          );
+          if (currentIndex == 1) {
+            Provider.of<ClassViewModel>(context, listen: false)
+                .getClassByCategory(
+              'Offline',
+            );
+          } else if (currentIndex == 2) {
+            Provider.of<ClassViewModel>(context, listen: false)
+                .getClassByCategory(
+              'Online',
+            );
+          }
+        },
       ),
     );
     // NOTE : BANNER
@@ -117,29 +168,6 @@ class _DetailCategoryState extends State<DetailCategory>
     );
   }
 
-  Widget semua() {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: defaultMargin - 6.0,
-        right: defaultMargin - 6.0,
-      ),
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 16.0,
-          mainAxisSpacing: 16.0,
-          mainAxisExtent: 237.0,
-        ),
-        itemCount: 6,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (BuildContext context, int index) {
-          return SizedBox();
-        },
-      ),
-    );
-  }
-
   Widget isEmpty() {
     return Center(
       child: Column(
@@ -147,10 +175,10 @@ class _DetailCategoryState extends State<DetailCategory>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: 120.0,
-            width: 120.0,
+            height: 150.0,
+            width: 150.0,
             child: SvgPicture.asset(
-              'assets/svg/ic-class-empty.svg',
+              'assets/svg/il-empty.svg',
               fit: BoxFit.cover,
             ),
           ),
@@ -179,23 +207,168 @@ class _DetailCategoryState extends State<DetailCategory>
     );
   }
 
+  Widget semua() {
+    return Consumer<ClassViewModel>(
+      builder: (context, state, _) {
+        return state.classData.isEmpty
+            ? isEmpty()
+            : Padding(
+                padding: EdgeInsets.only(
+                  left: defaultMargin - 6.0,
+                  right: defaultMargin - 6.0,
+                ),
+                child: state.state == ClassState.loading
+                    ? ShimmerEffect(
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 16.0,
+                            mainAxisSpacing: 16.0,
+                            mainAxisExtent: 237.0,
+                          ),
+                          itemCount: 1,
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                            return CardGridView(
+                              classData: state.classData[index],
+                            );
+                          },
+                        ),
+                      )
+                    : state.state == ClassState.hashdata
+                        ? GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 16.0,
+                              mainAxisSpacing: 16.0,
+                              mainAxisExtent: 237.0,
+                            ),
+                            itemCount: state.classData.length,
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      FadeInRoute(
+                                          page: DetailClass(
+                                        classModel: state.classData[index],
+                                      )));
+                                },
+                                child: CardGridView(
+                                  classData: state.classData[index],
+                                ),
+                              );
+                            },
+                          )
+                        : Center(
+                            child: Text(
+                              'Terjadi kesalahan, silahkan coba lagi!',
+                              style: blackTextStyle.copyWith(
+                                fontSize: 16.0,
+                                fontWeight: medium,
+                              ),
+                            ),
+                          ),
+              );
+      },
+    );
+  }
+
+  Widget classCategory() {
+    return Consumer<ClassViewModel>(
+      builder: (context, state, _) {
+        return state.classCategory.isEmpty
+            ? isEmpty()
+            : Padding(
+                padding: EdgeInsets.only(
+                  left: defaultMargin - 6.0,
+                  right: defaultMargin - 6.0,
+                ),
+                child: state.state == ClassState.loading
+                    ? ShimmerEffect(
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 16.0,
+                            mainAxisSpacing: 16.0,
+                            mainAxisExtent: 237.0,
+                          ),
+                          itemCount: 1,
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                            return CardGridView(
+                              classData: state.classCategory[index],
+                            );
+                          },
+                        ),
+                      )
+                    : state.state == ClassState.hashdata
+                        ? GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 16.0,
+                              mainAxisSpacing: 16.0,
+                              mainAxisExtent: 237.0,
+                            ),
+                            itemCount: state.classCategory.length,
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      FadeInRoute(
+                                          page: DetailClass(
+                                        classModel: state.classCategory[index],
+                                      )));
+                                },
+                                child: CardGridView(
+                                  classData: state.classCategory[index],
+                                ),
+                              );
+                            },
+                          )
+                        : Center(
+                            child: Text(
+                              'Terjadi kesalahan, silahkan coba lagi!',
+                              style: blackTextStyle.copyWith(
+                                fontSize: 16.0,
+                                fontWeight: medium,
+                              ),
+                            ),
+                          ),
+              );
+      },
+    );
+  }
+
   Widget content() {
     return Padding(
       padding: EdgeInsets.only(bottom: defaultMargin),
       child: TabBarView(
+        physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
         children: List.generate(
           contents.length,
-          (index) => index != 0 ? isEmpty() : semua(),
+          (index) => index == 0
+              ? semua()
+              : index == 1
+                  ? classCategory()
+                  : index == 2
+                      ? classCategory()
+                      : isEmpty(),
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    _tabController = TabController(length: contents.length, vsync: this);
-    super.initState();
   }
 
   @override
@@ -208,6 +381,7 @@ class _DetailCategoryState extends State<DetailCategory>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: whiteColor,
       body: NestedScrollView(
         physics: const BouncingScrollPhysics(),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -221,4 +395,4 @@ class _DetailCategoryState extends State<DetailCategory>
   }
 }
 
-List contents = ['Semua', 'Kelas Offline', 'Kelas Online', 'Promo'];
+List contents = ['Semua', 'Offline', 'Online', 'Promo'];

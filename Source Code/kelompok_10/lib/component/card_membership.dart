@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../model/member_model.dart';
+import '../model/user_model.dart';
 import '../theme/theme.dart';
 
 class CardMembership extends StatelessWidget {
@@ -7,18 +9,14 @@ class CardMembership extends StatelessWidget {
     Key? key,
     required this.starColor,
     required this.endColor,
-    required this.username,
-    required this.id,
-    required this.membershipType,
-    required this.date,
+    required this.member,
+    required this.user,
   }) : super(key: key);
 
   final Color starColor;
   final Color endColor;
-  final String username;
-  final String id;
-  final String membershipType;
-  final String date;
+  final MemberModel member;
+  final UserModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +96,7 @@ class CardMembership extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  username,
+                  user.name!,
                   style: whiteTextStyle.copyWith(
                     fontSize: 16.0,
                     fontWeight: medium,
@@ -108,7 +106,7 @@ class CardMembership extends StatelessWidget {
                   height: 8.0,
                 ),
                 Text(
-                  '$id - $membershipType',
+                  'Id Belum tersedia - ${member.name}',
                   style: whiteTextStyle.copyWith(
                     fontSize: 14.0,
                     fontWeight: medium,
@@ -122,7 +120,7 @@ class CardMembership extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      date,
+                      member.period!,
                       style: whiteTextStyle.copyWith(
                         fontSize: 12.0,
                         fontWeight: medium,

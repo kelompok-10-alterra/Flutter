@@ -257,47 +257,6 @@
 				}
 			}
 		},
-		"/capstone/member/adminAccess/updateMember/{memberId}": {
-			"put": {
-				"tags": [
-					"member-controller"
-				],
-				"operationId": "updateMember",
-				"parameters": [
-					{
-						"name": "memberId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int64"
-						}
-					}
-				],
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/MemberDtoPost"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/MemberEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/capstone/instructor/adminAccess/updateInstructure/{instructorId}": {
 			"put": {
 				"tags": [
@@ -455,47 +414,6 @@
 							"*/*": {
 								"schema": {
 									"$ref": "#/components/schemas/ClassEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/category/adminAccess/updateCategory/{categoryId}": {
-			"put": {
-				"tags": [
-					"category-controller"
-				],
-				"operationId": "updateCategory",
-				"parameters": [
-					{
-						"name": "categoryId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int64"
-						}
-					}
-				],
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/CategoryDtoPost"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/CategoryEntity"
 								}
 							}
 						}
@@ -694,7 +612,7 @@
 				}
 			}
 		},
-		"/capstone/rating/userAcess/createNewRating": {
+		"/capstone/rating/userAccess/createNewRating": {
 			"post": {
 				"tags": [
 					"rating-controller"
@@ -724,7 +642,7 @@
 				}
 			}
 		},
-		"/capstone/payment/adminAccess/createNewPayment": {
+		"/capstone/payment/userAccess/createNewPayment": {
 			"post": {
 				"tags": [
 					"payment-controller"
@@ -784,6 +702,36 @@
 				}
 			}
 		},
+		"/capstone/membership/userAccess/buyMembership": {
+			"post": {
+				"tags": [
+					"membership-controller"
+				],
+				"operationId": "buyMembership",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/BuyMembership"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/capstone/membership/adminAccess/createNewMembership": {
 			"post": {
 				"tags": [
@@ -807,36 +755,6 @@
 							"*/*": {
 								"schema": {
 									"$ref": "#/components/schemas/MembershipDtoPost"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/member/adminAccess/createNewMember": {
-			"post": {
-				"tags": [
-					"member-controller"
-				],
-				"operationId": "createMemberDto_1",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/MemberDtoPost"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/MemberDtoPost"
 								}
 							}
 						}
@@ -904,7 +822,7 @@
 				}
 			}
 		},
-		"/capstone/favoriteClass/userAcess/createNewFavoriteClass": {
+		"/capstone/favoriteClass/userAccess/createNewFavoriteClass": {
 			"post": {
 				"tags": [
 					"favorite-class-controller"
@@ -994,37 +912,7 @@
 				}
 			}
 		},
-		"/capstone/category/adminAccess/createNewCategory": {
-			"post": {
-				"tags": [
-					"category-controller"
-				],
-				"operationId": "createCategoryDto",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/CategoryDtoPost"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/CategoryDtoPost"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/booking/userAcess/createNewBooking": {
+		"/capstone/booking/userAccess/createNewBooking": {
 			"post": {
 				"tags": [
 					"booking-controller"
@@ -1342,94 +1230,6 @@
 				}
 			}
 		},
-		"/capstone/user/adminAccess/getAllUser/{offset}/{pageSize}": {
-			"get": {
-				"tags": [
-					"user-controller"
-				],
-				"operationId": "findAllPaginationSorting",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageUserEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/user/adminAccess/getAllUser/{offset}/{pageSize}/{field}": {
-			"get": {
-				"tags": [
-					"user-controller"
-				],
-				"operationId": "findAllPaginationSorting_1",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "field",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageUserEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/capstone/user/adminAccess/findAllRoleSuperAdmin": {
 			"get": {
 				"tags": [
@@ -1497,94 +1297,6 @@
 				}
 			}
 		},
-		"/capstone/type/userAccess/{offset}/{pageSize}": {
-			"get": {
-				"tags": [
-					"type-controller"
-				],
-				"operationId": "findAllPaginationSorting_2",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageTypeEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/type/userAccess/{offset}/{pageSize}/{field}": {
-			"get": {
-				"tags": [
-					"type-controller"
-				],
-				"operationId": "findAllPaginationSorting_3",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "field",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageTypeEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/capstone/type/userAccess/getTypeById": {
 			"get": {
 				"tags": [
@@ -1639,94 +1351,6 @@
 				}
 			}
 		},
-		"/capstone/room/userAccess/{offset}/{pageSize}": {
-			"get": {
-				"tags": [
-					"room-controller"
-				],
-				"operationId": "findAllPaginationSorting_4",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageRoomEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/room/userAccess/{offset}/{pageSize}/{field}": {
-			"get": {
-				"tags": [
-					"room-controller"
-				],
-				"operationId": "findAllPaginationSorting_5",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "field",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageRoomEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/capstone/room/userAccess/getRoomById": {
 			"get": {
 				"tags": [
@@ -1774,94 +1398,6 @@
 									"items": {
 										"$ref": "#/components/schemas/RoomDtoGet"
 									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/role/managerOnly/{offset}/{pageSize}": {
-			"get": {
-				"tags": [
-					"role-controller"
-				],
-				"operationId": "findAllPaginationSorting_6",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageRoleEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/role/managerOnly/{offset}/{pageSize}/{field}": {
-			"get": {
-				"tags": [
-					"role-controller"
-				],
-				"operationId": "findAllPaginationSorting_7",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "field",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageRoleEntity"
 								}
 							}
 						}
@@ -1946,7 +1482,7 @@
 				}
 			}
 		},
-		"/capstone/rating/userAcess/getRatingById": {
+		"/capstone/rating/userAccess/getRatingById": {
 			"get": {
 				"tags": [
 					"rating-controller"
@@ -2152,94 +1688,6 @@
 				}
 			}
 		},
-		"/capstone/newsletter/userAccess/{offset}/{pageSize}": {
-			"get": {
-				"tags": [
-					"newsletter-controller"
-				],
-				"operationId": "findAllPaginationSorting_8",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageNewsletterEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/newsletter/userAccess/{offset}/{pageSize}/{field}": {
-			"get": {
-				"tags": [
-					"newsletter-controller"
-				],
-				"operationId": "findAllPaginationSorting_9",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "field",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageNewsletterEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/capstone/newsletter/userAccess/getNewsletterById": {
 			"get": {
 				"tags": [
@@ -2348,94 +1796,6 @@
 				}
 			}
 		},
-		"/capstone/membership/adminAccess/{offset}/{pageSize}": {
-			"get": {
-				"tags": [
-					"membership-controller"
-				],
-				"operationId": "findAllPaginationSorting_10",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageMembershipEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/membership/adminAccess/{offset}/{pageSize}/{field}": {
-			"get": {
-				"tags": [
-					"membership-controller"
-				],
-				"operationId": "findAllPaginationSorting_11",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "field",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageMembershipEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/capstone/membership/adminAccess/getAllMembership": {
 			"get": {
 				"tags": [
@@ -2513,94 +1873,6 @@
 				}
 			}
 		},
-		"/capstone/member/userAccess/{offset}/{pageSize}": {
-			"get": {
-				"tags": [
-					"member-controller"
-				],
-				"operationId": "findAllPaginationSorting_12",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageMemberEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/member/userAccess/{offset}/{pageSize}/{field}": {
-			"get": {
-				"tags": [
-					"member-controller"
-				],
-				"operationId": "findAllPaginationSorting_13",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "field",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageMemberEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/capstone/member/userAccess/getMemberById": {
 			"get": {
 				"tags": [
@@ -2646,7 +1918,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/MemberDtoGet"
+										"$ref": "#/components/schemas/MemberEntity"
 									}
 								}
 							}
@@ -2655,95 +1927,7 @@
 				}
 			}
 		},
-		"/capstone/instructor/userAcess/{offset}/{pageSize}": {
-			"get": {
-				"tags": [
-					"instructor-controller"
-				],
-				"operationId": "findAllPaginationSorting_14",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageInstructorEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/instructor/userAcess/{offset}/{pageSize}/{field}": {
-			"get": {
-				"tags": [
-					"instructor-controller"
-				],
-				"operationId": "findAllPaginationSorting_15",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "field",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageInstructorEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/instructor/userAcess/getInstructureWithId": {
+		"/capstone/instructor/userAccess/getInstructureWithId": {
 			"get": {
 				"tags": [
 					"instructor-controller"
@@ -2774,7 +1958,7 @@
 				}
 			}
 		},
-		"/capstone/instructor/userAcess/getAllInstructure": {
+		"/capstone/instructor/userAccess/getAllInstructure": {
 			"get": {
 				"tags": [
 					"instructor-controller"
@@ -2789,6 +1973,60 @@
 									"type": "array",
 									"items": {
 										"$ref": "#/components/schemas/InstructorDtoGet"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/history/userAccess/getHistoryById": {
+			"get": {
+				"tags": [
+					"history-controller"
+				],
+				"operationId": "getRoleById_1",
+				"parameters": [
+					{
+						"name": "historyId",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/HistoryEntity"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/capstone/history/adminAccess/getAllHistory": {
+			"get": {
+				"tags": [
+					"history-controller"
+				],
+				"operationId": "findAll_10",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/HistoryEntity"
 									}
 								}
 							}
@@ -2833,7 +2071,7 @@
 				"tags": [
 					"graph-controller"
 				],
-				"operationId": "findAll_10",
+				"operationId": "findAll_11",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -2851,7 +2089,7 @@
 				}
 			}
 		},
-		"/capstone/favoriteClass/userAcess/getFavoriteClassById": {
+		"/capstone/favoriteClass/userAccess/getFavoriteClassById": {
 			"get": {
 				"tags": [
 					"favorite-class-controller"
@@ -2887,7 +2125,7 @@
 				"tags": [
 					"favorite-class-controller"
 				],
-				"operationId": "findAll_11",
+				"operationId": "findAll_12",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -2910,7 +2148,7 @@
 				"tags": [
 					"favorite-controller"
 				],
-				"operationId": "getRoleById_1",
+				"operationId": "getRoleById_2",
 				"parameters": [
 					{
 						"name": "favoriteId",
@@ -2941,7 +2179,7 @@
 				"tags": [
 					"favorite-controller"
 				],
-				"operationId": "findAll_12",
+				"operationId": "findAll_13",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -2952,94 +2190,6 @@
 									"items": {
 										"$ref": "#/components/schemas/FavoriteEntity"
 									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/content/userAccess/{offset}/{pageSize}": {
-			"get": {
-				"tags": [
-					"content-controller"
-				],
-				"operationId": "findAllPaginationSorting_16",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageContentEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/content/userAccess/{offset}/{pageSize}/{field}": {
-			"get": {
-				"tags": [
-					"content-controller"
-				],
-				"operationId": "findAllPaginationSorting_17",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "field",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageContentEntity"
 								}
 							}
 						}
@@ -3083,7 +2233,7 @@
 				"tags": [
 					"content-controller"
 				],
-				"operationId": "findAll_13",
+				"operationId": "findAll_14",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -3124,94 +2274,6 @@
 				}
 			}
 		},
-		"/capstone/class/userAccess/{offset}/{pageSize}": {
-			"get": {
-				"tags": [
-					"class-controller"
-				],
-				"operationId": "findAllPaginationSorting_18",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageClassEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/class/userAccess/{offset}/{pageSize}/{field}": {
-			"get": {
-				"tags": [
-					"class-controller"
-				],
-				"operationId": "findAllPaginationSorting_19",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "field",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageClassEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/capstone/class/userAccess/getClassByType": {
 			"get": {
 				"tags": [
@@ -3238,37 +2300,6 @@
 									"items": {
 										"$ref": "#/components/schemas/ClassDtoGet"
 									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/class/userAccess/getClassById": {
-			"get": {
-				"tags": [
-					"class-controller"
-				],
-				"operationId": "getClassById",
-				"parameters": [
-					{
-						"name": "classId",
-						"in": "query",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int64"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/ClassEntity"
 								}
 							}
 						}
@@ -3345,7 +2376,7 @@
 				"tags": [
 					"class-controller"
 				],
-				"operationId": "findAll_14",
+				"operationId": "findAll_15",
 				"parameters": [
 					{
 						"name": "keyword",
@@ -3407,94 +2438,6 @@
 				}
 			}
 		},
-		"/capstone/category/userAccess/{offset}/{pageSize}": {
-			"get": {
-				"tags": [
-					"category-controller"
-				],
-				"operationId": "findAllPaginationSorting_20",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageCategoryEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/category/userAccess/{offset}/{pageSize}/{field}": {
-			"get": {
-				"tags": [
-					"category-controller"
-				],
-				"operationId": "findAllPaginationSorting_21",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "field",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageCategoryEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/capstone/category/userAccess/getCategoryById": {
 			"get": {
 				"tags": [
@@ -3531,7 +2474,7 @@
 				"tags": [
 					"category-controller"
 				],
-				"operationId": "findAll_15",
+				"operationId": "findAll_16",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -3540,7 +2483,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/CategoryDtoGet"
+										"$ref": "#/components/schemas/CategoryEntity"
 									}
 								}
 							}
@@ -3554,7 +2497,7 @@
 				"tags": [
 					"cart-controller"
 				],
-				"operationId": "getRoleById_2",
+				"operationId": "getRoleById_3",
 				"parameters": [
 					{
 						"name": "cartId",
@@ -3585,7 +2528,7 @@
 				"tags": [
 					"cart-controller"
 				],
-				"operationId": "findAll_16",
+				"operationId": "findAll_17",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -3603,7 +2546,7 @@
 				}
 			}
 		},
-		"/capstone/booking/userAcess/getBookingById": {
+		"/capstone/booking/userAccess/getBookingById": {
 			"get": {
 				"tags": [
 					"booking-controller"
@@ -3634,7 +2577,7 @@
 				}
 			}
 		},
-		"/capstone/booking/userAcess/getBookingByIdDto": {
+		"/capstone/booking/userAccess/getBookingByIdDto": {
 			"get": {
 				"tags": [
 					"booking-controller"
@@ -3665,100 +2608,12 @@
 				}
 			}
 		},
-		"/capstone/booking/adminAccess/{offset}/{pageSize}": {
-			"get": {
-				"tags": [
-					"booking-controller"
-				],
-				"operationId": "findAllPaginationSorting_22",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageBookingEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/booking/adminAccess/{offset}/{pageSize}/{field}": {
-			"get": {
-				"tags": [
-					"booking-controller"
-				],
-				"operationId": "findAllPaginationSorting_23",
-				"parameters": [
-					{
-						"name": "offset",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "pageSize",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int32"
-						}
-					},
-					{
-						"name": "field",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PageBookingEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/capstone/booking/adminAccess/getAllBooking": {
 			"get": {
 				"tags": [
 					"booking-controller"
 				],
-				"operationId": "findAll_17",
+				"operationId": "findAll_18",
 				"parameters": [
 					{
 						"name": "bookingId",
@@ -3944,37 +2799,6 @@
 				}
 			}
 		},
-		"/capstone/rating/adminAccess/deleteRating/{ratingId}": {
-			"delete": {
-				"tags": [
-					"rating-controller"
-				],
-				"operationId": "deleteRating",
-				"parameters": [
-					{
-						"name": "RatingId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int64"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/RatingEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/capstone/newsletter/adminAccess/deleteNewsletter/{newsletterId}": {
 			"delete": {
 				"tags": [
@@ -4030,37 +2854,6 @@
 							"*/*": {
 								"schema": {
 									"$ref": "#/components/schemas/MembershipEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/member/adminAccess/deleteMember/{memberId}": {
-			"delete": {
-				"tags": [
-					"member-controller"
-				],
-				"operationId": "deleteMember",
-				"parameters": [
-					{
-						"name": "memberId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int64"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/MemberEntity"
 								}
 							}
 						}
@@ -4130,7 +2923,7 @@
 				}
 			}
 		},
-		"/capstone/favoriteClass/adminAccess/deleteFavoriteClass/{favoriteClassId}": {
+		"/capstone/favoriteClass/userAccess/deleteFavoriteClass/{favoriteClassId}": {
 			"delete": {
 				"tags": [
 					"favorite-class-controller"
@@ -4216,37 +3009,6 @@
 							"*/*": {
 								"schema": {
 									"$ref": "#/components/schemas/ClassEntity"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/capstone/category/adminAccess/deleteCategory/{categoryId}": {
-			"delete": {
-				"tags": [
-					"category-controller"
-				],
-				"operationId": "deleteCategory",
-				"parameters": [
-					{
-						"name": "categoryId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"type": "integer",
-							"format": "int64"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/CategoryEntity"
 								}
 							}
 						}
@@ -4347,6 +3109,9 @@
 					},
 					"cart": {
 						"$ref": "#/components/schemas/CartEntity"
+					},
+					"history": {
+						"$ref": "#/components/schemas/HistoryEntity"
 					}
 				}
 			},
@@ -4416,6 +3181,9 @@
 						"format": "int64"
 					},
 					"imageUrl": {
+						"type": "string"
+					},
+					"meetUrl": {
 						"type": "string"
 					},
 					"ratings": {
@@ -4502,6 +3270,15 @@
 					}
 				}
 			},
+			"HistoryEntity": {
+				"type": "object",
+				"properties": {
+					"historyId": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
 			"UserEntity": {
 				"type": "object",
 				"properties": {
@@ -4563,6 +3340,9 @@
 					},
 					"favorite": {
 						"$ref": "#/components/schemas/FavoriteEntity"
+					},
+					"history": {
+						"$ref": "#/components/schemas/HistoryEntity"
 					}
 				}
 			},
@@ -4570,6 +3350,9 @@
 				"type": "object",
 				"properties": {
 					"name": {
+						"type": "string"
+					},
+					"imageUrl": {
 						"type": "string"
 					}
 				}
@@ -4582,6 +3365,9 @@
 						"format": "int64"
 					},
 					"name": {
+						"type": "string"
+					},
+					"imageUrl": {
 						"type": "string"
 					},
 					"classes": {
@@ -4774,54 +3560,6 @@
 					}
 				}
 			},
-			"MemberDtoPost": {
-				"type": "object",
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"period": {
-						"type": "string"
-					},
-					"price": {
-						"type": "integer",
-						"format": "int64"
-					}
-				}
-			},
-			"MemberEntity": {
-				"type": "object",
-				"properties": {
-					"memberId": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"name": {
-						"type": "string"
-					},
-					"period": {
-						"type": "string"
-					},
-					"price": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"membership": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/MembershipEntity"
-						}
-					},
-					"created_at": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updated_at": {
-						"type": "string",
-						"format": "date-time"
-					}
-				}
-			},
 			"InstructorDtoPost": {
 				"type": "object",
 				"properties": {
@@ -4980,9 +3718,6 @@
 					"status": {
 						"type": "boolean"
 					},
-					"name": {
-						"type": "string"
-					},
 					"description": {
 						"type": "string"
 					},
@@ -5020,40 +3755,9 @@
 					"typeId": {
 						"type": "integer",
 						"format": "int64"
-					}
-				}
-			},
-			"CategoryDtoPost": {
-				"type": "object",
-				"properties": {
-					"name": {
+					},
+					"meetUrl": {
 						"type": "string"
-					}
-				}
-			},
-			"CategoryEntity": {
-				"type": "object",
-				"properties": {
-					"categoryId": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"name": {
-						"type": "string"
-					},
-					"classes": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/ClassEntity"
-						}
-					},
-					"created_at": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updated_at": {
-						"type": "string",
-						"format": "date-time"
 					}
 				}
 			},
@@ -5135,6 +3839,26 @@
 					"cartId": {
 						"type": "integer",
 						"format": "int64"
+					}
+				}
+			},
+			"BuyMembership": {
+				"type": "object",
+				"properties": {
+					"userId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"memberId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"total": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"method": {
+						"type": "string"
 					}
 				}
 			},
@@ -5224,138 +3948,6 @@
 					}
 				}
 			},
-			"PageUserEntity": {
-				"type": "object",
-				"properties": {
-					"totalPages": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"totalElements": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"size": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"content": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/UserEntity"
-						}
-					},
-					"number": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
-					"pageable": {
-						"$ref": "#/components/schemas/PageableObject"
-					},
-					"numberOfElements": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"first": {
-						"type": "boolean"
-					},
-					"last": {
-						"type": "boolean"
-					},
-					"empty": {
-						"type": "boolean"
-					}
-				}
-			},
-			"PageableObject": {
-				"type": "object",
-				"properties": {
-					"offset": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
-					"paged": {
-						"type": "boolean"
-					},
-					"unpaged": {
-						"type": "boolean"
-					},
-					"pageNumber": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"pageSize": {
-						"type": "integer",
-						"format": "int32"
-					}
-				}
-			},
-			"Sort": {
-				"type": "object",
-				"properties": {
-					"empty": {
-						"type": "boolean"
-					},
-					"unsorted": {
-						"type": "boolean"
-					},
-					"sorted": {
-						"type": "boolean"
-					}
-				}
-			},
-			"PageTypeEntity": {
-				"type": "object",
-				"properties": {
-					"totalPages": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"totalElements": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"size": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"content": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/TypeEntity"
-						}
-					},
-					"number": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
-					"pageable": {
-						"$ref": "#/components/schemas/PageableObject"
-					},
-					"numberOfElements": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"first": {
-						"type": "boolean"
-					},
-					"last": {
-						"type": "boolean"
-					},
-					"empty": {
-						"type": "boolean"
-					}
-				}
-			},
 			"TypeDtoGet": {
 				"type": "object",
 				"properties": {
@@ -5366,57 +3958,14 @@
 					"name": {
 						"type": "string"
 					},
+					"imageUrl": {
+						"type": "string"
+					},
 					"createdAt": {
 						"type": "string"
 					},
 					"updatedAt": {
 						"type": "string"
-					}
-				}
-			},
-			"PageRoomEntity": {
-				"type": "object",
-				"properties": {
-					"totalPages": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"totalElements": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"size": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"content": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/RoomEntity"
-						}
-					},
-					"number": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
-					"pageable": {
-						"$ref": "#/components/schemas/PageableObject"
-					},
-					"numberOfElements": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"first": {
-						"type": "boolean"
-					},
-					"last": {
-						"type": "boolean"
-					},
-					"empty": {
-						"type": "boolean"
 					}
 				}
 			},
@@ -5435,52 +3984,6 @@
 					},
 					"updatedAt": {
 						"type": "string"
-					}
-				}
-			},
-			"PageRoleEntity": {
-				"type": "object",
-				"properties": {
-					"totalPages": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"totalElements": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"size": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"content": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/RoleEntity"
-						}
-					},
-					"number": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
-					"pageable": {
-						"$ref": "#/components/schemas/PageableObject"
-					},
-					"numberOfElements": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"first": {
-						"type": "boolean"
-					},
-					"last": {
-						"type": "boolean"
-					},
-					"empty": {
-						"type": "boolean"
 					}
 				}
 			},
@@ -5558,52 +4061,6 @@
 					}
 				}
 			},
-			"PageNewsletterEntity": {
-				"type": "object",
-				"properties": {
-					"totalPages": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"totalElements": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"size": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"content": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/NewsletterEntity"
-						}
-					},
-					"number": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
-					"pageable": {
-						"$ref": "#/components/schemas/PageableObject"
-					},
-					"numberOfElements": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"first": {
-						"type": "boolean"
-					},
-					"last": {
-						"type": "boolean"
-					},
-					"empty": {
-						"type": "boolean"
-					}
-				}
-			},
 			"NewsletterDtoGet": {
 				"type": "object",
 				"properties": {
@@ -5670,99 +4127,7 @@
 					}
 				}
 			},
-			"PageMembershipEntity": {
-				"type": "object",
-				"properties": {
-					"totalPages": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"totalElements": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"size": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"content": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/MembershipEntity"
-						}
-					},
-					"number": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
-					"pageable": {
-						"$ref": "#/components/schemas/PageableObject"
-					},
-					"numberOfElements": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"first": {
-						"type": "boolean"
-					},
-					"last": {
-						"type": "boolean"
-					},
-					"empty": {
-						"type": "boolean"
-					}
-				}
-			},
-			"PageMemberEntity": {
-				"type": "object",
-				"properties": {
-					"totalPages": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"totalElements": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"size": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"content": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/MemberEntity"
-						}
-					},
-					"number": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
-					"pageable": {
-						"$ref": "#/components/schemas/PageableObject"
-					},
-					"numberOfElements": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"first": {
-						"type": "boolean"
-					},
-					"last": {
-						"type": "boolean"
-					},
-					"empty": {
-						"type": "boolean"
-					}
-				}
-			},
-			"MemberDtoGet": {
+			"MemberEntity": {
 				"type": "object",
 				"properties": {
 					"memberId": {
@@ -5779,57 +4144,19 @@
 						"type": "integer",
 						"format": "int64"
 					},
-					"createdAt": {
-						"type": "string"
-					},
-					"updatedAt": {
-						"type": "string"
-					}
-				}
-			},
-			"PageInstructorEntity": {
-				"type": "object",
-				"properties": {
-					"totalPages": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"totalElements": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"size": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"content": {
+					"membership": {
 						"type": "array",
 						"items": {
-							"$ref": "#/components/schemas/InstructorEntity"
+							"$ref": "#/components/schemas/MembershipEntity"
 						}
 					},
-					"number": {
-						"type": "integer",
-						"format": "int32"
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
 					},
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
-					"pageable": {
-						"$ref": "#/components/schemas/PageableObject"
-					},
-					"numberOfElements": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"first": {
-						"type": "boolean"
-					},
-					"last": {
-						"type": "boolean"
-					},
-					"empty": {
-						"type": "boolean"
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
 					}
 				}
 			},
@@ -5861,52 +4188,6 @@
 					}
 				}
 			},
-			"PageContentEntity": {
-				"type": "object",
-				"properties": {
-					"totalPages": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"totalElements": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"size": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"content": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/ContentEntity"
-						}
-					},
-					"number": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
-					"pageable": {
-						"$ref": "#/components/schemas/PageableObject"
-					},
-					"numberOfElements": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"first": {
-						"type": "boolean"
-					},
-					"last": {
-						"type": "boolean"
-					},
-					"empty": {
-						"type": "boolean"
-					}
-				}
-			},
 			"ContentDtoGet": {
 				"type": "object",
 				"properties": {
@@ -5919,52 +4200,6 @@
 					},
 					"description": {
 						"type": "string"
-					}
-				}
-			},
-			"PageClassEntity": {
-				"type": "object",
-				"properties": {
-					"totalPages": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"totalElements": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"size": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"content": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/ClassEntity"
-						}
-					},
-					"number": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
-					"pageable": {
-						"$ref": "#/components/schemas/PageableObject"
-					},
-					"numberOfElements": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"first": {
-						"type": "boolean"
-					},
-					"last": {
-						"type": "boolean"
-					},
-					"empty": {
-						"type": "boolean"
 					}
 				}
 			},
@@ -6048,6 +4283,12 @@
 					"rating": {
 						"type": "integer",
 						"format": "int64"
+					},
+					"videoUrl": {
+						"type": "string"
+					},
+					"meetUrl": {
+						"type": "string"
 					}
 				}
 			},
@@ -6069,53 +4310,7 @@
 					}
 				}
 			},
-			"PageCategoryEntity": {
-				"type": "object",
-				"properties": {
-					"totalPages": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"totalElements": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"size": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"content": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/CategoryEntity"
-						}
-					},
-					"number": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
-					"pageable": {
-						"$ref": "#/components/schemas/PageableObject"
-					},
-					"numberOfElements": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"first": {
-						"type": "boolean"
-					},
-					"last": {
-						"type": "boolean"
-					},
-					"empty": {
-						"type": "boolean"
-					}
-				}
-			},
-			"CategoryDtoGet": {
+			"CategoryEntity": {
 				"type": "object",
 				"properties": {
 					"categoryId": {
@@ -6125,11 +4320,19 @@
 					"name": {
 						"type": "string"
 					},
-					"createdAt": {
-						"type": "string"
+					"classes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ClassEntity"
+						}
 					},
-					"updatedAt": {
-						"type": "string"
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": "string",
+						"format": "date-time"
 					}
 				}
 			},
@@ -6197,52 +4400,6 @@
 					},
 					"type": {
 						"type": "string"
-					}
-				}
-			},
-			"PageBookingEntity": {
-				"type": "object",
-				"properties": {
-					"totalPages": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"totalElements": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"size": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"content": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/BookingEntity"
-						}
-					},
-					"number": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
-					"pageable": {
-						"$ref": "#/components/schemas/PageableObject"
-					},
-					"numberOfElements": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"first": {
-						"type": "boolean"
-					},
-					"last": {
-						"type": "boolean"
-					},
-					"empty": {
-						"type": "boolean"
 					}
 				}
 			}

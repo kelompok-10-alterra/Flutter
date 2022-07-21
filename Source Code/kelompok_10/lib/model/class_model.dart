@@ -6,7 +6,7 @@ class ClassModel {
   int? capacity;
   int? booked;
   String? schedule;
-  String? hour;
+  int? hour;
   int? price;
   String? imageUrl;
   String? createdAt;

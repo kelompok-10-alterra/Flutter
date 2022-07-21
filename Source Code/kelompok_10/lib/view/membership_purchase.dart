@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:kelompok_10/animation/shimmer_effect.dart';
 import 'package:kelompok_10/theme/theme.dart';
+import 'package:kelompok_10/view_model/member_view_model.dart';
+import 'package:provider/provider.dart';
 
 import '../component/back_button.dart';
 import '../component/card_list_membership.dart';
+import '../view_model/preferences_viewmodel.dart';
+import '../view_model/type_view_model.dart';
 
-class MembershipPurchase extends StatelessWidget {
+class MembershipPurchase extends StatefulWidget {
   static const String routeName = '/membership_purchase';
   const MembershipPurchase({Key? key}) : super(key: key);
+
+  @override
+  State<MembershipPurchase> createState() => _MembershipPurchaseState();
+}
+
+class _MembershipPurchaseState extends State<MembershipPurchase> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final token = Provider.of<PreferencesViewModel>(context, listen: false);
+
+      Provider.of<TypeViewModel>(context, listen: false)
+          .getAllType(token.token.accessToken!);
+      Provider.of<MemberViewModel>(context, listen: false)
+          .getAllMember(token.token.accessToken!);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,36 +62,52 @@ class MembershipPurchase extends StatelessWidget {
     }
 
     Widget content() {
-      return ListView(
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        children: [
-          CardListMembership(
-            starColor: gradientTwoColor,
-            endColor: gradientFiveColor,
-            typeCard: 'Silver',
-            berlaku: 'Berlaku 1 bulan',
-            starPrice: '100.000',
-            discountPrice: '20.000',
+      return Consumer<MemberViewModel>(builder: (context, state, _) {
+        return ListView(
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          children: List.generate(
+            state.memberData.length,
+            (index) => state.state == MemberState.loading
+                ? ShimmerEffect(
+                  child: Container(
+                      margin: EdgeInsets.only(
+                        left: defaultMargin,
+                        right: defaultMargin,
+                        bottom: 16.0,
+                      ),
+                      width: displayWidth(context),
+                      height: 175.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.0),
+                        color: whiteColor,
+                      ),
+                    ),
+                )
+                : state.state == MemberState.hashdata ? CardListMembership(
+                    starColor: index == 0
+                        ? gradientTwoColor
+                        : index == 1
+                            ? gradientPurpleOneColor
+                            : gradientBrownOneColor,
+                    endColor: index == 0
+                        ? gradientFiveColor
+                        : index == 1
+                            ? gradientPurpleTwoColor
+                            : gradientBrownTwoColor,
+                    starPrice: index == 0
+                        ? '150.000'
+                        : index == 1
+                            ? '350.000'
+                            : '750.000',
+                    member: state.memberData[index],
+                  ) :state.state == MemberState.isEmpty ? 
+                  const Center(
+                    child: Text('Data tidak ditemukan'),
+                  ) : Container(),
           ),
-          CardListMembership(
-            starColor: gradientPurpleOneColor,
-            endColor: gradientPurpleTwoColor,
-            typeCard: 'Gold',
-            berlaku: 'Berlaku 3 bulan',
-            starPrice: '250.000',
-            discountPrice: '40.000',
-          ),
-          CardListMembership(
-            starColor: gradientBrownOneColor,
-            endColor: gradientBrownTwoColor,
-            typeCard: 'Platinum',
-            berlaku: 'Berlaku 6 bulan',
-            starPrice: '350.000',
-            discountPrice: '60.000',
-          ),
-        ],
-      );
+        );
+      });
     }
 
     return Scaffold(

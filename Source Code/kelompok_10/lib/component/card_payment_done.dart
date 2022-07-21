@@ -23,7 +23,7 @@ class CardPaymentDone extends StatelessWidget {
           children: [
             Text(
               text,
-              style: greyTwoTextStyle.copyWith(
+              style: greyTextStyle.copyWith(
                 fontSize: 14.0,
                 fontWeight: regular,
               ),
@@ -31,11 +31,18 @@ class CardPaymentDone extends StatelessWidget {
             const SizedBox(
               width: 4.0,
             ),
-            Text(
-              value,
-              style: greyTwoTextStyle.copyWith(
-                fontSize: 14.0,
-                fontWeight: regular,
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  value,
+                  style: blackTextStyle.copyWith(
+                    fontSize: 14.0,
+                    fontWeight: medium,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  maxLines: 1,
+                ),
               ),
             ),
           ],
