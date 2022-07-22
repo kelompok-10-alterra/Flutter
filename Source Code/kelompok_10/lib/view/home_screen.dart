@@ -11,6 +11,7 @@ import 'package:kelompok_10/theme/theme.dart';
 import 'package:kelompok_10/view/detail_class.dart';
 import 'package:kelompok_10/view/membership_purchase.dart';
 import 'package:kelompok_10/view_model/auth_view_model.dart';
+import 'package:kelompok_10/view_model/newsletter_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../component/category_style.dart';
@@ -47,6 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
           .getAllType(token.token.accessToken!);
       Provider.of<ClassViewModel>(context, listen: false)
           .getAllClass(token.token.accessToken!);
+      Provider.of<NewsLetterViewModel>(context, listen: false)
+          .getAllNewsLetters(token.token.accessToken!);
     });
   }
 
@@ -150,62 +153,61 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget banner() {
-    return SizedBox(
-      height: 145.0,
-      child: Stack(
-        children: [
-          CarouselSlider(
-            carouselController: controllerBanner,
-            options: CarouselOptions(
-              viewportFraction: 1.0,
-              height: 145.0,
-              enlargeCenterPage: true,
-              onPageChanged: (index, reason) {
-                setState(
-                  () {
-                    currentIndex = index;
-                  },
-                );
-              },
+    return Consumer<NewsLetterViewModel>(builder: (context, state, _) {
+      return SizedBox(
+        height: 145.0,
+        child: Stack(
+          children: [
+            CarouselSlider(
+              carouselController: controllerBanner,
+              options: CarouselOptions(
+                viewportFraction: 1.0,
+                height: 145.0,
+                enlargeCenterPage: true,
+                onPageChanged: (index, reason) {
+                  setState(
+                    () {
+                      currentIndex = index;
+                    },
+                  );
+                },
+              ),
+              items: state.newsLatterData.map(
+                (banner) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return BannerStyle(
+                        newsLetterModel: banner,
+                      );
+                    },
+                  );
+                },
+              ).toList(),
             ),
-            items: bannerList.map(
-              (banner) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return BannerStyle(
-                      image: banner.image,
-                      title: banner.title,
-                      discount: banner.discount,
-                      date: banner.date,
-                    );
-                  },
-                );
-              },
-            ).toList(),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: bannerList.asMap().entries.map(
-                  (entry) {
-                    return GestureDetector(
-                      onTap: () => controllerBanner.animateToPage(entry.key),
-                      child: DotsIndicator(
-                        currentIndex: currentIndex,
-                        index: entry.key,
-                      ),
-                    );
-                  },
-                ).toList(),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: state.newsLatterData.asMap().entries.map(
+                    (entry) {
+                      return GestureDetector(
+                        onTap: () => controllerBanner.animateToPage(entry.key),
+                        child: DotsIndicator(
+                          currentIndex: currentIndex,
+                          index: entry.key,
+                        ),
+                      );
+                    },
+                  ).toList(),
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 
   Widget category() {
@@ -455,9 +457,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                                 context,
                                 FadeInRoute(
-                                    page: DetailClass(
-                                  classModel: state.classData[index],
-                                ),));
+                                  page: DetailClass(
+                                    classModel: state.classData[index],
+                                  ),
+                                ));
                           },
                           child: CardGridView(
                             classData: state.classData[index],

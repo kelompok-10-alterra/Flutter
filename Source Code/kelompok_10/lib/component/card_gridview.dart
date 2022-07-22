@@ -118,7 +118,7 @@ class CardGridView extends StatelessWidget {
                   height: 4.0,
                 ),
                 Text(
-                  '${classData.hour.toString()} jam',
+                  'Mulai ${classData.schedule.toString()}',
                   style: blackTextStyle.copyWith(
                     fontSize: 12.0,
                     fontWeight: medium,

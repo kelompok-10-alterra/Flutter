@@ -65,8 +65,8 @@ class _LogInScreenState extends State<LogInScreen> {
             _usernameController.text,
             authProvider.token.accessToken!,
           );
-          Navigator.pushNamedAndRemoveUntil(
-              context, MainScreen.routeName, (route) => false);
+          Navigator.pushReplacementNamed(
+              context, MainScreen.routeName);
 
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -95,8 +95,8 @@ class _LogInScreenState extends State<LogInScreen> {
             _usernameController.text,
             authProvider.token.accessToken!,
           );
-          Navigator.pushNamedAndRemoveUntil(
-              context, MainScreen.routeName, (route) => false);
+          Navigator.pushReplacementNamed(
+              context, MainScreen.routeName);
 
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

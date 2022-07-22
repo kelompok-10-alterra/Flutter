@@ -1,12 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kelompok_10/animation/fade_animation.dart';
-import 'package:kelompok_10/model/class_model.dart';
 import 'package:provider/provider.dart';
 
 import '../component/back_button.dart';
 import '../component/card_cart.dart';
-import '../component/card_schedule.dart';
 import '../component/costum_switch_button.dart';
 import '../component/primary_button.dart';
 import '../theme/theme.dart';
@@ -72,7 +70,9 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
                               selectedIndexes.add(index);
                             }
                           });
-                          print(selectedIndexes);
+                          if (kDebugMode) {
+                            print(selectedIndexes);
+                          }
                         },
                       ),
                     ),
@@ -80,7 +80,7 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
                   const SizedBox(
                     width: 7.0,
                   ),
-                  CardCart(),
+                  const CardCart(),
                 ],
               ),
             ),
@@ -183,6 +183,38 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
     return const SizedBox();
   }
 
+  Widget isEmpty() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 150.0,
+            width: 150.0,
+            child: SvgPicture.asset(
+              'assets/svg/il-empty.svg',
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
+          Text(
+            currentTab == 0
+                ? 'Sayang sekali, keranjangmu masih kosong!'
+                : 'Yah kosong, ayo beli kelas yang menarik',
+            style: blackTextStyle.copyWith(
+              fontSize: 14.0,
+              fontWeight: medium,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -220,7 +252,9 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
               onTap: (value) {
                 setState(() {
                   currentTab = value;
-                  print(currentTab);
+                  if (kDebugMode) {
+                    print(currentTab);
+                  }
                 });
               },
               indicatorColor: primaryColor,
@@ -248,9 +282,7 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
         body: TabBarView(
           children: <Widget>[
             semua(),
-            const Center(
-              child: Text('Beli lagi'),
-            ),
+            isEmpty(),
           ],
         ),
         bottomNavigationBar: bottomBar(),

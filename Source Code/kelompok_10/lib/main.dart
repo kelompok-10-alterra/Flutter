@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kelompok_10/view_model/class_view_model.dart';
+import 'package:kelompok_10/view_model/newsletter_view_model.dart';
 import 'package:kelompok_10/view_model/toast_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -63,6 +64,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => ToastViewModel(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => NewsLetterViewModel(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -98,7 +102,7 @@ class MyApp extends StatelessWidget {
             return FadeInRoute(
               page: const MainScreen(),
             );
-          }
+          } 
           if (setting.name == NewsScreen.routeName) {
             return FadeInRoute(
               page: const NewsScreen(),
